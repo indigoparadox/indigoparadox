@@ -2,12 +2,16 @@
 <html>
 <head>
  <title>iwz_title()</title>
- <link href="style.css" rel="stylesheet" type="text/css" />
+ <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
  <div class="iwz-header">
   <h1>iwz_title()</h1>
  </div>
- <ul>
-  <li><a href="projects.html">Project Map</a></li>
- </ul>
+ <div class="iwz-sidebar">
+  <ul class="iwz-nav">
+   <li><a href="/index.html">Home</a></li>
+   <li><a href="/projects">Projects</a></li>
+  </ul>
+ </div>
+ <div class="iwz-body">
