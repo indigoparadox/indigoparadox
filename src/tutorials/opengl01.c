@@ -1,4 +1,12 @@
 
+/* dnl :title: OpenGL 1.0: Part 1
+ */
+
+/* iwz_img(
+ *    [/images/opengl/opengl01.png],
+ *    [The inside of a colorful cube rendered in a window.])
+ */
+
 /* Include The system OpenGL header for constants and functions used below.
  * Also include mini.h, a header with some program-specific constants we'll
  * also be using.
@@ -99,6 +107,8 @@ int mini_opengl_frame() {
     */
    glFlush();
 
+   /* And our standard cleanup code:
+    */
    return 0;
 }
 

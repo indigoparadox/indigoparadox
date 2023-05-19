@@ -1,9 +1,11 @@
 
 define([iwz_p], [<p>$1</p>])
 
+define([iwz_usafe],[patsubst($1,[\W],[-])])
+
 define([iwz_toc], [])
 
-define([iwz_sect], [define([iwz_toc],iwz_toc $1)<h3>$1</h3>])
+define([iwz_sect], [define([iwz_toc],iwz_toc <li><a href="#iwz_usafe($1)">$1</a></li>)<a id="iwz_usafe($1)"></a><h3>$1</h3>])
 
 define([iwz_a], [<a href="$1">$2</a>])
 

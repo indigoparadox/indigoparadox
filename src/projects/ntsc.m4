@@ -101,6 +101,4 @@ iwz_video(
    [/images/ntsc/ntsc-mbean.mp4],
    [mbean, a minimal clone of Puyo Puyo, running under Windows NT 4. The colors are kind of blurred and washed out.])
 
-iwz_toc
-
 include([footer.m4])

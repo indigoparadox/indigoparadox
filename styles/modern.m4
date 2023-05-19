@@ -2,8 +2,10 @@
 body {
    background: navy;
    color: white;
+   display: flex;
    margin: 0;
    padding: 0;
+   flex-direction: column;
 }
 
 a, a:visited {
@@ -45,10 +47,29 @@ a, a:visited {
    color: black;
    margin-left: 150px;
    padding: 6px 50px;
+   order: 1;
 }
 
 .iwz-body {
    margin-left: 200px;
+   order: 3;
+}
+
+.iwz-toc {
+   position: relative;
+   left: 100px;
+   display: table;
+   margin: 10px auto;
+   order: 2;
+}
+
+.iwz-footer {
+   text-align: center;
+   position: relative;
+   left: 100px;
+   display: table;
+   margin: 20px auto;
+   order: 4;
 }
 
 .iwz-video, .iwz-img {
