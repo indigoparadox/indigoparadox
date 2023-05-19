@@ -4,4 +4,6 @@ include(`iwz_html.m4')
 divert(0)include(`header.m4')
 changequote(`[', `]') 
 
+iwz_block_construction()
+
 include([footer.m4])

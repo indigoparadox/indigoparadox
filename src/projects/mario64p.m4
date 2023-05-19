@@ -4,8 +4,10 @@ include(`iwz_html.m4')
 divert(0)include(`header.m4')
 changequote(`[', `]') 
 
+iwz_block_construction()
+
 iwz_img(
-   [/images/mario64p1.png],
+   [/images/mario64p/mario64p1.png],
    [Super Mario completing a triple jump in the beginning area with 'AIR TIME' in colorful letters appearing and coins spawning around him.])
 
 include([footer.m4])

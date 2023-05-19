@@ -39,3 +39,9 @@ define(`iwz_proj_card',
       <div class="iwz-card-tags"><ul>iwz_proj_tag_links(`$5')</ul></div>
    </div>')
 
+define(`iwz_block_construction',
+   `<div class="iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>')
+

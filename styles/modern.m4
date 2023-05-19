@@ -51,7 +51,7 @@ a, a:visited {
    margin-left: 200px;
 }
 
-.iwz-video {
+.iwz-video, .iwz-img {
    display: block;
    margin: 10px auto;
    max-width: 640px;
@@ -148,5 +148,15 @@ a, a:visited {
 
 .iwz-code-add {
    background: darkgreen;
+}
+
+.iwz-construction {
+   font-family: Arial, Helvetica, sans-serif;
+   background: olive;
+   border-radius: 10px;
+   display: block;
+   margin: 10px auto;
+   padding: 10px 20px;
+   width: 500px;
 }
 

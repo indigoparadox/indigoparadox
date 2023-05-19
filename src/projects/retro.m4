@@ -4,10 +4,12 @@ include(`iwz_html.m4')
 divert(0)include(`header.m4')
 changequote(`[', `]') 
 
-unilayer
+iwz_block_construction()
 
-dsekai
+iwz_sect([unilayer])
 
-maug
+iwz_sect([dsekai])
+
+iwz_sect([maug])
 
 include([footer.m4])

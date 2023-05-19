@@ -8,7 +8,7 @@ iwz_p([This page documents our adventures with simulated NTSC/CRT effects, typic
 iwz_sect([doomgeneric])
 
 iwz_video(
-   [/images/ntsc-doomg1.mp4],
+   [/images/ntsc/ntsc-doomg1.mp4],
    [A few seconds of wandering through the first map of FreeDoom. The screen is very fuzzy, with poor vertical hold and visible interlacing.])
 
 iwz_p([This was a relatively quick iwz_a([https://github.com/indigoparadox/doomgeneric/commit/d9c909455422c4cec6c087adeb598a6ce06fe1ae], [single-commit]) job, which breaks down roughly as follows:])
@@ -16,7 +16,7 @@ iwz_p([This was a relatively quick iwz_a([https://github.com/indigoparadox/doomg
 iwz_p([First, we included the iwz_filename([ntsc.h]) single-file header mentioned above and shimmed an additional framebuffer (iwz_var([ntsc_buffer])), as well as the iwz_struct([NTSC_SETTINGS]) and iwz_struct([CRT]) structs into the start of iwz_filename([doomgeneric_xlib.c]).])
 
 iwz_diff(
-   `doomgeneric_xlib.c',
+   [doomgeneric_xlib.c],
    iwz_diffl([a], [16], [#ifdef DG_NTSC])
    iwz_diffl([a], [17], [#define NTSC_C])
    iwz_diffl([a], [18], [#include "ntsc.h"])
@@ -33,7 +33,7 @@ iwz_p([Next, in the iwz_func([DG_Init()]) function, we allocated the new framebu
 iwz_p([This is a pretty simple and intuitive pattern... The iwz_struct([NTSC_SETTINGS]) struct processes the incoming framebuffer before passing the resulting data off to the iwz_struct([CRT]) struct to display!])
 
 iwz_diff(
-   `doomgeneric_xlib.c',
+   [doomgeneric_xlib.c],
    iwz_diffl([a], [110], [#ifdef DG_NTSC])
    iwz_diffl([a], [111],
       [    ntsc_buffer = malloc( DOOMGENERIC_RESX * DOOMGENERIC_RESY * 4 );])
@@ -58,7 +58,7 @@ iwz_diff(
 iwz_p([We also inserted the new framebuffer (iwz_var([ntsc_buffer])) into the iwz_func([XCreateImage()]) call, so that we would be drawing the output of the iwz_struct([CRT]) struct, and not the (now intermediate-stage) iwz_var([DG_ScreenBuffer]) framebuffer.])
 
 iwz_diff(
-   `doomgeneric_xlib.c',
+   [doomgeneric_xlib.c],
    iwz_diffl([d], [124], [    s_Image = XCreateImage(s_Display, DefaultVisual(s_Display, s_Screen), depth, ZPixmap, 0, (char *)DG_ScreenBuffer, DOOMGENERIC_RESX, DOOMGENERIC_RESX, 32, 0);])
    iwz_diffl([a], [152], [    s_Image = XCreateImage(s_Display, DefaultVisual(s_Display, s_Screen), depth, ZPixmap, 0,])
    iwz_diffl([a], [153], [#ifdef DG_NTSC])
@@ -72,7 +72,7 @@ iwz_diff(
 iwz_p([Finally, in the iwz_func([DG_DrawFrame()]) function, we call the iwz_func([crt_modulate()])/iwz_func([crt_demodulate()]) to apply the transformation on every frame. We also flip the field/frame bits between frames, as this seems to be necessary? Worth noting, as well, is that we hard-coded the noise value to 52 (which is rather high, but matches our preference). In a future refinement, this should be more easily configurable!])
 
 iwz_diff(
-   `doomgeneric_xlib.c',
+   [doomgeneric_xlib.c],
    iwz_diffl([a], [185], [#ifdef DG_NTSC])
    iwz_diffl([a], [186], [        ntsc.field = ntsc_field & 1;])
    iwz_diffl([a], [187], [        if( 0 == ntsc.field ) {])
@@ -88,14 +88,16 @@ iwz_p([This is enough to give us the effect demonstrated in the video above, alb
 
 iwz_sect([maug Under *nix (SDL)])
 
+iwz_block_construction()
+
 iwz_video(
-   [/images/ntsc-aleggo.mp4],
+   [/images/ntsc/ntsc-aleggo.mp4],
    [Fuzzy NTSC-style rendering of a gray isometric field with some red bricks stacked. A mouse cursor moves around and stacks some green bricks. It looks like found footage and is very cool.])
 
 iwz_sect([maug Under Windows])
 
 iwz_video(
-   [/images/ntsc-mbean.mp4],
+   [/images/ntsc/ntsc-mbean.mp4],
    [mbean, a minimal clone of Puyo Puyo, running under Windows NT 4. The colors are kind of blurred and washed out.])
 
 include([footer.m4])
