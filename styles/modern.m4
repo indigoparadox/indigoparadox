@@ -66,57 +66,87 @@ a, a:visited {
    border-left: 2px solid white;
    outline: 2px solid black;
    color: black;
-   display: flex;
    margin: 20px;
-   flex-direction: column;
+}
+
+.iwz-card-header {
+   background: navy;
+   padding: 3px;
 }
 
 .iwz-card-title {
+   font-size: 1em;
+   color: white;
+   display: inline-block;
+   margin: 3px;
+   padding: 0 5px;
+}
+
+.iwz-card-tags {
+   display: inline-block;
+   margin: 0;
+   padding: 0;
+   float: right;
+}
+
+.iwz-card-tags li {
+   display: inline-block;
+   margin: 0 2px;
+}
+
+.iwz-card-tags a, .iwz-card-tags a:visited {
+   background: lightgray;
+   color: black;
    border-top: 2px solid white;
    border-right: 2px solid darkgray;
    border-bottom: 2px solid darkgray;
    border-left: 2px solid white;
    outline: 2px solid black;
    display: block;
-   margin: 0 auto 20px auto;
-   order: 3;
+   padding: 0 5px;
+   text-decoration: none;
 }
 
-.iwz-card-title a, .iwz-card-title a:visited {
+.iwz-card-links {
+   display: table;
+   margin: 10px auto 20px auto;
+   list-style-type: none;
+}
+
+.iwz-card-links li {
+   display: inline-block;
+   margin-right: 5px;
+}
+
+.iwz-card-link, .iwz-card-link:visited {
+   border-top: 2px solid white;
+   border-right: 2px solid darkgray;
+   border-bottom: 2px solid darkgray;
+   border-left: 2px solid white;
+   outline: 2px solid black;
    color: black;
-   display: block;
    padding: 5px;
    text-decoration: none;
 }
 
 .iwz-card-desc {
-   order: 2;
    margin: 20px;
 }
 
-.iwz-card-tags {
-   background: navy;
-   padding: 3px;
-   order: 1;
+.iwz-var, .iwz-filename, .iwz-func {
+   font-family: Courier, Courier New, monospace;
 }
 
-.iwz-card-tags ul {
-   margin: 0;
-   padding: 0;
-}
-
-.iwz-card-tags li {
-   display: inline-block;
-   margin: 0 5px;
-}
-
-.iwz-card-tags a, .iwz-card-tags a:visited {
-   background: darkgray;
-   color: black;
+.iwz-code-line {
+   font-family: Courier, Courier New, monospace;
+   font-weight: bold;
+   background: black;
+   color: limegreen;
    display: block;
-   padding: 2px 5px;
-   border-radius: 5px;
-   text-decoration: none;
+   margin: 10px auto;
+   padding: 3px;
+   width: 600px;
+   white-space: pre-wrap;
 }
 
 .iwz-code-wrapper {

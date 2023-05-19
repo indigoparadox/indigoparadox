@@ -1,15 +1,25 @@
 
+/* Include The system OpenGL header for constants and functions used below.
+ * Also include mini.h, a header with some program-specific constants we'll
+ * also be using.
+ */
 #include <GL/gl.h>
-
 #include "mini.h"
 
+/* A setup function to be called once from our wrapper program during
+ * initialization. This is C89, so all of the variables are declared up front!
+ */
 int mini_opengl_setup() {
    int retval = 0;
    float aspect_ratio = 0;
+   float rzoom = 0;
 
    /* Set the viewport to the size of the window. This is not strictly
     * necessary in some implementations. However, some other implementations
     * will behave weirdly if it's not done, so it's best to just always do it.
+    */
+   /* Reminder that the iwz_var(MINI_SCREEN_W) and iwz_var(MINI_SCREEN_H)
+    * constants are defined in iwz_filename(mini.h)!
     */
    glViewport( 0, 0, MINI_SCREEN_W, MINI_SCREEN_H );
 
@@ -30,12 +40,18 @@ int mini_opengl_setup() {
    glLoadIdentity();
 
    /* Setup the frustum... this distorts the lines drawn by the rasterizer, so
-    * that objects appear to have depth. You can tweak the numbers to adjust
-    * said distortion, but it's not something I've 100% mastered yet.
+    * that objects appear to have depth.
     */
+   /* There are more complicated explanations regarding the math elsewhere,
+    * but the bottom line is that the smaller the iwz_var(rzoom) variable
+    * is, the closer everything appears to the "camera," or point-of-view.
+    */
+   rzoom = 1.0f;
    glFrustum(
-      -1.0f * aspect_ratio, aspect_ratio,
-      -1.0f, 1.0f,
+      -1.0f * rzoom * aspect_ratio,
+      rzoom * aspect_ratio,
+      -1.0f * rzoom,
+      rzoom,
       0.5f, 20.0f );
 
    /* Change the state of the OpenGL machine back so that further commands will
@@ -47,24 +63,31 @@ int mini_opengl_setup() {
     */
    glClearColor( 0, 0, 0, 0 );
 
+   /* And our standard cleanup code:
+    */
    return 0;
 }
 
+/* A function to be called several times a second from our wrapper program to
+ * draw each frame on-screen before the wrapper flips the buffer.
+ */
 int mini_opengl_frame() {
    int retval = 0;
 
-   /* Clear the screen so we can draw a new frame. */
+   /* Clear the screen so we can draw a new frame.
+    */
    glClear( GL_COLOR_BUFFER_BIT );
 
    /* Create a new matrix frame which will be affected by further calls to e.g.
-    * glTranslatef() or glScalef(). We could also just call glLoadIdentity()
-    * on the current matrix frame, but pushing/popping is a good habit to get
-    * into, as it will make some trickier things we want to do later much
-    * simpler!
+    * iwz_func(glTranslatef()) or iwz_func(glScalef()). We could also just call
+    * iwz_func(glLoadIdentity()) on the current matrix frame, but
+    * pushing/popping is a good habit to get into, as it will make some
+    * trickier things we want to do later much simpler!
     */
    glPushMatrix();
 
-   /* Create the vertices for a multi-colored cube (see minicube.c for details).
+   /* Create the vertices for a multi-colored cube (see iwz_filename(minicube.c)
+    * for details).
     */
    mini_cube();
 
