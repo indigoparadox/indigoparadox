@@ -1,8 +1,9 @@
 divert(-1)
-define(`iwz_title',`The indigoparadox Web Zone: Doll: Part 1')
-include(`iwz_html.m4')
-divert(0)include(`header.m4')
+changecom()
 changequote(`[', `]') 
+include([iwz_html.m4])
+define([iwz_title],[The indigoparadox Web Zone: Doll: Part 1])
+divert(0)include([header.m4])
 
 iwz_p([Hilda studied the face behind the bathroom mirror. Beauty was in the eye of the beholder, after all. While the average man on the street might stop to look twice at her elegant porcelain cheeks and deep, sultry eyes, Hilda noticed the plaque gathering in the corners of those eyes and the irregular fading at the edges of her lips.])
 

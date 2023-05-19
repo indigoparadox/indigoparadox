@@ -1,8 +1,9 @@
 divert(-1)
-define(`iwz_title',`The indigoparadox Web Zone: OpenGL 1.0: Part 1')
-include(`iwz_html.m4')
-divert(0)include(`header.m4')
+changecom()
 changequote(`[', `]') 
+include([iwz_html.m4])
+define([iwz_title],[The indigoparadox Web Zone: OpenGL 1.0: Part 1])
+divert(0)include([header.m4])
 
 iwz_block_construction()
 

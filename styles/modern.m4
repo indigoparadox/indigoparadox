@@ -180,13 +180,20 @@ a, a:visited {
    background: darkgreen;
 }
 
-.iwz-construction {
+.iwz-block {
    font-family: Arial, Helvetica, sans-serif;
-   background: olive;
    border-radius: 10px;
    display: block;
    margin: 10px auto;
    padding: 10px 20px;
    width: 500px;
+}
+
+.iwz-construction {
+   background: olive;
+}
+
+.iwz-quality {
+   background: darkred;
 }
 

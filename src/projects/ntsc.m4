@@ -1,8 +1,9 @@
 divert(-1)
-define(`iwz_title',`The indigoparadox Web Zone: NTSC')
-include(`iwz_html.m4')
-divert(0)include(`header.m4')
+changecom()
 changequote(`[', `]') 
+include([iwz_html.m4])
+define([iwz_title],[The indigoparadox Web Zone: NTSC])
+divert(0)include([header.m4])
 iwz_p([This page documents our adventures with simulated NTSC/CRT effects, typically using the iwz_a([https://github.com/LMP88959/NTSC-CRT], [NTSC-CRT library by LMP88959]). We have condensed this library to a single header and inserted it into the rendering paths of various softwares to great and amusing effect.])
 
 iwz_sect([doomgeneric])
@@ -99,5 +100,7 @@ iwz_sect([maug Under Windows])
 iwz_video(
    [/images/ntsc/ntsc-mbean.mp4],
    [mbean, a minimal clone of Puyo Puyo, running under Windows NT 4. The colors are kind of blurred and washed out.])
+
+iwz_toc
 
 include([footer.m4])

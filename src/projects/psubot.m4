@@ -1,8 +1,11 @@
 divert(-1)
-define(`iwz_title',`The indigoparadox Web Zone: PSUbot')
-include(`iwz_html.m4')
-divert(0)include(`header.m4')
+changecom()
 changequote(`[', `]') 
+include([iwz_html.m4])
+define([iwz_title],[The indigoparadox Web Zone: PSUbot])
+divert(0)include([header.m4])
+
+iwz_block_quality
 
 iwz_p([Tentatively called the PSUBot, a remote-controlled rover built mostly out of spare parts and junk I had lying around. I'm posting this now since I'm not planning on bringing my tablet due to the fact that I'll probably be bicycling to the meeting and I want to provide links/information from home where I have them beforehand.])
 

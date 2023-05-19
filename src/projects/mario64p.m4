@@ -1,8 +1,10 @@
 divert(-1)
-define(`iwz_title',`The indigoparadox Web Zone: Mario 64 Python')
-include(`iwz_html.m4')
-divert(0)include(`header.m4')
+changecom()
 changequote(`[', `]') 
+include([iwz_html.m4])
+define([iwz_title],[The indigoparadox Web Zone: Mario 64 Python])
+include([iwz_html.m4])
+divert(0)include([header.m4])
 
 iwz_block_construction()
 
