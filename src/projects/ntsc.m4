@@ -4,7 +4,7 @@ changequote(`[', `]')
 include([iwz_html.m4])
 define([iwz_title],[The indigoparadox Web Zone: NTSC])
 divert(0)include([header.m4])
-iwz_p([This page documents our adventures with simulated NTSC/CRT effects, typically using the iwz_a([https://github.com/LMP88959/NTSC-CRT], [NTSC-CRT library by LMP88959]). We have condensed this library to a single header and inserted it into the rendering paths of various softwares to great and amusing effect.])
+iwz_p([This page documents our adventures with simulated NTSC/CRT effects, typically using the iwz_a_repo([NTSC-CRT library by LMP88959], [LMP88959], [NTSC-CRT]). We have condensed this library to a single header and inserted it into the rendering paths of various softwares to great and amusing effect.])
 
 iwz_sect([doomgeneric])
 
@@ -12,7 +12,7 @@ iwz_video(
    [/images/ntsc/ntsc-doomg1.mp4],
    [A few seconds of wandering through the first map of FreeDoom. The screen is very fuzzy, with poor vertical hold and visible interlacing.])
 
-iwz_p([This was a relatively quick iwz_a([https://github.com/indigoparadox/doomgeneric/commit/d9c909455422c4cec6c087adeb598a6ce06fe1ae], [single-commit]) job, which breaks down roughly as follows:])
+iwz_p([This was a relatively quick iwz_a_repo([single-commit], [indigoparadox], [doomgeneric], [d9c909455422c4cec6c087adeb598a6ce06fe1ae]) job, which breaks down roughly as follows:])
 
 iwz_p([First, we included the iwz_filename([ntsc.h]) single-file header mentioned above and shimmed an additional framebuffer (iwz_var([ntsc_buffer])), as well as the iwz_struct([NTSC_SETTINGS]) and iwz_struct([CRT]) structs into the start of iwz_filename([doomgeneric_xlib.c]).])
 
@@ -100,5 +100,11 @@ iwz_sect([maug Under Windows])
 iwz_video(
    [/images/ntsc/ntsc-mbean.mp4],
    [mbean, a minimal clone of Puyo Puyo, running under Windows NT 4. The colors are kind of blurred and washed out.])
+
+iwz_p([This video is much clearer than the previous examples, as the noise was turned down significantly. This was because, during out testing, noise over a certain level would start to cause vertical roll. This only seemed to be an issue in Windows, and we have not yet tracked down the cause.])
+
+iwz_p([The primary difficulties in the Windows implementation of the maug VDP had to do with figuring out how iwz_func(GetDIBits()) and iwz_func(SetDIBits()) worked... Long story short, one needs to fill out *all* the fields in the bitmap header passed to those functions- particularly the biPlanes field. maug now does this, so the VDP subsystem in maug now works on Windows, nominally.])
+
+iwz_p([Also note that the Windows version uses the iwz_var([CRT_PIX_FORMAT_BGRA]) format, as that is the byte order in Windows bitmaps.])
 
 include([footer.m4])

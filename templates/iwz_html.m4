@@ -21,7 +21,20 @@ define([iwz_index], 0)
 
 define([iwz_sect], [define([iwz_index],eval(iwz_index+1))define([iwz_toc],iwz_toc <li><a href="#iwz_usafe($1)">$1</a></li>)<a id="iwz_usafe($1)"></a><h3>iwz_index. $1</h3>])
 
+define([iwz_subsect], [<h4>$1</h4>])
+
 define([iwz_a], [<a href="$1">$2</a>])
+
+define([iwz_a_ipage], [<a href="$1">$2</a>])
+
+dnl If we change repo hosting in the future, we can put the new link info here:
+define([iwz_a_repo], [<a href="ifelse([$4], [],
+   [https://github.com/$2/$3],
+   [https://github.com/$2/$3/commit/$4])">$1</a>])
+
+define([iwz_list], [<ul>$1</ul>])
+
+define([iwz_li], [<li>$1</li>])
 
 define([iwz_img], [<img class="iwz-img" src="$1" alt="$2" title="$2" />])
 

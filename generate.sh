@@ -40,7 +40,7 @@ for t in `find src -name "*.c"`; do
       if echo $l | grep -q '^\s*\*\/'; then
          if [ $INSIDE_CODE_BLK -eq 1 ]; then
             INSIDE_CODE_BLK=0
-            echo ")" >> "$DEST_MIDNAME"
+            echo "])" >> "$DEST_MIDNAME"
          fi
 
          # Add this paragraph to the generated template.
@@ -52,7 +52,7 @@ for t in `find src -name "*.c"`; do
 
       elif echo $l | grep -q '^\s*\S'; then
          if [ $INSIDE_CODE_BLK -eq 0 ]; then
-            echo "iwz_diff([`basename "$t"`]," >> "$DEST_MIDNAME"
+            echo "iwz_diff([`basename "$t"`], [" >> "$DEST_MIDNAME"
             INSIDE_CODE_BLK=1
          fi
          echo "iwz_diffl([], [iwz_count_src_lines], [$l])" >> "$DEST_MIDNAME"
@@ -60,7 +60,7 @@ for t in `find src -name "*.c"`; do
    done
    if [ $INSIDE_CODE_BLK -eq 1 ]; then
       INSIDE_CODE_BLK=0
-      echo ")" >> "$DEST_MIDNAME"
+      echo "])" >> "$DEST_MIDNAME"
    fi
    IFS=$OLDIFS
 
