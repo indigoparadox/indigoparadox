@@ -1,9 +1,9 @@
 
  </div> <!-- iwz-body -->
- ifelse(iwz_toc,,[],[<ul class="iwz-toc">iwz_toc</ul>])
+ ifelse(iwz_toc,,[],[<div class="iwz-toc"><h3>Table of Contents</h3><ol>iwz_toc</ol></div>])
  <div class="iwz-footer">
-   <div class="iwz-copyright">Copyright 2023, esyscmd(date +%Y) indigoparadox.</div>
-   <div class="iwz-banners">Powered by: m4</div>
+   <div class="iwz-copyright">Copyright 2023, esyscmd([date +%Y]) indigoparadox.</div>
+   <div class="iwz-banners"><span class="gnu-m4"><a href="https://www.gnu.org/software/m4/"><span class="gnu-m4-powered">Powered by</span> <!-- <span class="gnu-m4-gnu">GNU</span> --> <span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span></div>
  </div>
 </body>
 </html>

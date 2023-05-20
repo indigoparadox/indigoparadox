@@ -2,6 +2,22 @@
 /* dnl :title: OpenGL 1.0: Part 1
  */
 
+/* This is an "anti-tutorial" for working with OpenGL 1.0. A working example
+ * is laid out below, along with the rationale for why certain things are
+ * implemented the way they are.
+ */
+/* Please note that this may not be a good source for learning how to write
+ * *modern* OpenGL code. This is specifically a guide for writing code
+ * targeting older OpenGL implementations such as those found in early versions
+ * of Windows NT or older video game consoles.
+ */
+
+/* iwz_depfiles(
+ *    iwz_depfile(oglwin.html)
+ *    iwz_depfile(oglpoly.html)
+ * )
+ */
+
 /* iwz_img(
  *    [/images/opengl/opengl01.png],
  *    [The inside of a colorful cube rendered in a window.])
@@ -42,12 +58,12 @@ int mini_opengl_setup() {
     */
    glMatrixMode( GL_PROJECTION );
 
-   /* Reset the matrix properties to defaults... we haven't done anything yet,
-    * so this will probably not do anything, but it's good hygeine.
+   /* Reset the matrix properties to defaults... We haven't done anything yet,
+    * so this will probably not do anything, but it's good hygiene.
     */
    glLoadIdentity();
 
-   /* Setup the frustum... this distorts the lines drawn by the rasterizer, so
+   /* Setup the frustum... This distorts the lines drawn by the rasterizer, so
     * that objects appear to have depth.
     */
    /* There are more complicated explanations regarding the math elsewhere,
@@ -71,6 +87,45 @@ int mini_opengl_setup() {
     */
    glClearColor( 0, 0, 0, 0 );
 
+   /* Enable face culling.
+    */
+   glEnable( GL_CULL_FACE );
+
+   /* Renormalize normals after irregular transformations. We're not scaling
+    * yet, and the normals specified in iwz_filename( minicube.c ) are all
+    * 1.0f in length, so this probably isn't needed. But again, it's good
+    * hygiene.
+    */
+   glEnable( GL_NORMALIZE );
+
+   /* Enable lighting. This turns on shading and lights, which can be seen
+    * in the iwz_func(mini_opengl_frame()) function below. Without lighting,
+    * all polygons are rasterized flatly with the color specified by
+    * iwz_func(glColor3f()).
+    */
+   glEnable( GL_LIGHTING );
+
+   /* This allows colors specified by iwz_func(glColor3f()) to work with
+    * lighting. If iwz_var(GL_COLOR_MATERIAL) is not enabled but
+    * iwz_var(GL_LIGHTING) is, all polygons will be dark gray.
+    */
+   glEnable( GL_COLOR_MATERIAL );
+
+   /* This creates a separate buffer which you can think of as overlaying the
+    * framebuffer we're resterizing to. Each cell in this buffer contains a
+    * number representing the "depth" of, or distance from the camera to each
+    * polygon that's been resterized, as calculated based on their vertices.
+    */
+   /* Parts of polygons that are "farther" from the camera, "behind" other,
+    * already-drawn polygons, are then not drawn. This may seem elementary, but
+    * it must be enabled explicitly or polygons will overlap in strange ways!
+    */
+   /* The size of each "cell" in this depth buffer is determined in the
+    * platform-specific portion of initialization (e.g. iwz_filename(oglwin.c)
+    * or iwz_filename(oglsdl.c)).
+    */
+   glEnable( GL_DEPTH_TEST );
+
    /* And our standard cleanup code:
     */
    return 0;
@@ -80,11 +135,15 @@ int mini_opengl_setup() {
  * draw each frame on-screen before the wrapper flips the buffer.
  */
 int mini_opengl_frame() {
+   static int rotate_y = 0;
    int retval = 0;
 
-   /* Clear the screen so we can draw a new frame.
+   /* Clear the screen so we can draw a new frame. Note that we are clearing
+    * the color buffer (the visible framebuffer we have rasterized to in the
+    * previous frame), as well as the depth buffer we created when we
+    * enabled iwz_var(GL_DEPTH_TEST) above in iwz_func(mini_opengl_setup()).
     */
-   glClear( GL_COLOR_BUFFER_BIT );
+   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
    /* Create a new matrix frame which will be affected by further calls to e.g.
     * iwz_func(glTranslatef()) or iwz_func(glScalef()). We could also just call
@@ -93,6 +152,26 @@ int mini_opengl_frame() {
     * trickier things we want to do later much simpler!
     */
    glPushMatrix();
+
+   /* Move the "camera" back by three units and rotate the cube to the current
+    * angle defined by iwz_var(rotate_y).
+    */
+   /* Note that, while OpenGL is stateful in some respects, it does not
+    * "remember" objects between frames. Each object must be re-drawn and
+    * re-transformed for every frame!
+    */
+   glTranslatef( 0, 0, -3.0f );
+   glRotatef( rotate_y, 0, 1.0f, 0 );
+
+   /* Enable light #0. There can be multiple lights with various options, but
+    * for now we'll stick with the default options of white, omnidirectional,
+    * and centered.
+    */
+   glEnable( GL_LIGHT0 );
+
+   /* Increment the Y rotation of the cube for the next frame.
+    */
+   rotate_y += 10;
 
    /* Create the vertices for a multi-colored cube (see iwz_filename(minicube.c)
     * for details).

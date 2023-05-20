@@ -9,6 +9,6 @@ iwz_p([Welcome to the place on the web where we infodump on our hyperfixations a
 
 iwz_p([Most of the information here was logged by us to remind us how we did something in case it's useful later. Some of it was found in physical books, or buried in some dusty forgotten corner of the Internet Archive. We've tried to organize it so that it's useful.])
 
-iwz_p([If there are omissions, factual errors, or areas that could use elaboration, please feel free to let us know!])
+iwz_p([If there are omissions, factual errors, or areas that could use elaboration, <a href="https://github.com/indigoparadox/indigoparadox/issues">please feel free to let us know!</a>])
 
 include([footer.m4])

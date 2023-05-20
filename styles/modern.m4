@@ -13,6 +13,7 @@ a, a:visited {
 }
 
 .iwz-sidebar {
+   font-family: Arial, Helvetica, sans-serif;
    display: block;
    background: teal;
    position: fixed;
@@ -39,6 +40,18 @@ a, a:visited {
 	left: 140px;
 }
 
+.iwz-sidebar h3 {
+   margin: 20px;
+}
+
+.iwz-nav {
+   color: yellow;
+}
+
+.iwz-nav a, .iwz-nav a:visited {
+   color: yellow;
+}
+
 .iwz-header {
    font-family: Arial, Helvetica, sans-serif;
    background: lightgray;
@@ -56,11 +69,24 @@ a, a:visited {
 }
 
 .iwz-toc {
+   font-family: Arial, Helvetica, sans-serif;
+   background: darkblue;
+   border: 1px solid cyan;
    position: relative;
    left: 100px;
    display: table;
    margin: 10px auto;
+   padding: 20px 40px;
    order: 2;
+}
+
+.iwz-toc h3 {
+   margin: 0;
+}
+
+.iwz-toc ol {
+   margin: 0;
+   padding: 0;
 }
 
 .iwz-footer {
@@ -131,6 +157,7 @@ a, a:visited {
 .iwz-card-links {
    display: table;
    margin: 10px auto 20px auto;
+   padding: 0;
    list-style-type: none;
 }
 
@@ -158,18 +185,6 @@ a, a:visited {
    font-family: Courier, Courier New, monospace;
 }
 
-.iwz-code-line {
-   font-family: Courier, Courier New, monospace;
-   font-weight: bold;
-   background: black;
-   color: limegreen;
-   display: block;
-   margin: 10px auto;
-   padding: 3px;
-   width: 600px;
-   white-space: pre-wrap;
-}
-
 .iwz-code-wrapper {
    font-family: Courier, Courier New, monospace;
    background: lightgray;
@@ -178,6 +193,7 @@ a, a:visited {
    border-left: 2px solid darkgray;
    outline: 2px solid black;
    margin: 10px auto;
+   width: 600px;
 }
 
 .iwz-code-title {
@@ -190,6 +206,7 @@ a, a:visited {
 }
 
 .iwz-code-line {
+   font-weight: bold;
    white-space: pre-wrap;
 }
 
@@ -199,6 +216,15 @@ a, a:visited {
 
 .iwz-code-add {
    background: darkgreen;
+}
+
+.iwz-code-neutral {
+   background: black;
+   color: limegreen;
+}
+
+.iwz-twt {
+   border-bottom: 1px dotted cyan;
 }
 
 .iwz-block {
@@ -216,5 +242,52 @@ a, a:visited {
 
 .iwz-quality {
    background: darkred;
+}
+
+.gnu-m4 {
+   font-family: Arial, Helvetica, sans-serif;
+   color: black;
+   background: lightgray;
+   border-top: 2px solid white;
+   border-right: 2px solid darkgray;
+   border-bottom: 2px solid darkgray;
+   border-left: 2px solid white;
+   outline: 2px solid black;
+   display: inline-block;
+   margin: 10px;
+   /* 88x31, but Substract 8 in each direction to compensate for border. */
+   width: 80px;
+   height: 23px;
+}
+
+.gnu-m4 a, .gnu-m4 a:visited {
+   color: black;
+   text-decoration: none;
+}
+
+.gnu-m4-powered {
+   text-align: left;
+   font-size: 10px;
+   line-height: 100%;
+}
+
+.gnu-m4-gnu {
+   text-align: right;
+   font-size: 10px;
+   width: 55px;
+   float: right;
+}
+
+.gnu-m4-m4 {
+   font-family: Courier, Courier New, monospace;
+   float-right;
+}
+
+.gnu-m4-m {
+}
+
+.gnu-m4-4 {
+   color: red;
+   filter: drop-shadow( 1px 1px black );
 }
 
