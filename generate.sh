@@ -33,10 +33,16 @@ for t in `find src -name "*.c"`; do
    echo "iwz_dlsrc(`basename "$t"`)" >> "$DEST_MIDNAME"
 
    # Extract contents to paragraphs.
+   INSIDE_CODE_BLK=0
    OLDIFS="$IFS"
    IFS=$'\n'
    for l in `cat "$t"`; do
       if echo $l | grep -q '^\s*\*\/'; then
+         if [ $INSIDE_CODE_BLK -eq 1 ]; then
+            INSIDE_CODE_BLK=0
+            echo ")" >> "$DEST_MIDNAME"
+         fi
+
          # Add this paragraph to the generated template.
          echo "iwz_p([$DEST_P])" >> "$DEST_MIDNAME"
          DEST_P=""
@@ -45,9 +51,17 @@ for t in `find src -name "*.c"`; do
          DEST_P="$DEST_P `echo $l | sed -n 's/^\s*\/\?\* \(.*\)/\1/p'`"
 
       elif echo $l | grep -q '^\s*\S'; then
-         echo "iwz_code_ln([$l])" >> "$DEST_MIDNAME"
+         if [ $INSIDE_CODE_BLK -eq 0 ]; then
+            echo "iwz_diff([`basename "$t"`]," >> "$DEST_MIDNAME"
+            INSIDE_CODE_BLK=1
+         fi
+         echo "iwz_diffl([], [iwz_count_src_lines], [$l])" >> "$DEST_MIDNAME"
       fi
    done
+   if [ $INSIDE_CODE_BLK -eq 1 ]; then
+      INSIDE_CODE_BLK=0
+      echo ")" >> "$DEST_MIDNAME"
+   fi
    IFS=$OLDIFS
 
    echo "include([footer.m4])" >> "$DEST_MIDNAME"

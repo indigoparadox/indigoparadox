@@ -3,6 +3,10 @@ define([iwz_p], [<p>$1</p>])
 
 define([iwz_count_args], [$#])
 
+define([iwz_num_src_lines], 0)
+
+define([iwz_count_src_lines], [define([iwz_num_src_lines], eval(iwz_num_src_lines + 1)) iwz_num_src_lines])
+
 define([iwz_dlsrc], [<p class="iwz-dlsrc">This page was generated from a source code file. <a href="$1">Click here to download</a> the file this page was generated from.</a></p>])
 
 define([iwz_twt_line],[ifelse([$1], [],, [<p>$1</p>iwz_twt_line(shift($@))])])
