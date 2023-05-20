@@ -9,21 +9,25 @@ iwz_proj_card([OpenGL in Visual Basic 4], [vb4gl.html], [],
    [OpenGL 1.0 support in Visual Basic 4.0 on Windows 9x/NT.],
    [software,visual-basic,opengl])
 
-iwz_proj_card([Retro Engines], [retro.html], [],
-   [Libraries for building portable retro projects, as well as some examples.],
-   [software,c,opengl])
-
 iwz_proj_card([NTSC], [ntsc.html], [],
    [NTSC/CRT output filtering applied to various software outputs.],
    [software,c,opengl])
 
-iwz_proj_card([Neoroom], [neoroom.html], [],
-   [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
-   [software,html])
+dnl iwz_proj_card([Retro Engines], [retro.html], [],
+dnl    [Libraries for building portable retro projects, as well as some examples.],
+dnl    [software,c,opengl])
 
-iwz_proj_card([Mario 64 Python], [mario64p.html], [],
-   [Grafting Python onto the Mario 64 PC build for modding possibilities.],
-   [software,c,python])
+dnl iwz_proj_card([Neoroom], [neoroom.html], [],
+dnl    [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
+dnl    [software,html])
+
+dnl iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
+dnl    [Brief teardown and look at one of the rarer late Tandy PC models.],
+dnl    [hardware,pc])
+
+dnl iwz_proj_card([Mario 64 Python], [mario64p.html], [],
+dnl    [Grafting Python onto the Mario 64 PC build for modding possibilities.],
+dnl    [software,c,python])
 
 iwz_proj_card([PSUBot], [psubot.html], [],
    [Remote-control robot made from an old PC power supply.],
