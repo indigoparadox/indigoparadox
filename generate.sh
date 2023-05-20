@@ -6,7 +6,7 @@ function proc_m4() {
    DEST_DIRNAME="`dirname "$1" | sed -e "s/^$2/modern/g"`"
    mkdir -p "$DEST_DIRNAME"
    echo "processing $1..."
-   m4 -I ./templates -I "$IWZ_TEMPDIR" "$1" > \
+   m4 -I ./templates -I "$IWZ_TEMPDIR" -D IWZ_LASTMOD="$3" "$1" > \
       "$DEST_DIRNAME/`basename "$1" .m4`.html"
 }
 
@@ -20,6 +20,8 @@ for t in `find src -name "*.c"`; do
    mkdir -pv "`dirname $t | sed -e "s/^src/$IWZ_TEMPDIR/g"`"
 
    PAGE_TITLE="`cat $t | sed -n 's/^\s*\/\* dnl :title: \(.*\)/\1/p'`"
+
+   PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
 
    # Create fresh intermediate file.
    echo "divert(-1)" > "$DEST_MIDNAME"
@@ -67,13 +69,14 @@ for t in `find src -name "*.c"`; do
    echo "include([footer.m4])" >> "$DEST_MIDNAME"
 
    # Process intermediate to final output.
-   proc_m4 "$DEST_MIDNAME" temp
+   proc_m4 "$DEST_MIDNAME" "temp" "$PAGE_LASTMOD"
    cp -v "$t" "`dirname "$t" | sed -e "s/^src/modern/g"`"
 done
 
 # Process web template m4 files.
 for t in `find src -name "*.m4"`; do
-   proc_m4 "$t" src
+   PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
+   proc_m4 "$t" "src" "$PAGE_LASTMOD"
 done
 
 m4 "styles/modern.m4" > "modern/style.css"

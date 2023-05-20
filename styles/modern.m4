@@ -98,6 +98,14 @@ a, a:visited {
    order: 4;
 }
 
+.iwz-lastmod {
+   font-size: 0.8em;
+}
+
+.iwz-copyright {
+   font-size: 0.8em;
+}
+
 .iwz-video, .iwz-img {
    display: block;
    margin: 10px auto;
