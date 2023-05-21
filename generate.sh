@@ -81,6 +81,8 @@ done
 
 m4 "styles/modern.m4" > "modern/style.css"
 
+cp CNAME modern/CNAME
+
 mkdir -p modern/images
 cp -vRf images/* modern/images/
 
