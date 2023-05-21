@@ -1,6 +1,4 @@
 
-define([iwz_p], [<p>$1</p>])
-
 define([iwz_count_args], [$#])
 
 define([iwz_num_src_lines], 0)
@@ -23,7 +21,13 @@ define([iwz_sect], [define([iwz_index],eval(iwz_index+1))define([iwz_toc],iwz_to
 
 define([iwz_subsect], [<h4>$1</h4>])
 
-define([iwz_a], [<a href="$1">$2</a>])
+define([iwz_p], [ifelse(iwz_count_args($@),2,
+   [<p class="$1">$2</p>], [<p>$1</p>])])
+
+define([iwz_span], [<span class="$1">$2</span>])
+
+define([iwz_a], [ifelse(iwz_count_args($@),3,
+   [<a class="$1" href="$2">$3</a>], [<a href="$1">$2</a>])])
 
 define([iwz_a_ipage], [<a href="$1">$2</a>])
 
@@ -63,11 +67,11 @@ define([iwz_diff], [<table class="iwz-code-wrapper"><caption class="iwz-code-tit
 
 define([iwz_proj_tag_links],
    [ifelse([$1],[],, 
-      [<li><a href="#">$1</a></li> iwz_proj_tag_links(shift($@))])])
+      [<li><a class="iwz-button" href="#">$1</a></li> iwz_proj_tag_links(shift($@))])])
 
 define([iwz_proj_link_parts],
    [ifelse([$2],[],, 
-      [<li><a class="iwz-card-link" href="$2">Part $1</a></li> 
+      [<li><a class="iwz-card-link iwz-button" href="$2">Part $1</a></li> 
          iwz_proj_link_parts(eval($1+1), shift(shift($@)))])])
 
 define([iwz_proj_tag_classes],
@@ -83,7 +87,7 @@ define([iwz_proj_card],
       <p class="iwz-card-desc">$4</p>
       <ul class="iwz-card-links">
          ifelse(iwz_count_args($2),1,
-            [<li><a class="iwz-card-link" href="$2">$1</a></li>],
+            [<li><a class="iwz-card-link iwz-button" href="$2">$1</a></li>],
             [iwz_proj_link_parts(1,$2)])
       </ul>
    </div>])

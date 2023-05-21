@@ -150,13 +150,7 @@ a, a:visited {
 }
 
 .iwz-card-tags a, .iwz-card-tags a:visited {
-   background: lightgray;
    color: black;
-   border-top: 2px solid white;
-   border-right: 2px solid darkgray;
-   border-bottom: 2px solid darkgray;
-   border-left: 2px solid white;
-   outline: 2px solid black;
    display: block;
    padding: 0 5px;
    text-decoration: none;
@@ -175,11 +169,6 @@ a, a:visited {
 }
 
 .iwz-card-link, .iwz-card-link:visited {
-   border-top: 2px solid white;
-   border-right: 2px solid darkgray;
-   border-bottom: 2px solid darkgray;
-   border-left: 2px solid white;
-   outline: 2px solid black;
    color: black;
    padding: 5px;
    text-decoration: none;
@@ -240,6 +229,16 @@ a, a:visited {
    border-bottom: 1px dotted cyan;
 }
 
+.iwz-button {
+   font-family: Arial, Helvetica, sans-serif;
+   background: lightgray;
+   border-top: 2px solid white;
+   border-right: 2px solid darkgray;
+   border-bottom: 2px solid darkgray;
+   border-left: 2px solid white;
+   outline: 2px solid black;
+}
+
 .iwz-block {
    font-family: Arial, Helvetica, sans-serif;
    border-radius: 10px;
@@ -257,15 +256,27 @@ a, a:visited {
    background: darkred;
 }
 
-.gnu-m4 {
+.iwz-hotline {
+   display: table;
+   margin: 20px auto;
+}
+
+.iwz-hotline-hotline {
    font-family: Arial, Helvetica, sans-serif;
+   font-weight: bold;
+   color: red;
+   filter: drop-shadow( 2px 2px black );
+}
+
+.iwz-hotline a, .iwz-hotline a:visited {
    color: black;
-   background: lightgray;
-   border-top: 2px solid white;
-   border-right: 2px solid darkgray;
-   border-bottom: 2px solid darkgray;
-   border-left: 2px solid white;
-   outline: 2px solid black;
+   display: inline-block;
+   margin: 10px;
+   padding: 5px 10px;
+}
+
+.gnu-m4 {
+   color: black;
    display: inline-block;
    margin: 10px;
    /* 88x31, but Substract 8 in each direction to compensate for border. */
