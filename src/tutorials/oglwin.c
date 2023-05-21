@@ -211,7 +211,7 @@ int WINAPI WinMain(
 
    /* Create the actual window.
     */
-   hWnd = CreateWindow
+   hWnd = CreateWindow(
       /* Notice that we use the window class we defined above.
        */
       "MiniTestGLClass",

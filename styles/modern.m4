@@ -193,6 +193,11 @@ a, a:visited {
    font-family: Courier, Courier New, monospace;
 }
 
+.iwz-cmd {
+   font-family: Courier, Courier New, monospace;
+   font-weight: bold;
+}
+
 .iwz-code-wrapper {
    font-family: Courier, Courier New, monospace;
    background: lightgray;

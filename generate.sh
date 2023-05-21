@@ -49,6 +49,9 @@ for t in `find src -name "*.c"`; do
          echo "iwz_p([$DEST_P])" >> "$DEST_MIDNAME"
          DEST_P=""
 
+      elif echo $l | grep -q '^\s*\/\* dnl :sect:'; then
+         DEST_P="$DEST_P `echo $l | sed -n 's/^\s*\/\* dnl :sect: \(.*\)/iwz_sect([\1])/p'`"
+
       elif echo $l | grep -q '^\s*\/\?\*'; then
          DEST_P="$DEST_P `echo $l | sed -n 's/^\s*\/\?\* \(.*\)/\1/p'`"
 

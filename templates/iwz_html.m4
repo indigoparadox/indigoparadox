@@ -48,6 +48,8 @@ define([iwz_struct], [<span class="iwz-struct">$1</span>])
 
 define([iwz_filename], [<span class="iwz-filename">$1</span>])
 
+define([iwz_cmd], [<span class="iwz-cmd">$1</span>])
+
 define([iwz_depfiles], [<div class="iwz-depfiles"><p>This source file also depends on the files below:</p><ul>$1</ul></div>]);
 
 define([iwz_depfile], [<li><a href="$1">$1</a></li>])

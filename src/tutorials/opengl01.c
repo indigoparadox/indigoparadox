@@ -2,6 +2,14 @@
 /* dnl :title: OpenGL 1.0: Part 1
  */
 
+/* iwz_img(
+ *    [/images/opengl/opengl01.png],
+ *    [The inside of a colorful cube rendered in a window.])
+ */
+
+/* dnl :sect: Introduction
+ */
+
 /* This is an "anti-tutorial" for working with OpenGL 1.0. A working example
  * is laid out below, along with the rationale for why certain things are
  * implemented the way they are.
@@ -12,15 +20,24 @@
  * of Windows NT or older video game consoles.
  */
 
+/* dnl :sect: Compiling
+ */
+
 /* iwz_depfiles(
  *    iwz_depfile(oglwin.html)
  *    iwz_depfile(oglpoly.html)
  * )
  */
 
-/* iwz_img(
- *    [/images/opengl/opengl01.png],
- *    [The inside of a colorful cube rendered in a window.])
+/* These files can be compiled together by adding them to your Borland or
+ * Visual C IDE. You may also compile them by installing the MingW compiler
+ * on your Linux distro (e.g. iwz_cmd([sudo apt install mingw-w64-i686-dev])
+ * on recent Ubuntu) and using the command iwz_cmd([i686-w64-mingw32-gcc
+ * -o opengl01.exe opengl01.c oglwin.c oglpoly.c -lopengl32 -lgdi32]) to
+ * produce iwz_filename(opengl01.exe).
+ */
+
+/* dnl :sect: The Code
  */
 
 /* Include The system OpenGL header for constants and functions used below.
