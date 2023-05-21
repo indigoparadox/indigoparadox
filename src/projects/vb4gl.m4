@@ -62,5 +62,13 @@ iwz_diff(
    iwz_diffl([], [13], [End Function])
 )
 
+iwz_subsect([Visual Basic 4 Has Objects... But Not Really Instancing...?])
+
+iwz_p([There is no iwz_func([New]) operator in Visual Basic 4.])
+
+iwz_p([To instantiate controls, you must drag them onto a form at design time. From there, you can create a control array by setting their index property to 0. You may then address other indexes at run time and use the iwz_func([Load]) statement (e.g. iwz_cmd([Load ChkExample(1)])) to instantiate a new control in that array, which you can then move around the form by changing its Left/Top properties.])
+
+iwz_p([For more abstract uses, there are custom types, which are closer to structs. You can declare variables with them and pass them around iwz_func(ByRef) or iwz_func(ByVal). They can also be marshaled into C function calls, where they behave as structs.])
+
 include([footer.m4])
 
