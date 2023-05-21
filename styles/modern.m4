@@ -275,13 +275,64 @@ a, a:visited {
    padding: 5px 10px;
 }
 
-.gnu-m4 {
-   color: black;
+.iwz-88x31 {
    display: inline-block;
    margin: 10px;
    /* 88x31, but Substract 8 in each direction to compensate for border. */
    width: 80px;
    height: 23px;
+}
+
+.vim, .vim a, .vim a:visited {
+   color: black;
+   text-decoration: none;
+}
+
+.vim-edited {
+   font-size: 10px;
+   line-height: 100%;
+}
+
+.vim-vim::before {
+   content: "";
+   background: darkgreen;
+   display: block;
+   width: 16px;
+   height: 16px;
+   position: absolute;
+   left: 1px;
+   top: 2px;
+   transform: rotate(45deg);
+   z-index: 5;
+}
+
+.vim-vim {
+   text-shadow: -1px 1px 0 #000,
+      1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000;
+   position: relative;
+   top: 1px;
+}
+
+.vim-v {
+   color: lightgray;
+   font-size: 14px;
+   position: relative;
+   z-index: 10;
+   filter: drop-shadow( 1px 1px black );
+}
+
+.vim-im {
+   color: lightgray;
+   font-size: 9px;
+   position: relative;
+   z-index: 10;
+   filter: drop-shadow( 1px 1px black );
+}
+
+.gnu-m4 {
+   color: black;
 }
 
 .gnu-m4 a, .gnu-m4 a:visited {
