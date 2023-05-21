@@ -21,9 +21,9 @@ dnl iwz_proj_card([Neoroom], [neoroom.html], [],
 dnl    [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
 dnl    [software,html])
 
-dnl iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
-dnl    [Brief teardown and look at one of the rarer late Tandy PC models.],
-dnl    [hardware,pc])
+iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
+   [Brief teardown and look at one of the rarer late Tandy PC models.],
+   [hardware,pc])
 
 dnl iwz_proj_card([Mario 64 Python], [mario64p.html], [],
 dnl    [Grafting Python onto the Mario 64 PC build for modding possibilities.],
