@@ -11,7 +11,7 @@ iwz_p([Tentatively called the PSUBot, a remote-controlled rover built mostly out
 
 iwz_p([I think of the PSUBot as more of a "puppet" than a robot for the moment due to the lack of on-board sensors and the ample control surfaces/colorful LEDs added for "personality". The MSP430G2553 is its primary control processor; it doesn't have anything more power than that on-board in its standard configuration, though it does have room to carry something like a Raspberry Pi or whatever as a ride-along payload to be spliced into its current power/communication system. It can communicate remotely with other devices as a slave via Bluetooth RFCOMM sockets using the Serial Port Profile.])
 
-iwz_p([I've written a few example programs for controlling the PSUBot from various devices. A Python example for using a gamepad to control it from a desktop and an Android application for controlling it from a cellphone. Those should currently be available through my Dropbox (link removed, see below). The Android example code is in a separate archive (link removed, see below), available here. Any code not marked otherwise should be considered to be licensed under GPLv3.])
+iwz_p([I've written a few example programs for controlling the PSUBot from various devices via its crude RTOS, available in the iwz_a_repo([PSUBot repository], [indigoparadox], [psubot]). An Android application for controlling it from a cellphone are available in the iwz_a_repo([PSUBot Android repository], [indigoparadox], [psubot-android]). Any code not marked otherwise should be considered to be licensed under GPLv3.])
 
 iwz_p([And finally, some images:])
 
