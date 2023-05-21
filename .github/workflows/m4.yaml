@@ -1,0 +1,27 @@
+name: Documentation
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Process Templates
+      run: ./generate.sh
+
+    - name: Pages Deployment
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./modern
+        enable_jekyll: false
+        allow_empty_commit: false
+        force_orphan: true
+        publish_branch: gh-pages
+
