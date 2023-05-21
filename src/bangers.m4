@@ -5,6 +5,106 @@ include([iwz_html.m4])
 define([iwz_title],[The indigoparadox Web Zone: Bangers])
 divert(0)include([header.m4])
 
+iwz_twt([Birdy the Mighty (Tetsuwan Birdy) paints a picture of an ideal society where all cops are hot big-sister-types. Yes, they still shoot kids with their space laser sometimes,  blowing their torso apart. But then they share their own body with that kid so they can become a trans girl/plural system, depending on how metaphorical you wanna get. In this essay, I will discuss how we can't let the perfect become the enemy of the good. &#129525; (1/78)])
+
+iwz_twt([Remember the Super Mario World bonus levels that were all named things like Tubular or Radical? Has anyone done a ROM hack (or maybe checked the rerelease on the SNES mini) where there's a new level called "Fleek"?])
+
+iwz_twt([IBM called it the AS/400 because every model weighs >400 lbs.])
+
+iwz_twt([One thing I kinda miss about the office is the free stuff. You could charge your batteries there for free and there was a closet with free pens and staplers and stuff and there was free copper in the walls! &#128524;])
+
+iwz_twt([EPIC RAP BATTLES OF HISTORYYY], [JULIE ANDREWS!], [VS...], [ANNNN MARGREEET!!!], [BEGIN!], [Julie Andrews: Bye-bye THIRTY -year-old, actin' fifteen! Boutta make the hills come alive with the sound of your screams!], [Ann Margret: Oh, how do I solve a problem like poor Julie Andrews? Seems winning a rap battle, ain't something she can do!])
+
+iwz_twt([The "nobody will remember you" folks are the funniest. Nobody will remember anyone after a few generations. Humanity will just be a thin layer of plastic sediment, and there won't be any free oil on the surface to jump-start subsequent industrial civilizations if another species is cursed with sentience. Couple that with an expanding universe divided by the invincible light-year, and the inevitability of heat death, and who do you expect to remember what from the bottom of a black hole? &#129315;&#129315;&#129315;])
+
+iwz_twt([Honey, if you think I'm inflexible... wait'll you meet the laws of physics!])
+
+iwz_twt([Can't wait for someone to invent a non-woke AI that won't flinch at generating erotic Windows 3.1 memory allocation fiction.])
+
+iwz_twt([OneDrive: "Look at your memories!" *Pulls up the floor plan from a previous workplace*])
+
+iwz_twt([I'm gonna start a chat-bot to answer questions about UEFI called "UEFI GPT." I'm sure this won't cause any confusion.])
+
+iwz_twt([Welcome to my podcast, SNMP Trap House.])
+
+iwz_twt([How about a game like Papers, Please except instead of a communist country, you're a mid-level bureaucrat in a capitalist country who has to massage the excess death statistics caused by an increasing series of pandemics/natural disasters and the owner class's unwillingness to pay for social countermeasures so that your boss can get re-elected and you can keep your job?], [I feel like there's an opportunity for a fun spreadsheet- or even COBOL-inspired interface depending on the direction...])
+
+iwz_twt([If they had Teams in England they would call it Cheams.])
+
+iwz_twt(["Ada! Intruder alert!"], [Loudspeaker (monotone): welcome to the jungle mother fucker], [*Hamster Dance music starts playing*])
+
+iwz_twt([Me: *nodding off, drowsy*], [Internet: Did you know that every building material made before 1980 has asbestos in it and you're definitely going to die from drilling all those holes in your drywall to hang stuff, including leaving some gaping open? And the dust coming out of the cracks between your walls and floors?], [Me: *Awake! Alert!*])
+
+iwz_twt([OhI ! I just got it!], [Challenge everything... (i.e. test every shipment because it might be counterfeit! Because EA -> Ea (as in Nasir!))], [lol Good one, guys!])
+
+iwz_twt(["Plug and Play? Sir, this is a mainframe shop. Mainframes are for serious business only. There will be no plugging nor playing on the mainframe."])
+
+iwz_twt([TransAmerica has to be the most criminally underutilized brand ever.])
+
+iwz_twt([Show me the place in the CSS spec where it says a browser has to support more than 16 colors.])
+
+iwz_twt(["I've caught COVID 5 times and I'm fine! It's normal now!" creaks the increasingly aggressive and irrational plague rat through its brain fog.])
+
+iwz_twt([The term "Boomer Shooters" bothers me because I'm not sure if it's referring to how games of that genre go "boom" a lot (?) or just confusing gen-X'ers with Baby Boomers.])
+
+iwz_twt([Laying in bed remembering the time I called it "The Large Hadrian Collider" while talking to a cute girl back in college.])
+
+iwz_twt([Has anyone been able to get GPT-4 to generate a NUDE TAYNE yet?])
+
+iwz_twt([Every AI guy wants to live in Beatless and be hacked by the cute girl AI.])
+
+iwz_twt([All I know about this Samsung Moon thing is that they need to start calling it Moongate so that more people search for it and get into Ultima Online as a result.])
+
+iwz_twt([I would not be able to handle it if Sonic turned racist.], [Atrus too, but there was a whole book about how not racist he was and it was the longest one in the series so that's probably not an issue...])
+
+iwz_twt([Missed opportunity to port Wing Commander to Windows 3.x and call it WinG Commander.])
+
+iwz_twt([Can't spell CGI without C!])
+
+iwz_twt([Another one bytes dbus.])
+
+iwz_twt([My music library is kinda fucked up... I have the anthem of the Soviet Union 8-bit version, but the Red Army Choir version of Korobeiniki. Most people have them the other way around but I'm just so quirky!])
+
+iwz_twt([I imagine taking a cross-country trip through the US to be something like Eversion. New York through Ohio are like the first few levels, getting tougher in normal ways. By the time you get to Nebraska, there's no music and the background is red. And then in California or Washington there's a princess. Or something.])
+
+iwz_twt([SERVER &#128079; FARMS &#128079; ARE &#128079; FARMS])
+
+iwz_twt([What if they had NASCAR... but it was trains?])
+
+iwz_twt([They should do a Blu-Ray release of Supertrain and just edit out anything that's not the train.])
+
+iwz_twt([What's that? My room is overcrowded with junk?], [Really? But:], [- I'm afraid of everything.], [- I'm fearless in my room.], [- Therefore, there is nothing in my room.], [Q.E.D.])
+
+iwz_twt([320x200 pixels should be enough for anybody.])
+
+iwz_twt([I made the mistake of answering my phone today. Never again.])
+
+iwz_twt([The lesson learned from APNG seems to have been, "No matter what we successfully replace GIF with... we have to call it GIF. No matter how preposterously unrelated it is."])
+
+iwz_twt(["Living fossil" is such a wild way to say "ultimate lifeform, perfect being, no notes."])
+
+iwz_twt([Wouldn't it be funny if a giant sinkhole just opened up and swallowed a major city? Everyone else would be like, "wow, that sucks. Glad that can't happen here."])
+
+iwz_twt([Two's complement was one of those things I vaguely intuited in the back of my mind but never sat down and actually studied. Since writing an ASN.1 encoder for my latest engine and I need to encode negative numbers, I finally got around to it. Turns out it really is as simple as f( x ) = (~x) + 1.], [It helps that the functional notation looks kinda like boobs from a front-side angle, so hopefully that can serve as a mnemonic device somehow.])
+
+iwz_twt([I was thinking about this egotistical guy who would appropriate large bodies of others' work as his own, but without the deep understanding necessary to integrate or maintain them. This would result in works that were unstable as cracks formed until they collapsed completely. Until then, tho, he was able to use them to appeal to a surface-level vision to convince others to worship him like some kind of weird cult.], [Because of the new Riven game! What? Did that bring something else to mind?])
+
+iwz_twt([Epic Rap Battles of History!!!], [Watcom!], [vs!], [Qualllcommm!!!], [Begin!])
+
+iwz_twt([Do you need to see the first one before you see David Cameron's Avatar the Shape of Water?])
+
+iwz_twt([WATCOM stands for Wet-Ass Toolchain/COMpiler.])
+
+iwz_twt([There's a character named Antherine in one of the webtoons I'm reading... but no Catherine! I can't help but get a charge out of this observation.])
+
+iwz_twt([What if Zendaya were on Zendesk?])
+
+iwz_twt([Life Pro Tip: If you live near a particle accelerator doing research on atomic nuclei, you can ask them for the spare electrons they have left over after stripping them off the nuclei for the beam!])
+
+iwz_twt([Putting two dissimilar cheeses AND a dressing on a Philidelphia cheese steak is not advised due to the potential for galvanic corrosion.])
+
+dnl Twitter/Mastodon divide.
+
 iwz_twt([Too many thumbs isn't a big deal. You can work around that. Too many neutrons? *Whistles* Idunno, man...])
 
 iwz_twt([Da~re mo dekiru, Sharepoint admin! Da~re mo dekiru, ki~to ne!],["I wanna delete this site called xxxyyz but it won't let me because of a compliance block?"],["Why do you wanna delete a site? Are you stupid? Do you wanna die?"])
