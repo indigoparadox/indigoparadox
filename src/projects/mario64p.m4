@@ -31,7 +31,7 @@ iwz_p([This will likely produce a lot of warning/error messages, but it should g
 
 iwz_sect([Python])
 
-iwz_p([The python portion of the engine is in iwz_filename(sm64.py). By default, this module contains a number of functions that have been ported out from C to Python and modified during the process. These can be freely modifed to change the game's functionality (though the game must be restarted afterwards!)])
+iwz_p([The python portion of the engine is in iwz_filename(sm64.py). By default, this module contains a number of functions that have been ported out from C to Python and modified during the process. These can be freely modified to change the game's functionality (though the game must be restarted afterwards!)])
 
 iwz_p([The iwz_filename(sm64.py) file must be in the program's current working directory (the directory it was launched from)!])
 
