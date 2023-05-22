@@ -11,7 +11,7 @@
  <div class="iwz-sidebar">
   <h3>Web Zone Navigation</h3>
   <ul class="iwz-nav">
-   <li><a href="/index.html">Home</a></li>
+   <li><a href="/">Home</a></li>
    <li><a href="/projects">Projects</a></li>
    <li><a href="/tutorials">Tutorials</a></li>
    <li><a href="/bangers.html">Bangers</a></li>

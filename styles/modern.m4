@@ -273,6 +273,7 @@ a, a:visited {
    display: inline-block;
    margin: 10px;
    padding: 5px 10px;
+   text-decoration: none;
 }
 
 .iwz-88x31 {

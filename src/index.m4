@@ -11,6 +11,6 @@ iwz_p([Most of the information here was logged by us to remind us how we did som
 
 iwz_p([If there are omissions, factual errors, or areas that could use elaboration, please feel free to iwz_let_us_know!])
 
-iwz_p([iwz-hotline], [iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/previous], [Previous]) iwz_span([iwz-hotline-hotline], [Hotline Webring]) iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/next], [Next])])
+iwz_p([iwz-hotline], [iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/previous], [Previous]) iwz_a([https://hotlinewebring.club/], [iwz_span([iwz-hotline-hotline], [Hotline Webring])]) iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/next], [Next])])
 
 include([footer.m4])
