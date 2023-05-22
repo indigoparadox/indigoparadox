@@ -2,7 +2,7 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title],[The indigoparadox Web Zone: PSUBot])
+define([iwz_title],[PSUBot])
 divert(0)include([header.m4])
 
 iwz_block_quality

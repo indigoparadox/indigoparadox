@@ -2,7 +2,6 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title],[The indigoparadox Web Zone])
 divert(0)include([header.m4])
 
 iwz_p([Welcome to the place on the web where we infodump on our hyperfixations and special interests in (somewhat) long form. It's not the first, but we hope it's the best so far.])

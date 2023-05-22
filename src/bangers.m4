@@ -2,7 +2,7 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title],[The indigoparadox Web Zone: Bangers])
+define([iwz_title],[Bangers])
 divert(0)include([header.m4])
 
 iwz_twt([Birdy the Mighty (Tetsuwan Birdy) paints a picture of an ideal society where all cops are hot big-sister-types. Yes, they still shoot kids with their space laser sometimes,  blowing their torso apart. But then they share their own body with that kid so they can become a trans girl/plural system, depending on how metaphorical you wanna get. In this essay, I will discuss how we can't let the perfect become the enemy of the good. &#129525; (1/78)])

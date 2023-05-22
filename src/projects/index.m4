@@ -2,7 +2,7 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title],[The indigoparadox Web Zone: Projects])
+define([iwz_title],[Projects])
 divert(0)include([header.m4])
 
 iwz_proj_card([OpenGL in Visual Basic 4], [vb4gl.html], [],
@@ -24,6 +24,10 @@ dnl    [software,html])
 iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
    [Brief teardown and look at one of the rarer late Tandy PC models.],
    [hardware,pc])
+
+dnl iwz_proj_card([Webdows 95], [webdows95.html], [],
+dnl    [HTML/JS-based simulation of Windows 95 for the web.],
+dnl    [web], [operating systems])
 
 iwz_proj_card([Mario 64 Python], [mario64p.html], [],
    [Grafting Python onto the Mario 64 PC build for modding possibilities.],

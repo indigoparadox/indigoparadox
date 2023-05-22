@@ -2,7 +2,7 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title],[The indigoparadox Web Zone: NTSC])
+define([iwz_title],[NTSC])
 divert(0)include([header.m4])
 iwz_p([This page documents our adventures with simulated NTSC/CRT effects, typically using the iwz_a_repo([NTSC-CRT library by LMP88959], [LMP88959], [NTSC-CRT]). We have condensed this library to a single header and inserted it into the rendering paths of various softwares to great and amusing effect.])
 
@@ -94,6 +94,8 @@ iwz_block_construction()
 iwz_video(
    [/images/ntsc/ntsc-aleggo.mp4],
    [Fuzzy NTSC-style rendering of a gray isometric field with some red bricks stacked. A mouse cursor moves around and stacks some green bricks. It looks like found footage and is very cool.])
+
+dnl Issue low frame rate, fixed by not color-keying the framebuffer.
 
 iwz_sect([maug Under Windows])
 
