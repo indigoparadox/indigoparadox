@@ -12,6 +12,20 @@ a, a:visited {
    color: cyan;
 }
 
+.iwz-title-iwz {
+   display: inline-block;
+}
+
+.iwz-title-sub {
+   display: inline-block;
+}
+
+.iwz-title-sub::before {
+   content: "\00b7";
+   display: inline-block;
+   margin-right: 5px;
+}
+
 .iwz-sidebar {
    font-family: Arial, Helvetica, sans-serif;
    display: block;
