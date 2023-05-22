@@ -31,7 +31,11 @@ iwz_p([This will likely produce a lot of warning/error messages, but it should g
 
 iwz_sect([Python])
 
-iwz_p([The python portion of the engine is in sm64.py. By default, this module contains a number of functions that have been ported out from C to Python and modified during the process. Some of these modifications are silly (e.g. the "Air Time" triple jump depicted in the opening image), and there are some bugs (probably floating-point-related) still lurking around that may appear when you e.g. approach a door too fast.])
+iwz_p([The python portion of the engine is in iwz_filename(sm64.py). By default, this module contains a number of functions that have been ported out from C to Python and modified during the process. These can be freely modifed to change the game's functionality (though the game must be restarted afterwards!)])
+
+iwz_p([The iwz_filename(sm64.py) file must be in the program's current working directory (the directory it was launched from)!])
+
+iwz_p([Some of these modifications made to the engine are silly (e.g. the "Air Time" triple jump depicted in the opening image), and there are some bugs (probably floating-point-related) still lurking around that may appear when you e.g. approach a door too fast.])
 
 iwz_p([Most of the work involved with adding Python support was in figuring out how the codebase worked, and then adding glue code which exported those functions and constants out to Python via the stack.])
 
