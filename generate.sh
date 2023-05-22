@@ -28,7 +28,7 @@ for t in `find src -name "*.c"`; do
    echo "changecom()" >> "$DEST_MIDNAME"
    echo "changequote(\`[', \`]')" >> "$DEST_MIDNAME" 
    echo "include([iwz_html.m4])" >> "$DEST_MIDNAME"
-   echo "define([iwz_title],[The indigoparadox Web Zone: $PAGE_TITLE])" \
+   echo "define([iwz_title], [$PAGE_TITLE])" \
       >> "$DEST_MIDNAME"
    echo "divert(0)include([header.m4])" >> "$DEST_MIDNAME"
 
