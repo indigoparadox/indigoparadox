@@ -25,9 +25,9 @@ iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
    [Brief teardown and look at one of the rarer late Tandy PC models.],
    [hardware,pc])
 
-dnl iwz_proj_card([Mario 64 Python], [mario64p.html], [],
-dnl    [Grafting Python onto the Mario 64 PC build for modding possibilities.],
-dnl    [software,c,python])
+iwz_proj_card([Mario 64 Python], [mario64p.html], [],
+   [Grafting Python onto the Mario 64 PC build for modding possibilities.],
+   [software,c,python])
 
 iwz_proj_card([PSUBot], [psubot.html], [],
    [Remote-control robot made from an old PC power supply.],

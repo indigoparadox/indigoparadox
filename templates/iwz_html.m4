@@ -107,3 +107,5 @@ define([iwz_block_quality],
       <p>It may be out of date, and/or not adhere to style or quality guidelines maintained by the rest of this web zone.</p>
    </div>])
 
+define([iwz_let_us_know], [iwz_a([https://github.com/indigoparadox/indigoparadox/issues], [let us know])])
+
