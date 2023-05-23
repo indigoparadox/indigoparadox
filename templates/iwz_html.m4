@@ -11,9 +11,11 @@ define([iwz_dlsrc], [<p class="iwz-dlsrc">This page was generated from a source 
 
 define([iwz_section_class], [ifdef([iwz_section], [ifelse(iwz_section, [$1], [iwz-section-active ])])iwz-section-$1])
 
-define([iwz_twt_line],[ifelse([$1], [],, [<p>$1</p>iwz_twt_line(shift($@))])])
+define([iwz_breadcrumbs], [<a class="iwz-breadcrumbs" href="/iwz_section">Back to iwz_section</a>])
 
-define([iwz_twt],[<div class="iwz-twt">iwz_twt_line($@)</div>])
+define([iwz_twt_line], [ifelse([$1], [],, [<p>$1</p>iwz_twt_line(shift($@))])])
+
+define([iwz_twt], [<div class="iwz-twt">iwz_twt_line($@)</div>])
 
 define([iwz_usafe], [patsubst($1,[\W],[-])])
 

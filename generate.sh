@@ -21,6 +21,8 @@ for t in `find src -name "*.c"`; do
 
    PAGE_TITLE="`cat $t | sed -n 's/^\s*\/\* dnl :title: \(.*\)/\1/p'`"
 
+   PAGE_SECTION="`cat $t | sed -n 's/^\s*\/\* dnl :section: \(.*\)/\1/p'`"
+
    PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
 
    # Create fresh intermediate file.
@@ -28,8 +30,10 @@ for t in `find src -name "*.c"`; do
    echo "changecom()" >> "$DEST_MIDNAME"
    echo "changequote(\`[', \`]')" >> "$DEST_MIDNAME" 
    echo "include([iwz_html.m4])" >> "$DEST_MIDNAME"
-   echo "define([iwz_title], [$PAGE_TITLE])" \
-      >> "$DEST_MIDNAME"
+   echo "define([iwz_title], [$PAGE_TITLE])" >> "$DEST_MIDNAME"
+   if [ -n "$PAGE_TITLE" ]; then
+      echo "define([iwz_section], [$PAGE_SECTION])" >> "$DEST_MIDNAME"
+   fi
    echo "divert(0)include([header.m4])" >> "$DEST_MIDNAME"
 
    echo "iwz_dlsrc(`basename "$t"`)" >> "$DEST_MIDNAME"

@@ -8,6 +8,7 @@
  <div class="iwz-header">
   <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
   ifdef([iwz_title], [<h2 class="iwz-title-sub">iwz_title</h2>])
+  ifdef([iwz_root], [ifelse( iwz_root, [1], [], [iwz_breadcrumbs])], [iwz_breadcrumbs])
  </div>
  <div class="iwz-sidebar">
   <h3>Web Zone Navigation</h3>
@@ -15,7 +16,7 @@
    <li><a href="/">Home</a></li>
    <li><a class="iwz_section_class(projects)" href="/projects">Projects</a></li>
    <li><a class="iwz_section_class(tutorials)" href="/tutorials">Tutorials</a></li>
-   <li><a class="iwz_section_class(bangers)" href="/bangers.html">Bangers</a></li>
+   <li><a class="iwz_section_class(bangers)" href="/bangers">Bangers</a></li>
   </ul>
   <h3>Other Web Zones</h3>
   <ul class="iwz-nav iwz-nav-ext">

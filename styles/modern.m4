@@ -14,11 +14,13 @@ a, a:visited {
 
 .iwz-title-iwz {
    display: inline-block;
+   margin: 0;
 }
 
 .iwz-title-sub {
    display: inline-block;
    color: navy;
+   margin: 0;
 }
 
 .iwz-title-sub::before {
@@ -101,6 +103,13 @@ a, a:visited {
    margin-left: 150px;
    padding: 6px 50px;
    order: 1;
+}
+
+.iwz-breadcrumbs, .iwz-breadcrumbs:visited {
+   font-size: 0.8em;
+   color: darkviolet;
+   display: block;
+   text-decoration: none;
 }
 
 .iwz-body {
