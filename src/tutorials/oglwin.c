@@ -2,6 +2,9 @@
 /* dnl :title: OpenGL 1.0: Win32-Specific
  */
 
+/* dnl :section: tutorials
+ */
+
 /* Include The system iwz_filename(windows.h) header for constants and
  * functions used below. This pulls in the system OpenGL headers automatically.
  */

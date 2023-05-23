@@ -2,6 +2,9 @@
 /* dnl :title: OpenGL 1.0: Polygons
  */
 
+/* dnl :section: tutorials
+ */
+
 /* Include The system OpenGL header for constants and functions used below.
  * Also include mini.h, a header with some program-specific constants we'll
  * also be using.

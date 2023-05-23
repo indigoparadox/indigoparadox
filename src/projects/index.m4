@@ -2,7 +2,9 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title],[Projects])
+define([iwz_title], [Projects])
+define([iwz_section], [projects])
+define([iwz_root], 1)
 divert(0)include([header.m4])
 
 iwz_proj_card([OpenGL in Visual Basic 4], [vb4gl.html], [],

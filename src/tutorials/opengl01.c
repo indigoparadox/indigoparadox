@@ -2,6 +2,9 @@
 /* dnl :title: OpenGL 1.0: Part 1
  */
 
+/* dnl :section: tutorials
+ */
+
 /* iwz_img(
  *    [/images/opengl/opengl01.png],
  *    [The inside of a colorful cube rendered in a window.])
