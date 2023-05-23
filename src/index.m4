@@ -2,6 +2,8 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 define([iwz_root], 1)
+define([iwz_section], [home])
+define([iwz_root], 1)
 include([iwz_html.m4])
 divert(0)include([header.m4])
 
