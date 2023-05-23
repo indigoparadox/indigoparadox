@@ -9,6 +9,8 @@ define([iwz_count_src_lines], [define([iwz_num_src_lines], eval(iwz_num_src_line
 
 define([iwz_dlsrc], [<p class="iwz-dlsrc">This page was generated from a source code file. <a href="$1">Click here to download</a> the file this page was generated from.</a></p>])
 
+define([iwz_section_class], [ifdef([iwz_section], [ifelse(iwz_section, [$1], [iwz-section-active ])])iwz-section-$1])
+
 define([iwz_twt_line],[ifelse([$1], [],, [<p>$1</p>iwz_twt_line(shift($@))])])
 
 define([iwz_twt],[<div class="iwz-twt">iwz_twt_line($@)</div>])

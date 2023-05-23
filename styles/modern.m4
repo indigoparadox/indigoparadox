@@ -60,6 +60,7 @@ a, a:visited {
 }
 
 .iwz-nav {
+   font-weight: bold;
    list-style-type: none;
    margin: 0;
    padding: 0 20px;
@@ -85,6 +86,10 @@ a, a:visited {
 
 .iwz-nav-ext a, .iwz-nav-ext a:visited {
    color: greenyellow;
+}
+
+.iwz-nav a.iwz-section-active, .iwz-nav a.iwz-section-active:visited {
+   color: orange;
 }
 
 .iwz-header {
