@@ -5,12 +5,18 @@
 /* dnl :section: tutorials
  */
 
+/* dnl :sect: Preamble
+ */
+
 /* Include The system OpenGL header for constants and functions used below.
  * Also include mini.h, a header with some program-specific constants we'll
  * also be using.
  */
 #include <GL/gl.h>
 #include "mini.h"
+
+/* dnl :sect: Polygon: Cube
+ */
 
 /* First, let's draw a simple multi-colored cube.
  */

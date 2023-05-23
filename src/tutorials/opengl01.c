@@ -40,7 +40,7 @@
  * produce iwz_filename(opengl01.exe).
  */
 
-/* dnl :sect: The Code
+/* dnl :sect: The Code: Preamble
  */
 
 /* Include The system OpenGL header for constants and functions used below.
@@ -49,6 +49,9 @@
  */
 #include <GL/gl.h>
 #include "mini.h"
+
+/* dnl :sect: The Code: Setup Function
+ */
 
 /* A setup function to be called once from our wrapper program during
  * initialization. This is C89, so all of the variables are declared up front!
@@ -150,6 +153,9 @@ int mini_opengl_setup() {
     */
    return 0;
 }
+
+/* dnl :sect: The Code: Frame Function
+ */
 
 /* A function to be called several times a second from our wrapper program to
  * draw each frame on-screen before the wrapper flips the buffer.

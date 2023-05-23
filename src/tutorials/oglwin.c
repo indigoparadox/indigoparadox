@@ -5,6 +5,9 @@
 /* dnl :section: tutorials
  */
 
+/* dnl :sect: Preamble
+ */
+
 /* Include The system iwz_filename(windows.h) header for constants and
  * functions used below. This pulls in the system OpenGL headers automatically.
  */
@@ -24,6 +27,9 @@
  * handler code in iwz_func(WndProc()), below, for more information.
  */
 #define WIN_TIMER_ID 1000
+
+/* dnl :sect: Window Message Processor
+ */
 
 /* Setup the window message processing callback. This will be called for each
  * Win32 message received by the application window and defines how the window
@@ -166,6 +172,9 @@ LRESULT CALLBACK WndProc(
       return DefWindowProc( hWnd, message, wParam, lParam );
    }
 }
+
+/* dnl :sect: Main Function
+ */
 
 /* This is the application entry point. In traditional C, this would be
  * defined as iwz_func(main()), and most modern Windows compilers can also
