@@ -11,14 +11,14 @@
  </div>
  <div class="iwz-sidebar">
   <h3>Web Zone Navigation</h3>
-  <ul class="iwz-nav">
+  <ul class="iwz-nav iwz-nav-int">
    <li><a href="/">Home</a></li>
    <li><a href="/projects">Projects</a></li>
    <li><a href="/tutorials">Tutorials</a></li>
    <li><a href="/bangers.html">Bangers</a></li>
   </ul>
   <h3>Other Web Zones</h3>
-  <ul>
+  <ul class="iwz-nav iwz-nav-ext">
    <li><a href="https://github.com/indigoparadox">Github</a></li>
    <li><a href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
   </ul>

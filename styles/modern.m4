@@ -18,6 +18,7 @@ a, a:visited {
 
 .iwz-title-sub {
    display: inline-block;
+   color: navy;
 }
 
 .iwz-title-sub::before {
@@ -59,11 +60,31 @@ a, a:visited {
 }
 
 .iwz-nav {
-   color: yellow;
+   list-style-type: none;
+   margin: 0;
+   padding: 0 20px;
+}
+
+.iwz-nav li {
+   border-bottom: 1px dotted white;
+   padding: 5px;
+}
+
+.iwz-nav li:last-child {
+   border-bottom: none;
 }
 
 .iwz-nav a, .iwz-nav a:visited {
+   text-decoration: none;
+}
+
+.iwz-nav-int a, .iwz-nav-int a:visited {
    color: yellow;
+}
+
+
+.iwz-nav-ext a, .iwz-nav-ext a:visited {
+   color: greenyellow;
 }
 
 .iwz-header {
