@@ -13,7 +13,7 @@ define([iwz_section_class], [ifdef([iwz_section], [ifelse(iwz_section, [$1], [iw
 
 define([iwz_breadcrumbs], [<a class="iwz-breadcrumbs" href="/iwz_section">Back to iwz_section</a>])
 
-define([iwz_iframe_proj], [<iframe src="http://$1.indigoparadox.zone" width="800" height="650" class="iwz-iframe-proj iwz-iframe-$1" frameborder="0" scrolling="no"></iframe>])
+define([iwz_iframe_proj], [<iframe src="https://$1.indigoparadox.zone" width="800" height="650" class="iwz-iframe-proj iwz-iframe-$1" frameborder="0" scrolling="no"></iframe>])
 
 define([iwz_twt_line], [ifelse([$1], [],, [<p>$1</p>iwz_twt_line(shift($@))])])
 
