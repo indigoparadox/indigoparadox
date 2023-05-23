@@ -155,6 +155,15 @@ a, a:visited {
    font-size: 0.8em;
 }
 
+.iwz-iframe-proj {
+   display: block;
+   margin: 0 auto;
+}
+
+.iwz-iframe-proj body {
+   background: transparent;
+}
+
 .iwz-video, .iwz-img {
    display: block;
    margin: 10px auto;
