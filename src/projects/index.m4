@@ -19,9 +19,9 @@ dnl iwz_proj_card([Retro Engines], [retro.html], [],
 dnl    [Libraries for building portable retro projects, as well as some examples.],
 dnl    [software,c,opengl])
 
-dnl iwz_proj_card([Neoroom], [neoroom.html], [],
-dnl    [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
-dnl    [software,html])
+iwz_proj_card([Neoroom], [neoroom.html], [],
+   [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
+   [software,html])
 
 iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
    [Brief teardown and look at one of the rarer late Tandy PC models.],
