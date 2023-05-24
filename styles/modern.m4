@@ -293,6 +293,15 @@ a, a:visited {
    outline: 2px solid black;
 }
 
+.iwz-inset {
+   border-top: 2px solid darkgray;
+   border-right: 2px solid white;
+   border-bottom: 2px solid white;
+   border-left: 2px solid darkgray;
+   outline: 2px solid black;
+   outline-offset: -4px;
+}
+
 .iwz-block {
    font-family: Arial, Helvetica, sans-serif;
    border-radius: 10px;
@@ -419,5 +428,84 @@ a, a:visited {
 .gnu-m4-4 {
    color: red;
    filter: drop-shadow( 1px 1px black );
+}
+
+.ns-logo {
+   background: darkcyan;
+   display: inline-block;
+   position: relative;
+   width: 22px;
+   height: 22px;
+   transform-style: preserve-3d;
+   vertical-align: middle;
+}
+
+.ns-logo-n {
+   font-family: "Times New Roman", Times, serif;
+   font-size: 22px;
+   color: white;
+   position: absolute;
+   top: -3px;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   transform: rotateY( 1deg ) translateZ( 1px );
+}
+
+.ns-logo-sphere {
+   background: black;
+   border-radius: 50% 50% 0 0;
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   height: 30%;
+   transform: translateZ( 1px );
+}
+
+.iwz-mastodon-feed {
+   margin: 10px auto;
+   width: 600px;
+}
+
+.iwz-mastodon-feed-title-link, .iwz-mastodon-feed-title-link:visited {
+   font-family: Arial, Helvetica, sans-serif;
+   background: navy;
+   color: white;
+   display: block;
+   width: 100%;
+   text-decoration: none;
+}
+
+.iwz-mastodon-feed-title {
+   font-size: 1em;
+   margin: 0;
+   padding: 2px 5px;
+}
+
+.iwz-mastodon-feed-title-name {
+   color: deeppink;
+}
+
+.iwz-mastodon-feed-toots {
+   background: white;
+   color: black;
+   margin: 2px;
+   padding: 5px;
+   height: 400px;
+   overflow-y: scroll;
+}
+
+.iwz-mastodon-toot {
+   border-top: 1px dotted black;
+   margin: 0 5px -5px 5px;
+   padding: 10px 5px 0 5px;
+}
+
+.iwz-mastodon-toot:first-child {
+   border-top: 0;
+}
+
+.iwz-mastodon-toot a, .iwz-mastodon-toot a:visited {
+   color: blue;
 }
 

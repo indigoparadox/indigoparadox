@@ -86,10 +86,18 @@ for t in `find src -name "*.m4"`; do
    proc_m4 "$t" "src" "$PAGE_LASTMOD"
 done
 
+# Process CSS.
 m4 "styles/modern.m4" > "modern/style.css"
+
+# Process scripts.
+mkdir -p modern/scripts
+for t in `find scripts -name "*.js"`; do
+   mkdir -p "modern/`dirname "$t"`"
+   cp -v "$t" "modern/`dirname "$t"`"
+done
 
 cp CNAME modern/CNAME
 
 mkdir -p modern/images
-cp -vRf images/* modern/images/
+cp -Rf images/* modern/images/
 

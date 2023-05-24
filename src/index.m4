@@ -4,6 +4,7 @@ changequote(`[', `]')
 define([iwz_root], 1)
 define([iwz_section], [home])
 define([iwz_root], 1)
+define([iwz_aux_scripts], [/scripts/iwz_mfeed.js])
 include([iwz_html.m4])
 divert(0)include([header.m4])
 
@@ -12,6 +13,8 @@ iwz_p([Welcome to the place on the web where we infodump on our hyperfixations a
 iwz_p([Most of the information here was logged by us to remind us how we did something in case it's useful later. Some of it was found in physical books, or buried in some dusty forgotten corner of the Internet Archive. We've tried to organize it so that it's useful.])
 
 iwz_p([If there are omissions, factual errors, or areas that could use elaboration, please feel free to iwz_let_us_know!])
+
+<div class="iwz-mastodon-feed"></div>
 
 iwz_p([iwz-hotline], [iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/previous], [Previous]) iwz_a([https://hotlinewebring.club/], [iwz_span([iwz-hotline-hotline], [Hotline Webring])]) iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/next], [Next])])
 

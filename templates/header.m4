@@ -3,6 +3,7 @@
 <head>
  <title>The indigoparadox Web ifdef([iwz_title], [Zone: iwz_title], [Zone])</title>
  <link href="/style.css" rel="stylesheet" type="text/css" />ifdef([iwz_aux_styles], [iwz_enum_styles(iwz_aux_styles)])
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>ifdef([iwz_aux_scripts], [iwz_enum_scripts(iwz_aux_scripts)])
 </head>
 <body>
  <div class="iwz-header">

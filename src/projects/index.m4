@@ -7,6 +7,10 @@ define([iwz_section], [projects])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_p([The projects on this page comprise (mostly ongoing) experiments and restorations with (mostly obsolete) technology. They are not intended as tutorials, per sea, but hopefully there is something interesting to learn from each of them.])
+
+iwz_p([We are working on a feasible semi-automated method of notifying when pages are updated, like a mailing list or RSS feed. In the meantime, significant updates should be announced on iwz_a_ipage([/], [our Mastodon feed])!])
+
 iwz_proj_card([OpenGL in Visual Basic 4], [vb4gl.html], [],
    [OpenGL 1.0 support in Visual Basic 4.0 on Windows 9x/NT.],
    [software,visual-basic,opengl])

@@ -3,6 +3,8 @@ define([iwz_count_args], [$#])
 
 define([iwz_enum_styles], [ifelse([$1], [],, [<link href="$1" rel="stylesheet" type="text/css" />shift($@)])])
 
+define([iwz_enum_scripts], [ifelse([$1], [],, [<script src="$1" type="application/javascript"></script>shift($@)])])
+
 define([iwz_num_src_lines], 0)
 
 define([iwz_count_src_lines], [define([iwz_num_src_lines], eval(iwz_num_src_lines + 1)) iwz_num_src_lines])
