@@ -16,6 +16,8 @@ iwz_p([The fact that modern web pages can do this is still incredible, to us.])
 
 iwz_sect([Composition])
 
+iwz_p([Some highlights are called out below, but the source code is also available in iwz_a_repo([the neoroom repo], [indigoparadox], [neoroom]).])
+
 iwz_p([This example uses JavaScript to create and position the divs. But it is entirely possible to do this on a static page (save for possibly the interactive click-to-rotate buttons).])
 
 iwz_p([We built an intermediate layer we call "RoomJL" on top of jQuery that moves and sizes the divs (which we call quads, internally) and applies CSS transforms. Models like the bench or desk are built on top of this.])
