@@ -17,11 +17,13 @@ $(document).ready( function() {
 
       // Add each feed item to the element.
       $.each( $('item', channel), function( idx, item ) {
+         var itemDate = new Date( $(item).find('pubDate').text() );
+
          $('.iwz-mastodon-feed-toots', feedElement).append(
             '<div class="iwz-mastodon-toot">' +
             '<div class="iwz-mastodon-toot-date"><a href="' +
                $(item).find('link').first().text() + '">' +
-               $(item).find('pubDate').text() + '</a></div>' +
+               itemDate.toLocaleString() + '</a></div>' +
             $(item).find('description').text() + '</div>' );
       } );
    } );
