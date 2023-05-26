@@ -4,6 +4,8 @@
 .iwz-mastodon-feed {
    margin: 10px auto;
    width: 600px;
+   height: 450px;
+   opacity: 0;
 }
 
 .iwz-mastodon-feed-title-link, .iwz-mastodon-feed-title-link:visited {

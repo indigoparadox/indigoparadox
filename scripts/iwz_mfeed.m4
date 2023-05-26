@@ -1,10 +1,9 @@
 divert(-1)
+/* vim: set syntax=javascript: */
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
 divert(0)
-
-/* vim: set syntax=javascript: */
 
 $(document).ready( function() {
    var feedElement = $('.iwz-mastodon-feed');
@@ -34,6 +33,8 @@ $(document).ready( function() {
                itemDate.toLocaleString() + '</a></div>' +
             $(item).find('description').text() + '</div>' );
       } );
+
+      $(feedElement).animate( { 'opacity': 1 } );
    } );
 } );
 
