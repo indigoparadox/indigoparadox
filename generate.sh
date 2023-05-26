@@ -87,7 +87,16 @@ for t in `find src -name "*.m4"`; do
 done
 
 # Process CSS.
-m4 "styles/modern.m4" > "modern/style.css"
+mkdir -p modern/styles
+for t in `find styles -name "*.m4"`; do
+   DEST_NAME="modern/`dirname "$t"`/`basename "$t" .m4`.css"
+
+   mkdir -p "modern/`dirname "$t"`"
+
+   echo "$t > $DEST_NAME"
+   
+   m4 "$t" > "$DEST_NAME"
+done
 
 # Process scripts.
 mkdir -p modern/scripts

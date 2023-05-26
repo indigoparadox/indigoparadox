@@ -5,6 +5,7 @@ define([iwz_root], 1)
 define([iwz_section], [home])
 define([iwz_root], 1)
 define([iwz_aux_scripts], [/scripts/iwz_mfeed.js])
+define([iwz_aux_styles], [/styles/iwz_mfeed.css])
 include([iwz_html.m4])
 divert(0)include([header.m4])
 
