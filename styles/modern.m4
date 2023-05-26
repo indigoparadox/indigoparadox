@@ -301,7 +301,7 @@ a, a:visited {
    border-bottom: 2px solid white;
    border-left: 2px solid darkgray;
    outline: 2px solid black;
-   outline-offset: -4px;
+   outline-offset: -3px;
 }
 
 .iwz-block {

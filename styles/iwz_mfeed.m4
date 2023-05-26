@@ -32,7 +32,7 @@
    color: black;
    margin: 2px;
    padding: 5px;
-   height: 400px;
+   height: 410px;
    overflow-y: scroll;
 }
 
