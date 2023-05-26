@@ -15,6 +15,7 @@
   <h3>Web Zone Navigation</h3>
   <ul class="iwz-nav iwz-nav-int">
    <li><a class="iwz_section_class(home)" href="/">Home</a></li>
+   <li><a class="iwz_section_class(computers)" href="/computers">Computers</a></li>
    <li><a class="iwz_section_class(projects)" href="/projects">Projects</a></li>
    <li><a class="iwz_section_class(tutorials)" href="/tutorials">Tutorials</a></li>
    <li><a class="iwz_section_class(bangers)" href="/bangers">Bangers</a></li>

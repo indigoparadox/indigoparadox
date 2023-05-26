@@ -31,10 +31,6 @@ iwz_proj_card([MIDI Box], [midibox.html], [],
    [Basic PC game port to MIDI DIN/3.5" miniplug interface box.],
    [hardware,midi])
 
-iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
-   [Brief teardown and look at one of the rarer late Tandy PC models.],
-   [hardware,pc])
-
 iwz_proj_card([Webdows 95], [webdows95.html], [],
    [HTML/JS-based simulation of Windows 95 for the web.],
    [web], [operating systems])

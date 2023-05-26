@@ -32,7 +32,7 @@ iwz_video(
    [/images/midibox/midisid-simcity.mp4],
    [Visual of the title screen for SimCity for Windows while the theme plays rendered through the MIDISID.])
 
-iwz_p([Please enjoy this rendition of the SimCity for Windows theme. It's rendered from our iwz_a_ipage([/projects/t4850ep.html], [Tandy 4850 EP]) through the MIDI Box to a iwz_a([https://peacockmedia.software/midisid/], [MIDISID]).])
+iwz_p([Please enjoy this rendition of the SimCity for Windows theme. It's rendered from our iwz_a_ipage([/computers/t4850ep.html], [Tandy 4850 EP]) through the MIDI Box to a iwz_a([https://peacockmedia.software/midisid/], [MIDISID]).])
 
 include([footer.m4])
 

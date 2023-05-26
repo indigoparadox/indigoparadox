@@ -3,7 +3,7 @@ changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
 define([iwz_title], [Tandy 4850 EP])
-define([iwz_section], [projects])
+define([iwz_section], [computers])
 divert(0)include([header.m4])
 
 iwz_img(
