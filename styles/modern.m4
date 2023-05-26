@@ -1,4 +1,6 @@
 
+/* vim: set syntax=css: */
+
 body {
    background: navy;
    color: white;

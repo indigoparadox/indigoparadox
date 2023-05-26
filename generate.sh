@@ -94,8 +94,7 @@ for t in `find styles -name "*.m4"`; do
    mkdir -p "modern/`dirname "$t"`"
 
    echo "$t > $DEST_NAME"
-   
-   m4 "$t" > "$DEST_NAME"
+   m4 -I ./templates "$t" > "$DEST_NAME"
 done
 
 # Process scripts.
@@ -103,6 +102,12 @@ mkdir -p modern/scripts
 for t in `find scripts -name "*.js"`; do
    mkdir -p "modern/`dirname "$t"`"
    cp -v "$t" "modern/`dirname "$t"`"
+done
+for t in `find scripts -name "*.m4"`; do
+   DEST_NAME="modern/`dirname "$t"`/`basename "$t" .m4`.js"
+   mkdir -p "modern/`dirname "$t"`"
+   echo "$t > $DEST_NAME"
+   m4 -I ./templates "$t" > "$DEST_NAME"
 done
 
 cp CNAME modern/CNAME

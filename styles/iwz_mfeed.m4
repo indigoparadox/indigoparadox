@@ -1,4 +1,6 @@
 
+/* vim: set syntax=css: */
+
 .iwz-mastodon-feed {
    margin: 10px auto;
    width: 600px;
@@ -44,5 +46,11 @@
 
 .iwz-mastodon-toot a, .iwz-mastodon-toot a:visited {
    color: blue;
+}
+
+.iwz-mastodon-toot .iwz-icon-profile {
+   margin-right: 10px;
+   margin-bottom: 10px;
+   float: left;
 }
 

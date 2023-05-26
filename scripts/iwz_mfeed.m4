@@ -1,3 +1,10 @@
+divert(-1)
+changecom()
+changequote(`[', `]') 
+include([iwz_html.m4])
+divert(0)
+
+/* vim: set syntax=javascript: */
 
 $(document).ready( function() {
    var feedElement = $('.iwz-mastodon-feed');
@@ -21,6 +28,7 @@ $(document).ready( function() {
 
          $('.iwz-mastodon-feed-toots', feedElement).append(
             '<div class="iwz-mastodon-toot">' +
+            'iwz_profile_pic( 64 )' +
             '<div class="iwz-mastodon-toot-date"><a href="' +
                $(item).find('link').first().text() + '">' +
                itemDate.toLocaleString() + '</a></div>' +
