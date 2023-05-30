@@ -12,7 +12,7 @@ iwz_img(
 
 iwz_sect([Introduction])
 
-iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Hard Disk], [500MB])
+iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Hard Disk], [500MB], [Ports], [2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25])
 
 iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
 
