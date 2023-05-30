@@ -20,10 +20,14 @@
    <li><a class="iwz_section_class(tutorials)" href="/tutorials">Tutorials</a></li>
    <li><a class="iwz_section_class(bangers)" href="/bangers">Bangers</a></li>
   </ul>
-  <h3>Other Web Zones</h3>
+  <h3>Related Web Zones</h3>
   <ul class="iwz-nav iwz-nav-ext">
    <li><a href="https://github.com/indigoparadox">Github</a></li>
    <li><a href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
   </ul>
  </div>
  <div class="iwz-body">
