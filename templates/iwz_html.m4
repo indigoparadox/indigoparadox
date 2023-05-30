@@ -117,6 +117,10 @@ define([iwz_block_quality],
       <p>It may be out of date, and/or not adhere to style or quality guidelines maintained by the rest of this web zone.</p>
    </div>])
 
+define([iwz_block_pcspec_line], [ifelse([$1], [],, [<tr><td class="iwz-pcspec-key">$1</td><td class="iwz-pcspec-value">$2</td>iwz_block_pcspec_line(shift(shift($@)))])])
+
+define([iwz_block_pcspec], [<div class="iwz-block iwz-pcspec"><table class="iwz-pcspec-table">iwz_block_pcspec_line($@)</table><p class="iwz-pcspec-note">This information pertains to a particular specimen and may reflect upgrades, repairs, modifications, or factory options not present by default.</p></div>])
+
 define([iwz_let_us_know], [iwz_a([https://github.com/indigoparadox/indigoparadox/issues], [let us know])])
 
 define([iwz_profile_pic], [<div class="iwz-icon-profile iwz-icon-profile-$1"> <div class="iwz-icon-profile-nocollapse-top"></div> <div class="iwz-icon-profile-hair"> <div class="iwz-icon-profile-face"> <div class="iwz-icon-profile-eyes"> <div class="iwz-icon-profile-eyebrow iwz-icon-profile-brow-left"></div> <div class="iwz-icon-profile-eye iwz-icon-profile-eye-left"> <div class="iwz-icon-profile-eye-iris"> <div class="iwz-icon-profile-eye-pupil"></div> </div> </div> <div class="iwz-icon-profile-eyebrow iwz-icon-profile-brow-right"></div> <div class="iwz-icon-profile-eye iwz-icon-profile-eye-right"> <div class="iwz-icon-profile-eye-iris"> <div class="iwz-icon-profile-eye-pupil"></div> </div> </div> </div> </div> <div class="iwz-icon-profile-collar iwz-icon-profile-cllrleft"></div> <div class="iwz-icon-profile-collar iwz-icon-profile-cllright"></div> <div class="iwz-icon-profile-neck"></div> </div> <div class="iwz-icon-profile-shoulders"> <div class="iwz-icon-profile-arms"> <div class="iwz-icon-profile-necktie"></div> <div class="iwz-icon-profile-pocket"></div> </div> </div> </div>])

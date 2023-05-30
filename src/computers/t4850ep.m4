@@ -12,9 +12,11 @@ iwz_img(
 
 iwz_sect([Introduction])
 
+iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Hard Disk], [500MB])
+
 iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
 
-iwz_p([My Tandy 4850 EP belonged to my grandfather until he upgraded around the mid-to-late 90s. He installed a Pro Audio Spectrum 16 sound card, as well as Windows 95 on it when that came out, and it ran fairly well on the 486 DX2 55MHz CPU, albeit stuck in 256 colors on the built-in Western Digital video chip.])
+iwz_p([My Tandy 4850 EP belonged to my grandfather until he upgraded around the mid-to-late 90s. He installed a Pro Audio Spectrum 16 sound card, as well as Windows 95 on it when that came out, and it ran fairly well on the 486 DX2 55MHz CPU, albeit stuck in 256 colors on the built-in Western Digital video chip. It does seem that he upgraded the video RAM to 1MB, at some point (SW1P6 is set to OFF per Tandy faxback 01013).])
 
 iwz_p([During my stewardship of the machine, I have replaced the original floppy with a modded GoTek floppy emulator and upgraded the Sony external CD-ROM my grandfather had added to an internal 52X IDE unit.])
 

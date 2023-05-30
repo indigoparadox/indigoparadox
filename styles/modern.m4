@@ -321,6 +321,22 @@ a, a:visited {
    background: darkred;
 }
 
+.iwz-pcspec {
+   background: teal;
+}
+
+.iwz-pcspec-key {
+   font-weight: bold;
+   padding: 0 5px;
+}
+
+.iwz-pcspec-value {
+}
+
+.iwz-pcspec-note {
+   font-size: 0.8em;
+}
+
 .iwz-hotline {
    display: table;
    margin: 20px auto;
