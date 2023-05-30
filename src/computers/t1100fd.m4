@@ -10,6 +10,14 @@ iwz_img(
    [/images/t1100fd/front-open.jpg],
    [Front view of the Tandy 1100FD open, with the keyboard and old-timey monochrome liquid crystal display visible.])
 
+iwz_sect([Introduction])
+
+iwz_block_pcspec([CPU], [NEC V20 10MHHz], [RAM], [640KB], [Video], [Monochrome CGA-Compatible])
+
+iwz_p([This was an immediate buy based on its relatively low price at the time, coupled with its monochrome LCD screen which deeply appealed to our sensibilities. Our childhood fondness for the Tandy brand may have also been a factor.])
+
+iwz_p([Connectivity is limited and the 8088-alike CPU puts this among the bottom rungs of PC performance. On the other hand, the OS in ROM simplifies some things and makes it a quaint machine for word processing.])
+
 iwz_sect([Clock Crystal Replacement])
 
 iwz_img(
