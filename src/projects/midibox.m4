@@ -26,6 +26,8 @@ iwz_img(
 
 iwz_p([The circuit is very simple. This schematic is missing the 3.5" miniplug for the MIDI-IN port (J1), but that should be trivial to add in parallel by copying the 3.5" jack (J3) wired to the MIDI-OUT port (J2).])
 
+iwz_p([The latest version of KiCad files can be found at the iwz_a_repo([midimbox repo], [indigoparadox], [midimbox]).])
+
 iwz_sect(Demonstration)
 
 iwz_video(
