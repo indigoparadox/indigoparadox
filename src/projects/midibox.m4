@@ -36,5 +36,20 @@ iwz_video(
 
 iwz_p([Please enjoy this rendition of the SimCity for Windows theme. It's rendered from our iwz_a_ipage([/computers/t4850ep.html], [Tandy 4850 EP]) through the MIDI Box to a iwz_a([https://peacockmedia.software/midisid/], [MIDISID]).])
 
+iwz_sect(References)
+
+iwz_refs([
+   iwz_ref([http://midi.teragonaudio.com/tech/midispec/hardware.htm],
+      [MIDI Specification: Hardware])
+   iwz_ref([https://www.ozvalveamps.org/techsite/midibox/midibox.html],
+      [MIDI Soundcard adaptor])
+   iwz_ref([http://www.mirsoft.info/gamemids-ripping-guide.php],
+      [PC Game Midi Ripping Guide])
+   iwz_ref([https://minimidi.world/],
+      [A simplified guide to MIDI over TRS minijacks])
+   iwz_ref([https://sonicstate.com/news/2018/08/22/how-to-wire-a-trs-midi-connection/],
+      [How To Wire A TRS MIDI Connection])
+])
+
 include([footer.m4])
 
