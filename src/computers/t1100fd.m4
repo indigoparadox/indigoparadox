@@ -32,6 +32,8 @@ iwz_sect([GoTek Floppy Emulator])
 
 iwz_p([Through hints in various forums, we learned it might be possible to replace the internal floppy drive with a more modern GoTek emulator through the use of a iwz_a([https://floppyemulator.com/products/34-24p1-25adaptor/], [34- to 24-pin adaptor]). The floppy drive mount holds a standard-size floppy drive, though the front bezel had to be cut out with a Dremel. It's a tight fit, but it *does* fit!])
 
+iwz_p([One snag that I got caught on was the jumper configuration: S1 must be closed and S0 must be open! If the drive is not responding to DOS commands, this may be the issue.])
+
 iwz_sect([Screenshots])
 
 iwz_p([Similar to the HP 200LX, this machine has a monochrome LCD with no backlight. This unit is also CGA-compatible, though it is quite a bit larger than the 200LX.])
