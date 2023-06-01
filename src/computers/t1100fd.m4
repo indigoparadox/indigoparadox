@@ -32,7 +32,9 @@ iwz_sect([GoTek Floppy Emulator])
 
 iwz_p([Through hints in various forums, we learned it might be possible to replace the internal floppy drive with a more modern GoTek emulator through the use of a iwz_a([https://floppyemulator.com/products/34-24p1-25adaptor/], [34- to 24-pin adaptor]). The floppy drive mount holds a standard-size floppy drive, though the front bezel had to be cut out with a Dremel. It's a tight fit, but it *does* fit!])
 
-iwz_p([One snag that I got caught on was the jumper configuration: S1 must be closed and S0 must be open! If the drive is not responding to DOS commands, this may be the issue.])
+iwz_p([One snag that we got caught on was the jumper configuration: S1 must be closed and S0 must be open! If the drive is not responding to DOS commands, this may be the issue.])
+
+iwz_p([Once the floppy emulator is connected, please also keep in mind that it can only load up to 720k-sized images. HD floppies are not supported by the controller on the 1100FD.])
 
 iwz_sect([Screenshots])
 
