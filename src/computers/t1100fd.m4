@@ -8,7 +8,11 @@ divert(0)include([header.m4])
 
 iwz_img(
    [/images/t1100fd/front-open.jpg],
-   [Front view of the Tandy 1100FD open, with the keyboard and old-timey monochrome liquid crystal display visible.])
+   [Front view of the Tandy 1100FD with the old-timey monochrome liquid crystal display upright and visible.])
+
+iwz_img(
+   [/images/t1100fd/inside-mboard.jpg],
+   [Inside of the Tandy 1100FD motherboard.])
 
 iwz_sect([Introduction])
 
@@ -29,6 +33,10 @@ iwz_p([For a while, we thought we had fried the ROM chip by attempting to read i
 iwz_p([As it turns out, on closer inspection, we had broken a 16MHz ceramic oscillator next to the ROM socket. While we weren't able to find an identical part, we replaced it with a common quartz crystal oscillator (the little tin-can-type) and now it boots again!])
 
 iwz_sect([GoTek Floppy Emulator])
+
+iwz_img(
+   [/images/t1100fd/t1100fd-gotek.jpg],
+   [Side view of the Tandy 1100FD, with the screen in the upright position. A GoTek floppy emulator with LCD and jog dial mods is installed in the side where the floppy drive used to be.])
 
 iwz_p([Through hints in various forums, we learned it might be possible to replace the internal floppy drive with a more modern GoTek emulator through the use of a iwz_a([https://floppyemulator.com/products/34-24p1-25adaptor/], [34- to 24-pin adaptor]). The floppy drive mount holds a standard-size floppy drive, though the front bezel had to be cut out with a Dremel. It's a tight fit, but it *does* fit!])
 
