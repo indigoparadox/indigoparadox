@@ -56,4 +56,16 @@ iwz_img(
    [/images/t1100fd/simcity-copypro.jpg],
    [Tandy 1100FD displaying the SimCity gameplay screen in monochrome green/black. The copy protection dialog is on top.])
 
+iwz_img(
+   [/images/t1100fd/zzt-title.jpg],
+   [Tandy 1100FD displaying the Town of ZZT title screen with the contrast turned up to emphasize the light grays in the CGA display.])
+
+iwz_img(
+   [/images/t1100fd/zzt-config.jpg],
+   [Tandy 1100FD displaying the ZZT mouse/keyboard select prompt. Some of the text is very light.]])
+
+iwz_img(
+   [/images/t1100fd/fs4-runway.jpg],
+   [Tandy 1100FD displaying the Flight Simulator 4 simulation screen, sitting on the runway.])
+
 include([footer.m4])
