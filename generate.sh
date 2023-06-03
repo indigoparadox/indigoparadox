@@ -1,12 +1,18 @@
 #!/bin/bash
 
 IWZ_TEMPDIR="temp"
+IWZ_PROD=0
+
+if [ "$1" = "prod" ]; then
+   IWZ_PROD=1
+fi
 
 function proc_m4() {
    DEST_DIRNAME="`dirname "$1" | sed -e "s/^$2/modern/g"`"
    mkdir -p "$DEST_DIRNAME"
    echo "processing $1..."
-   m4 -I ./templates -I "$IWZ_TEMPDIR" -D IWZ_LASTMOD="$3" "$1" > \
+   m4 -I ./templates -I "$IWZ_TEMPDIR" \
+      -D IWZ_PROD=$IWZ_PROD -D IWZ_LASTMOD="$3" "$1" > \
       "$DEST_DIRNAME/`basename "$1" .m4`.html"
 }
 

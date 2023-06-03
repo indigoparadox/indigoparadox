@@ -8,7 +8,11 @@ divert(0)include([header.m4])
 
 iwz_img(
    [/images/t1100fd/front-open.jpg],
-   [Front view of the Tandy 1100FD open, with the keyboard and old-timey monochrome liquid crystal display visible.])
+   [Front view of the Tandy 1100FD with the old-timey monochrome liquid crystal display upright and visible.])
+
+iwz_img(
+   [/images/t1100fd/inside-mboard.jpg],
+   [Inside of the Tandy 1100FD motherboard.])
 
 iwz_sect([Introduction])
 
@@ -30,7 +34,15 @@ iwz_p([As it turns out, on closer inspection, we had broken a 16MHz ceramic osci
 
 iwz_sect([GoTek Floppy Emulator])
 
+iwz_img(
+   [/images/t1100fd/t1100fd-gotek.jpg],
+   [Side view of the Tandy 1100FD, with the screen in the upright position. A GoTek floppy emulator with LCD and jog dial mods is installed in the side where the floppy drive used to be.])
+
 iwz_p([Through hints in various forums, we learned it might be possible to replace the internal floppy drive with a more modern GoTek emulator through the use of a iwz_a([https://floppyemulator.com/products/34-24p1-25adaptor/], [34- to 24-pin adaptor]). The floppy drive mount holds a standard-size floppy drive, though the front bezel had to be cut out with a Dremel. It's a tight fit, but it *does* fit!])
+
+iwz_p([One snag that we got caught on was the jumper configuration: S1 must be closed and S0 must be open! If the drive is not responding to DOS commands, this may be the issue.])
+
+iwz_p([Once the floppy emulator is connected, please also keep in mind that it can only load up to 720k-sized images. HD floppies are not supported by the controller on the 1100FD.])
 
 iwz_sect([Screenshots])
 
@@ -43,5 +55,17 @@ iwz_img(
 iwz_img(
    [/images/t1100fd/simcity-copypro.jpg],
    [Tandy 1100FD displaying the SimCity gameplay screen in monochrome green/black. The copy protection dialog is on top.])
+
+iwz_img(
+   [/images/t1100fd/zzt-title.jpg],
+   [Tandy 1100FD displaying the Town of ZZT title screen with the contrast turned up to emphasize the light grays in the CGA display.])
+
+iwz_img(
+   [/images/t1100fd/zzt-config.jpg],
+   [Tandy 1100FD displaying the ZZT mouse/keyboard select prompt. Some of the text is very light.]])
+
+iwz_img(
+   [/images/t1100fd/fs4-runway.jpg],
+   [Tandy 1100FD displaying the Flight Simulator 4 simulation screen, sitting on the runway.])
 
 include([footer.m4])

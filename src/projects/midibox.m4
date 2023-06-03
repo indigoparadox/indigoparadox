@@ -26,6 +26,8 @@ iwz_img(
 
 iwz_p([The circuit is very simple. This schematic is missing the 3.5" miniplug for the MIDI-IN port (J1), but that should be trivial to add in parallel by copying the 3.5" jack (J3) wired to the MIDI-OUT port (J2).])
 
+iwz_p([The latest version of KiCad files can be found at the iwz_a_repo([midimbox repo], [indigoparadox], [midimbox]).])
+
 iwz_sect(Demonstration)
 
 iwz_video(
@@ -33,6 +35,21 @@ iwz_video(
    [Visual of the title screen for SimCity for Windows while the theme plays rendered through the MIDISID.])
 
 iwz_p([Please enjoy this rendition of the SimCity for Windows theme. It's rendered from our iwz_a_ipage([/computers/t4850ep.html], [Tandy 4850 EP]) through the MIDI Box to a iwz_a([https://peacockmedia.software/midisid/], [MIDISID]).])
+
+iwz_sect(References)
+
+iwz_refs([
+   iwz_ref([http://midi.teragonaudio.com/tech/midispec/hardware.htm],
+      [MIDI Specification: Hardware])
+   iwz_ref([https://www.ozvalveamps.org/techsite/midibox/midibox.html],
+      [MIDI Soundcard adaptor])
+   iwz_ref([http://www.mirsoft.info/gamemids-ripping-guide.php],
+      [PC Game Midi Ripping Guide])
+   iwz_ref([https://minimidi.world/],
+      [A simplified guide to MIDI over TRS minijacks])
+   iwz_ref([https://sonicstate.com/news/2018/08/22/how-to-wire-a-trs-midi-connection/],
+      [How To Wire A TRS MIDI Connection])
+])
 
 include([footer.m4])
 
