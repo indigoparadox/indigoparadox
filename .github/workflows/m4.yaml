@@ -13,7 +13,7 @@ jobs:
         submodules: recursive
 
     - name: Process Templates
-      run: ./generate.sh
+      run: ./generate.sh prod
 
     - name: Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
