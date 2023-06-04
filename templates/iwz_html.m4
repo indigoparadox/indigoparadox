@@ -131,3 +131,5 @@ define([iwz_profile_pic], [<div class="iwz-icon-profile iwz-icon-profile-$1"> <d
 
 define([iwz_head_counter], [ifelse(IWZ_PROD, 1, [<script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>])])
 
+define([iwz_esoteric_os], [<dt><a href="$2">$1</a></dt><dd>$3</dd>])
+
