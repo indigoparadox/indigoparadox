@@ -125,6 +125,10 @@ define([iwz_refs], [<ol class="iwz-refs">$1<ol>])
 
 define([iwz_ref], [<li>iwz_a([$1], [$2])</li>])
 
+define([iwz_suml], [<dl class="iwz-sum-list">$1</dl>])
+
+define([iwz_suml_item], [<dt class="iwz-sum-list-item">$1</dt><dd class="iwz-sum-list-desc">$2</dd>])
+
 define([iwz_let_us_know], [iwz_a([https://github.com/indigoparadox/indigoparadox/issues], [let us know])])
 
 define([iwz_profile_pic], [<div class="iwz-icon-profile iwz-icon-profile-$1"> <div class="iwz-icon-profile-nocollapse-top"></div> <div class="iwz-icon-profile-hair"> <div class="iwz-icon-profile-face"> <div class="iwz-icon-profile-eyes"> <div class="iwz-icon-profile-eyebrow iwz-icon-profile-brow-left"></div> <div class="iwz-icon-profile-eye iwz-icon-profile-eye-left"> <div class="iwz-icon-profile-eye-iris"> <div class="iwz-icon-profile-eye-pupil"></div> </div> </div> <div class="iwz-icon-profile-eyebrow iwz-icon-profile-brow-right"></div> <div class="iwz-icon-profile-eye iwz-icon-profile-eye-right"> <div class="iwz-icon-profile-eye-iris"> <div class="iwz-icon-profile-eye-pupil"></div> </div> </div> </div> </div> <div class="iwz-icon-profile-collar iwz-icon-profile-cllrleft"></div> <div class="iwz-icon-profile-collar iwz-icon-profile-cllright"></div> <div class="iwz-icon-profile-neck"></div> </div> <div class="iwz-icon-profile-shoulders"> <div class="iwz-icon-profile-arms"> <div class="iwz-icon-profile-necktie"></div> <div class="iwz-icon-profile-pocket"></div> </div> </div> </div>])
