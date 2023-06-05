@@ -7,8 +7,10 @@ define([iwz_section], [esotericos])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
-<dl>
+<dl class="iwz-esoteric-os-list">
 
+iwz_esoteric_os([SerenityOS], [https://serenityos.org/], [A love letter to '90s user interfaces with a custom Unix-like core.])
+iwz_esoteric_os([duckOS], [https://github.com/byteduck/duckOS], [An x86 monolithic kernel in C++ with graphical applications and command line utilities.])
 iwz_esoteric_os([Phantom OS], [https://old.reddit.com/r/EsotericOS/comments/d61xr2/phantom_os_based_on_a_concept_of_persistent/], [Based on a concept of persistent virtual memory, where “everything is an object”])
 iwz_esoteric_os([Ghost OS], [https://old.reddit.com/r/EsotericOS/comments/d1zwsx/ghost_os_an_opensource_hobby_operating_system_and/], [An open-source hobby operating system and kernel])
 iwz_esoteric_os([SharpOS], [https://old.reddit.com/r/EsotericOS/comments/d206g8/sharpos_a_computer_operating_system_based_on_the/], [A computer operating system based on the .NET Framework and C#])
