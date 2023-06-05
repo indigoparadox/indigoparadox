@@ -28,7 +28,7 @@ iwz_img(
    [/images/hand386/hand386-sc2k.jpg],
    [SimCity 2000 for DOS title screen displayed on a big monitor hooked up to the Hand386 over a messy desk. The screen is... not *too* dark...])
 
-iwz_p([Some games may require a VESA driver. A VESA driver compatible with the built-in chipset is included as iwz_filename([C:\VESA.COM])! This works with e.g. SimCity 2000.])
+iwz_p([Some games may require a VESA driver. A VESA driver compatible with the built-in chipset is included as iwz_filename([C:\VESA.COM])! This works with e.g. SimCity 2000. (Thanks to iwz_a([https://bitbang.social/@polpo], [Ian Scott]) for pointing this out!)])
 
 iwz_sect([ISA Bus])
 
