@@ -2,12 +2,12 @@ divert(-1)
 changecom()
 changequote(`[', `]') 
 include([iwz_html.m4])
-define([iwz_title], [EsotericOS])
-define([iwz_section], [esotericos])
+define([iwz_title], [AltOS])
+define([iwz_section], [altos])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
-<dl class="iwz-esoteric-os-list">
+<dl class="iwz-alt-os-list">
 
 iwz_esoteric_os([SerenityOS], [https://serenityos.org/], [A love letter to '90s user interfaces with a custom Unix-like core.])
 iwz_esoteric_os([duckOS], [https://github.com/byteduck/duckOS], [An x86 monolithic kernel in C++ with graphical applications and command line utilities.])
