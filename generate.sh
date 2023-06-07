@@ -121,5 +121,6 @@ cp CNAME modern/CNAME
 mkdir -p modern/images
 cp -Rf images/* modern/images/
 
-find modern/ -name "*.html" | sed -e 's/^modern/https:\/\/indigoparadox.zone/g' > modern/sitemap.txt
+# Add pages (except error pages!) to sitemap.
+find modern/ -name "*.html" | grep -v "404.html$" | sed -e 's/^modern/https:\/\/indigoparadox.zone/g' > modern/sitemap.txt
 
