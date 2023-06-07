@@ -121,3 +121,5 @@ cp CNAME modern/CNAME
 mkdir -p modern/images
 cp -Rf images/* modern/images/
 
+find modern/ -name "*.html" | sed -e 's/^modern/https:\/\/indigoparadox.zone/g' > modern/sitemap.txt
+
