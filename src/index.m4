@@ -17,6 +17,8 @@ iwz_p([If there are omissions, factual errors, or areas that could use elaborati
 
 <div class="iwz-mastodon-feed"></div>
 
-iwz_p([iwz-hotline], [iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/previous], [Previous]) iwz_a([https://hotlinewebring.club/], [iwz_span([iwz-hotline-hotline], [Hotline Webring])]) iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/next], [Next])])
+iwz_p([iwz-webring iwz-hotline], [iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/previous], [Previous]) iwz_a([iwz-hotline-hotline], [https://hotlinewebring.club/], [Hotline Webring]) iwz_a([iwz-button], [https://hotlinewebring.club/indigoparadox/next], [Next])])
+
+iwz_p([iwz-webring iwz-retronaut], [iwz_a([iwz-button], [https://webring.dinhe.net/prev/https://indigoparadox.zone/], [Previous]) iwz_a([https://webring.dinhe.net/], [Retronaut Webring]) iwz_a([iwz-button], [https://webring.dinhe.net/next/https://indigoparadox.zone/], [Next])])
 
 include([footer.m4])

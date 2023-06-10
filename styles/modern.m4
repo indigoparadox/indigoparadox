@@ -337,23 +337,27 @@ a, a:visited {
    font-size: 0.8em;
 }
 
-.iwz-hotline {
+.iwz-webring {
    display: table;
    margin: 20px auto;
 }
 
-.iwz-hotline-hotline {
+.iwz-hotline-hotline, .iwz-hotline-hotline:visited {
    font-family: Arial, Helvetica, sans-serif;
    font-weight: bold;
    color: red;
    filter: drop-shadow( 2px 2px black );
+   text-decoration: none;
 }
 
-.iwz-hotline a, .iwz-hotline a:visited {
-   color: black;
+.iwz-webring a, .iwz-webring a:visited {
    display: inline-block;
    margin: 10px;
    padding: 5px 10px;
+}
+
+.iwz-webring .iwz-button, .iwz-hotline .iwz-button:visited {
+   color: black;
    text-decoration: none;
 }
 
