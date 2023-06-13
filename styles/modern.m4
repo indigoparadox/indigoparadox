@@ -35,6 +35,24 @@ a, a:visited {
    margin-right: 5px;
 }
 
+.iwz-sum-list {
+   display: table;
+   margin: 10px auto;
+   width: 90%;
+}
+
+.iwz-sum-list-item {
+   color: gold;
+   margin-bottom: 5px;
+}
+
+.iwz-sum-list-desc {
+   border-top: 1px solid white;
+   margin-bottom: 10px;
+   margin-left: 0;
+   padding-top: 5px;
+}
+
 .iwz-sidebar {
    font-family: Arial, Helvetica, sans-serif;
    display: block;
