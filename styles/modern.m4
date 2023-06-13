@@ -14,6 +14,10 @@ a, a:visited {
    color: cyan;
 }
 
+.iwz-span-bold {
+   font-weight: bold;
+}
+
 .iwz-title-iwz {
    display: inline-block;
    margin: 0;
@@ -94,6 +98,21 @@ a, a:visited {
 
 .iwz-nav a.iwz-section-active, .iwz-nav a.iwz-section-active:visited {
    color: orange;
+}
+
+.iwz-sect-header {
+   font-family: Arial, Helvetica, sans-serif;
+   color: gold;
+}
+
+.iwz-subsect-header {
+   font-family: Arial, Helvetica, sans-serif;
+   color: greenyellow;
+}
+
+.iwz-sect-idx, .iwz-subsect-idx {
+   font-size: 1.2em;
+   color: coral;
 }
 
 .iwz-header {

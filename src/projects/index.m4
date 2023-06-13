@@ -11,6 +11,10 @@ iwz_p([The projects on this page comprise (mostly ongoing) experiments and resto
 
 iwz_p([We are working on a feasible semi-automated method of notifying when pages are updated, like a mailing list or RSS feed. In the meantime, significant updates should be announced on iwz_a_ipage([/], [our Mastodon feed])!])
 
+iwz_proj_card([dbfetch and Sensor data], [dbfetch.html], [],
+   [Gathering environmental sensor information from various sources.],
+   [software,python,database])
+
 iwz_proj_card([OpenGL in Visual Basic 4], [vb4gl.html], [],
    [OpenGL 1.0 support in Visual Basic 4.0 on Windows 9x/NT.],
    [software,visual-basic,opengl])

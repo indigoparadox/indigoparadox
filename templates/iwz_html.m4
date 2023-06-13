@@ -27,9 +27,17 @@ define([iwz_toc], [])
 
 define([iwz_index], 0)
 
-define([iwz_sect], [define([iwz_index],eval(iwz_index+1))define([iwz_toc],iwz_toc <li><a href="#iwz_usafe($1)">$1</a></li>)<a id="iwz_usafe($1)"></a><h3>iwz_index. $1</h3>])
+define([iwz_index_sub], 0)
 
-define([iwz_subsect], [<h4>$1</h4>])
+define([iwz_sect], [
+   define([iwz_index], eval(iwz_index+1))
+   define([iwz_index_sub], 0)
+   define([iwz_toc], iwz_toc <li><a href="#iwz_usafe($1)">$1</a></li>)
+   <a id="iwz_usafe($1)"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">iwz_index.</span> $1</h3>])
+
+define([iwz_subsect], [
+   define([iwz_index_sub], eval(iwz_index_sub+1))
+   <a id="iwz_index-iwz_usafe($1)"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">iwz_index - iwz_index_sub.</span> $1</h4>])
 
 define([iwz_p], [ifelse(iwz_count_args($@),2,
    [<p class="$1">$2</p>], [<p>$1</p>])])
@@ -40,6 +48,10 @@ define([iwz_a], [ifelse(iwz_count_args($@),3,
    [<a class="$1" href="$2">$3</a>], [<a href="$1">$2</a>])])
 
 define([iwz_a_ipage], [<a href="$1">$2</a>])
+
+define([iwz_a_anchor], [<a href="$1">$2</a>])
+
+define([iwz_b], [<span class="iwz-span-bold">$1</span>])
 
 dnl If we change repo hosting in the future, we can put the new link info here:
 define([iwz_a_repo], [<a href="ifelse([$4], [],
