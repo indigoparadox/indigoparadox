@@ -22,7 +22,7 @@ iwz_p([During our stewardship of the machine, we have replaced the original flop
 
 iwz_sect([BIOS Images])
 
-iwz_p([Unlike earlier Tandy computers, the 4850 EP does not have an operating system or file system in ROM. It uses the Phoenix BIOS and, fortunately, it does have the setup utility in ROM. The BIOS is limited to a maximum hard disk size of 512 MB, but this can be worked around with disk extender software. Here are iwz_a([/images/t4850ep/t4850ep-bios.zip], [the Tandy 4850 EP BIOS images]).])
+iwz_p([Unlike earlier Tandy computers, the 4850 EP does not have an operating system or file system in ROM. It uses the Phoenix BIOS and, fortunately, it does have the setup utility in ROM. The BIOS is limited to a maximum hard disk size of 512 MB, but this can be worked around with disk extender software. Here are iwz_a_file([/images/t4850ep/t4850ep-bios.zip], [the Tandy 4850 EP BIOS images]).])
 
 iwz_sect([Inside Pictures])
 
@@ -46,7 +46,7 @@ iwz_img(
 
 iwz_p([Unfortunately, the original fuse blew at some point during the last 20 years or so. This is why you should always turn the computer off and ground yourself before attaching a PS/2-style keyboard!])
 
-iwz_p([While the questionable idea of using a generic fuse holder and fuse of similar specs that we had lying around was ours, the idea to check the fuse because the PC was acting like no keyboard was attached came from iwz_a([https://ccrvb.com/@yestergearpc], [Adam Brisebois]) (thanks, Adam!)])
+iwz_p([While the questionable idea of using a generic fuse holder and fuse of similar specs that we had lying around was ours, the idea to check the fuse because the PC was acting like no keyboard was attached came from iwz_a_social([https://ccrvb.com/@yestergearpc], [Adam Brisebois]) (thanks, Adam!)])
 
 iwz_sect([References])
 

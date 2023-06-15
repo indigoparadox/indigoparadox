@@ -53,6 +53,33 @@ a, a:visited {
    padding-top: 5px;
 }
 
+.iwz-link-sigil {
+   background: black;
+   border: 2px solid lightgray;
+   border-radius: 2px;
+   outline: 1px solid black;
+   display: inline-block;
+   position: relative;
+   margin: 0 5px;
+   width: 16px;
+   height: 12px;
+   vertical-align: middle;
+}
+
+.iwz-link-amazon > .iwz-link-sigil::after {
+   content: 'a';
+   font-size: 10px;
+   text-align: center;
+   color: black;
+   background: white;
+   outline: 1px solid black;
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+}
+
 .iwz-sidebar {
    font-family: Arial, Helvetica, sans-serif;
    display: block;
