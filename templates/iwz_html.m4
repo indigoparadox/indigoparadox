@@ -44,21 +44,28 @@ define([iwz_p], [ifelse(iwz_count_args($@),2,
 
 define([iwz_span], [<span class="$1">$2</span>])
 
+define([iwz_a_sigil], 
+   [<span class="iwz-link-sigil" title="$1"><span class="iwz-link-sigil-screen"></span> <span class="iwz-link-sigil-stand"></span></span>])
+
 define([iwz_a_amazon], [ifelse(iwz_count_args($@),3,
    [<a class="iwz-link iwz-link-amazon $1" href="$2">$3</a>],
-   [<a class="iwz-link iwz-link-amazon" href="$1">$2<span class="iwz-link-sigil" title="Amazon Link"></span></a>])])
+   [<a class="iwz-link iwz-link-amazon" href="$1">$2
+      iwz_a_sigil([Amazon Link])])])
 
 define([iwz_a], [ifelse(iwz_count_args($@),3,
    [<a class="iwz-link iwz-link-ext $1" href="$2">$3</a>],
-   [<a class="iwz-link iwz-link-ext" href="$1">$2<span class="iwz-link-sigil" title="External Link"></span></a>])])
+   [<a class="iwz-link iwz-link-ext" href="$1">$2
+      iwz_a_sigil([External Link])</a>])])
 
 define([iwz_a_social], [ifelse(iwz_count_args($@),3,
    [<a class="iwz-link iwz-link-social $1" href="$2">$3</a>],
-   [<a class="iwz-link iwz-link-social" href="$1">$2<span class="iwz-link-sigil" title="Social Link"></span></a>])])
+   [<a class="iwz-link iwz-link-social" href="$1">$2
+      iwz_a_sigil([Social Link])</a>])])
 
 define([iwz_a_file], [ifelse(iwz_count_args($@),3,
    [<a class="iwz-link iwz-link-file $1" href="$2">$3</a>],
-   [<a class="iwz-link iwz-link-file" href="$1">$2<span class="iwz-link-sigil" title="File Link"></span></a>])])
+   [<a class="iwz-link iwz-link-file" href="$1">$2
+      iwz_a_sigil([File Link])</a>])])
 
 define([iwz_a_button], [ifelse(iwz_count_args($@),3,
    [<a class="iwz-link iwz-link-ext $1" href="$2">$3</a>],
@@ -75,7 +82,8 @@ define([iwz_a_anchor], [<a class="iwz-link-anchor" href="$1">$2</span></a>])
 dnl If we change repo hosting in the future, we can put the new link info here:
 define([iwz_a_repo], [<a class="iwz-link iwz-link-repo" href="ifelse([$4], [],
    [https://github.com/$2/$3],
-   [https://github.com/$2/$3/commit/$4])">$1<span class="iwz-link-sigil" title="Repo Link"></span></a>])
+   [https://github.com/$2/$3/commit/$4])">$1
+      iwz_a_sigil([Repo Link])</a>])
 
 define([iwz_b], [<span class="iwz-span-bold">$1</span>])
 

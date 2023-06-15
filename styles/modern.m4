@@ -54,19 +54,32 @@ a, a:visited {
 }
 
 .iwz-link-sigil {
+   position: relative;
+}
+
+.iwz-link-sigil-screen {
    background: black;
    border: 2px solid lightgray;
    border-radius: 2px;
    outline: 1px solid black;
    display: inline-block;
-   position: relative;
+   position: absolute;
    margin: 0 5px;
+   left: 0;
+   top: 0;
    width: 16px;
    height: 12px;
    vertical-align: middle;
 }
 
-.iwz-link-amazon > .iwz-link-sigil::after {
+.iwz-link-sigil-stand {
+   background: gray;
+   position: relative;
+   width: 6px;
+   height: 4px;
+}
+
+.iwz-link-amazon > .iwz-link-sigil-screen::after {
    content: 'a';
    font-size: 10px;
    text-align: center;
