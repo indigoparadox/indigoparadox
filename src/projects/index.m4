@@ -29,7 +29,7 @@ dnl    [software,c,opengl])
 
 iwz_proj_card([Neoroom], [neoroom.html], [],
    [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
-   [software,html])
+   [web])
 
 iwz_proj_card([MIDI Box], [midibox.html], [],
    [Basic PC game port to MIDI DIN/3.5" miniplug interface box.],
