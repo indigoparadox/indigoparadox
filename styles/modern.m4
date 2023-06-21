@@ -271,7 +271,7 @@ a, a:visited {
    margin: 20px;
 }
 
-.iwz-var, .iwz-filename, .iwz-func {
+.iwz-var, .iwz-filename, .iwz-func, .iwz-errorm {
    font-family: Courier, Courier New, monospace;
 }
 
