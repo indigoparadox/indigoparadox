@@ -186,6 +186,10 @@ a, a:visited {
    order: 4;
 }
 
+.iwz-goatdpr {
+   font-size: 0.8em;
+}
+
 .iwz-lastmod {
    font-size: 0.8em;
 }
