@@ -19,6 +19,7 @@
    <li><a class="iwz_section_class(computers)" href="/computers">Computers</a></li>
    <li><a class="iwz_section_class(projects)" href="/projects">Projects</a></li>
    <li><a class="iwz_section_class(tutorials)" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz_section_class(utilities)" href="/utilities">Utilities</a></li>
    <li><a class="iwz_section_class(bangers)" href="/bangers">Bangers</a></li>
    <li><a class="iwz_section_class(altos)" href="/altos">AltOS</a></li>
   </ul>
