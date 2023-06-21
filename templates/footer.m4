@@ -14,6 +14,7 @@ dnl     <div class="ns-logo-sphere"></div>
 dnl    </div>
    </span>
   </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by iwz_a([goatcounter.com], [GoatCounter]).</div>
  </div>
 </body>
 </html>
