@@ -7,6 +7,10 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt([If Rust had been invented in the 60s they would've called it MOPL (Metal Oxide Programming Language).])
+
+iwz_twt([I could not survive as a Roman because they didn't have Python. They did have C! (It was backwards, tho.)])
+
 iwz_twt([Saying Hedy Lamarr invented Bluetooth is like saying Marie Curie invented the Boiling Water Reactor.], [It's absolutely true and correct.])
 
 iwz_twt([I tried launching my VB4 OpenGL demo on Windows 11 and the VM rebooted.], [...I say as I slowly shrink and transform into SpectateSwamp.])

@@ -29,11 +29,15 @@ dnl    [software,c,opengl])
 
 iwz_proj_card([Neoroom], [neoroom.html], [],
    [3D room constructed from 3D-rotated HTML elements in HTML/CSS/Javascript.],
-   [software,html])
+   [web])
 
 iwz_proj_card([MIDI Box], [midibox.html], [],
    [Basic PC game port to MIDI DIN/3.5" miniplug interface box.],
    [hardware,midi])
+
+iwz_proj_card([RC2014 Assembly], [rc2014.html], [],
+   [Attempt to assemble a working RC2014 Pro computer kit.],
+   [hardware,kit,z80])
 
 iwz_proj_card([Webdows 95], [webdows95.html], [],
    [HTML/JS-based simulation of Windows 95 for the web.],

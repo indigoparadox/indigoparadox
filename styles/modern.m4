@@ -226,6 +226,10 @@ a, a:visited {
    order: 4;
 }
 
+.iwz-goatdpr {
+   font-size: 0.8em;
+}
+
 .iwz-lastmod {
    font-size: 0.8em;
 }
@@ -311,7 +315,7 @@ a, a:visited {
    margin: 20px;
 }
 
-.iwz-var, .iwz-filename, .iwz-func {
+.iwz-var, .iwz-filename, .iwz-func, .iwz-errorm {
    font-family: Courier, Courier New, monospace;
 }
 
