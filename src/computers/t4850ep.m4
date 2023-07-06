@@ -8,21 +8,21 @@ divert(0)include([header.m4])
 
 iwz_img(
    [/images/t4850ep/t4850ep-front-20230620.jpg],
-   [The front bezel of our modded Tandy 4850 EP. The 3.25-inch bays have a CompactFlash card reader and a GoTek USB floppy emulator modded with a rotary encoder and OLED screen. The 5.25-inch bay has a classic 8x IDE CD-ROM drive.])
+   [The front bezel of our modded Tandy 4850 EP. The 3.25-inch bays have a CompactFlash card reader and a Gotek USB floppy emulator modded with a rotary encoder and OLED screen. The 5.25-inch bay has a classic 8x IDE CD-ROM drive.])
 
 iwz_sect([Introduction])
 
-iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Hard Disk], [2GB CompactFlash], [Ports], [2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
+iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Hard Disk], [2GB CompactFlash], [Floppy], [iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator])], [Ports], [2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
 
 iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
 
 iwz_p([This unit came into our possession with a Pro Audio Spectrum 16 sound card, as well as Windows 95. This ran fairly well on the 486 DX2 55MHz CPU, albeit stuck in 256 colors with the built-in Western Digital video chip. It does seem that the video RAM was upgraded to 1MB at some point (SW1P6 is set to OFF per iwz_a([http://ftp.oldskool.org/pub/tvdog/tandy1000/faxback/01013.txt], [Tandy faxback 01013])).])
 
-iwz_p([During our stewardship of the machine, we have replaced the original floppy with a modded GoTek floppy emulator and upgraded the accompanying Sony external CD-ROM drive to an internal 52X IDE unit.])
+iwz_p([During our stewardship of the machine, we have replaced the original floppy with a iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator]) and upgraded the accompanying Sony external CD-ROM drive to an internal 52X IDE unit.])
 
 iwz_sect([BIOS Images])
 
-iwz_p([Unlike earlier Tandy computers, the 4850 EP does not have an operating system or file system in ROM. It uses the Phoenix BIOS and, fortunately, it does have the setup utility in ROM. The BIOS is limited to a maximum hard disk size of 512 MB, but this can be worked around with disk extender software. Here are iwz_a([/images/t4850ep/t4850ep-bios.zip], [the Tandy 4850 EP BIOS images]).])
+iwz_p([Unlike earlier Tandy computers, the 4850 EP does not have an operating system or file system in ROM. It uses the Phoenix BIOS and, fortunately, it does have the setup utility in ROM. The BIOS is limited to a maximum hard disk size of 512 MB, but this can be worked around with disk extender software. Here are iwz_a_file([/images/t4850ep/t4850ep-bios.zip], [the Tandy 4850 EP BIOS images]).])
 
 iwz_sect([Inside Pictures])
 
@@ -46,7 +46,7 @@ iwz_img(
 
 iwz_p([Unfortunately, the original fuse blew at some point during the last 20 years or so. This is why you should always turn the computer off and ground yourself before attaching a PS/2-style keyboard!])
 
-iwz_p([While the questionable idea of using a generic fuse holder and fuse of similar specs that we had lying around was ours, the idea to check the fuse because the PC was acting like no keyboard was attached came from iwz_a([https://ccrvb.com/@yestergearpc], [Adam Brisebois]) (thanks, Adam!)])
+iwz_p([While the questionable idea of using a generic fuse holder and fuse of similar specs that we had lying around was ours, the idea to check the fuse because the PC was acting like no keyboard was attached came from iwz_a_social([https://ccrvb.com/@yestergearpc], [Adam Brisebois]) (thanks, Adam!)])
 
 iwz_sect([XT-IDE Universal BIOS and Large Drives])
 

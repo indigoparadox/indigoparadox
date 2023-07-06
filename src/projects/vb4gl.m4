@@ -14,7 +14,7 @@ iwz_sect([Introduction])
 
 iwz_p([This project might be a real head-scratcher, even for those normally willing to extend the benefit of the doubt to knowledge for knowledge's sake. It seems fairly common for folks to dig out their old childhood computers these days and look at them with new eyes. Less common, however, seems to be the impulse to dig out one's old childhood programming languages.])
 
-iwz_p([But we wanted a change of pace, and we do what we want! So here it is. A combination of a language we haven't touched in around 20 years with our most recent project: iwz_a_ipage([/tutorials/opengl01.html], [OpenGL 1.0]).])
+iwz_p([But we wanted a change of pace, and we do what we want! So here it is. A combination of a language we haven't touched in around 20 years with our most recent interest: iwz_a_ipage([/tutorials/opengl01.html], [OpenGL 1.0]).])
 
 iwz_p([This is not an exhaustive tutorial. Putting together basic knowledge of Visual Basic with iwz_func(declare()) statements and knowledge of the quirks below and the information from the tutorial linked in the previous paragraph should be enough to reproduce these results if one is so inclined.])
 

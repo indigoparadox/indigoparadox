@@ -102,6 +102,7 @@ for t in `find styles -name "*.m4"`; do
    echo "$t > $DEST_NAME"
    m4 -I ./templates "$t" > "$DEST_NAME"
 done
+cp -v "styles/"*.png "modern/styles"
 
 # Process scripts.
 mkdir -p modern/scripts

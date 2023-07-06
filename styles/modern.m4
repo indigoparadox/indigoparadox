@@ -35,6 +35,51 @@ a, a:visited {
    margin-right: 5px;
 }
 
+.iwz-link-ext::after {
+   content: " ";
+   background: url( monitor.png ) -48px 0;
+   display: inline-block;
+   width: 16px;
+   height: 16px;
+   vertical-align: middle;
+}
+
+.iwz-link-amazon::after {
+   content: " ";
+   background: url( monitor.png ) -16px 0;
+   display: inline-block;
+   width: 16px;
+   height: 16px;
+   vertical-align: middle;
+}
+
+.iwz-link-file::after {
+   content: " ";
+   background: url( monitor.png ) -32px 0;
+   display: inline-block;
+   width: 16px;
+   height: 16px;
+   vertical-align: middle;
+}
+
+.iwz-link-social::after {
+   content: " ";
+   background: url( monitor.png ) 0 -16px;
+   display: inline-block;
+   width: 16px;
+   height: 16px;
+   vertical-align: middle;
+}
+
+.iwz-link-repo::after {
+   content: " ";
+   background: url( monitor.png ) -16px -16px;
+   display: inline-block;
+   width: 16px;
+   height: 16px;
+   vertical-align: middle;
+}
+
 .iwz-sum-list {
    display: table;
    margin: 10px auto;
