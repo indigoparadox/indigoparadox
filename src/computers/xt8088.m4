@@ -20,4 +20,8 @@ iwz_img(
    [/images/xt8088/xt8088-vga.jpg],
    [Closeup of the rear of the VGA card inserted in one of the slots on the XT8088 backplane. It is a 16-bit ISA card, so the part behind the notch is hanging free from the slot.])
 
+iwz_subsect([Floppy Controller])
+
+iwz_p([Experimenting with several 16-bit ISA floppy/IDE/serial combo boards failed with an error about the "DOS area" of the floppy in FreeDOS and ignoring floppies on boot.])
+
 include([footer.m4])
