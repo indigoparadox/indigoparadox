@@ -47,6 +47,10 @@ iwz_proj_card([Mario 64 Python], [mario64p.html], [],
    [Grafting Python onto the Mario 64 PC build for modding possibilities.],
    [software,c,python])
 
+iwz_proj_card([Gotek Floppy Mods], [gotek.html], [],
+   [Quick reference and notes regarding installing OLED display, rotary dial, and speaker on the Gotek floppy emulator.],
+   [hardware,embedded])
+
 iwz_proj_card([PSUBot], [psubot.html], [],
    [Remote-control robot made from an old PC power supply.],
    [hardware,embedded,robot,msp430])
