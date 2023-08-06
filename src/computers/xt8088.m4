@@ -20,8 +20,30 @@ iwz_img(
    [/images/xt8088/xt8088-vga.jpg],
    [Closeup of the rear of the VGA card inserted in one of the slots on the XT8088 backplane. It is a 16-bit ISA card, so the part behind the notch is hanging free from the slot.])
 
+iwz_subsect([VGA Controller])
+
+iwz_p([This is a 16-bit ISA card based on the iwz_a([https://www.vgamuseum.info/index.php/cpu/item/478-paradise-systems-pvga1a], [Paradise PVGA1A]) chip. Even with only the 8-bit half of the card edge inserted, it seems to work very well in text and CGA graphics modes. Higher modes are still untested.])
+
 iwz_subsect([Floppy Controller])
 
-iwz_p([Experimenting with several 16-bit ISA floppy/IDE/serial combo boards failed with an error about the "DOS area" of the floppy in FreeDOS and ignoring floppies on boot.])
+iwz_block_construction()
+
+iwz_p([Experimenting with several 16-bit ISA floppy/IDE/serial combo boards and the iwz_a_ipage([../projects/gotek.html], [GoTek Floppy Emulator]) failed with an error about the "DOS area" of the floppy in FreeDOS and ignoring floppies on boot. These same cards work in the 8-bit slots on the iwz_a_ipage([hand386.html], [Hand386]).])
+
+iwz_p([We switched to an 8-bit ISA card with Sergey Kiselev's iwz_a_repo([floppy_bios], [skiselev], [floppy_bios]). This gives more fine-grained results (all of which are still failures):])
+
+iwz_list([
+   iwz_li([In most cases, it gives an error 40 on boot.])
+   iwz_li([In our testing, the one exception we found in trying various combinations of physical drive number and sizes was: If physical drive 1 is set to 720kb, it gives an error 8 on boot.])
+   iwz_li([These were tried with and without the S0 jumper that turned out to be the issue on the iwz_a_ipage([t1100fd.html], [Tandy 1100FD]).])
+])
+
+iwz_p([Ideas to try further:])
+
+iwz_list([
+   iwz_li([Go over the GoTek config again.])
+   iwz_li([Dig out and try a physical drive.])
+   iwz_li([Further research the quirks of the XT architecture.])
+])
 
 include([footer.m4])
