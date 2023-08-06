@@ -7,6 +7,10 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt([Ghislaine from Worcester.])
+
+iwz_twt([Memory is like a bearer bond for reality.])
+
 iwz_twt([If Rust had been invented in the 60s they would've called it MOPL (Metal Oxide Programming Language).])
 
 iwz_twt([I could not survive as a Roman because they didn't have Python. They did have C! (It was backwards, tho.)])
