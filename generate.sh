@@ -2,13 +2,14 @@
 
 IWZ_TEMPDIR="temp"
 IWZ_PROD=0
+SITE_PROD="modern"
 
 if [ "$1" = "prod" ]; then
    IWZ_PROD=1
 fi
 
 function proc_m4() {
-   DEST_DIRNAME="`dirname "$1" | sed -e "s/^$2/modern/g"`"
+   DEST_DIRNAME="`dirname "$1" | sed -e "s/^$2/${SITE_PROD}/g"`"
    mkdir -p "$DEST_DIRNAME"
    echo "processing $1..."
    m4 -I ./templates -I "$IWZ_TEMPDIR" \
@@ -83,7 +84,7 @@ for t in `find src -name "*.c"`; do
 
    # Process intermediate to final output.
    proc_m4 "$DEST_MIDNAME" "temp" "$PAGE_LASTMOD"
-   cp -v "$t" "`dirname "$t" | sed -e "s/^src/modern/g"`"
+   cp -v "$t" "`dirname "$t" | sed -e "s/^src/${SITE_PROD}/g"`"
 done
 
 # Process web template m4 files.
@@ -93,37 +94,37 @@ for t in `find src -name "*.m4"`; do
 done
 
 # Process CSS.
-mkdir -p modern/styles
+mkdir -p ${SITE_PROD}/styles
 for t in `find styles -name "*.m4"`; do
-   DEST_NAME="modern/`dirname "$t"`/`basename "$t" .m4`.css"
+   DEST_NAME="${SITE_PROD}/`dirname "$t"`/`basename "$t" .m4`.css"
 
-   mkdir -p "modern/`dirname "$t"`"
+   mkdir -p "${SITE_PROD}/`dirname "$t"`"
 
    echo "$t > $DEST_NAME"
    m4 -I ./templates "$t" > "$DEST_NAME"
 done
-cp -v "styles/"*.png "modern/styles"
+cp -v "styles/"*.png "${SITE_PROD}/styles"
 
 # Process scripts.
-mkdir -p modern/scripts
+mkdir -p ${SITE_PROD}/scripts
 for t in `find scripts -name "*.js"`; do
-   mkdir -p "modern/`dirname "$t"`"
-   cp -v "$t" "modern/`dirname "$t"`"
+   mkdir -p "${SITE_PROD}/`dirname "$t"`"
+   cp -v "$t" "${SITE_PROD}/`dirname "$t"`"
 done
 for t in `find scripts -name "*.m4"`; do
-   DEST_NAME="modern/`dirname "$t"`/`basename "$t" .m4`.js"
-   mkdir -p "modern/`dirname "$t"`"
+   DEST_NAME="${SITE_PROD}/`dirname "$t"`/`basename "$t" .m4`.js"
+   mkdir -p "${SITE_PROD}/`dirname "$t"`"
    echo "$t > $DEST_NAME"
    m4 -I ./templates "$t" > "$DEST_NAME"
 done
 
-cp CNAME modern/CNAME
+cp CNAME ${SITE_PROD}/CNAME
 
-mkdir -p modern/images
-cp -Rf images/* modern/images/
+mkdir -p ${SITE_PROD}/images
+cp -Rf images/* ${SITE_PROD}/images/
 
-cp src/robots.txt modern/robots.txt
+cp -v src/robots.txt ${SITE_PROD}/robots.txt
 
 # Add pages (except error pages!) to sitemap.
-find modern/ -name "*.html" | grep -v "404.html$" | sed -e 's/^modern/https:\/\/indigoparadox.zone/g' > modern/sitemap.txt
+find ${SITE_PROD}/ -name "*.html" | grep -v "404.html$" | sed -e "s/^${SITE_PROD}/https:\/\/indigoparadox.zone/g" > ${SITE_PROD}/sitemap.txt
 
