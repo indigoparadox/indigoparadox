@@ -7,6 +7,10 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt(["Can your software fly?"], ["I'm sorry, can you be more specific? It's not designed to run on an airplane computer, if that's what you mean..."], ["What are the requirements for flying?"], ["What do you mean by 'flying?'"], [*CCs like 15 guys* "Are you saying that you are refusing to fly your software?"], ["I... I... I'll open a ticket with the developer to see if we can get it to fly, OK? What version do you have?"], ["The one from 5 years ago."], [*Wakes up, sweating...*])
+
+iwz_twt([This feed is brought to you by: Medicine.], [Homeopathy not working? Chiropractor skip town after accidentally murdering a baby? Want to change your gender? Try Medicine! Vaccines, chemotherapy, Alka Seltzer Plus. You know, the real stuff.], [Medicine. It'll probably help!™], [EDIT: Talk to your doctor to see if Medicine is right for you!])
+
 iwz_twt([Ghislaine from Worcester.])
 
 iwz_twt([Memory is like a bearer bond for reality.])
