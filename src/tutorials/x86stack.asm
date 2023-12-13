@@ -55,7 +55,7 @@ test_func:
 ; land, we can't refer to [sp + 4] like we refer to [bp + 4] below. The
 ; assembler will give us the error "invalid effective address" if we try.
 ;
-   push bp ; Stow stack frame.
+   push bp ; Stow stack bottom.
    mov bp, sp ; Put stack pointer on bp so we can do arithmetic below.
 
 ; With our preparation done, we can now operate on addresses relative to the
@@ -73,7 +73,7 @@ test_func:
 ; before we pushed it onto the stack at the beginning of test_func, and then
 ; returning from the call instruction that brought us to test_func.
 ;
-   pop bp ; Restore stack frame stored at start of midi_note_on.
+   pop bp ; Restore stack bottom stored at start of test_func.
    ret ; Return from the call.
  
 ; dnl :sect: The Code: Data Section

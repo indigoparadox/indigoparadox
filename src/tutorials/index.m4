@@ -15,8 +15,8 @@ iwz_proj_card([X86 Assembly: Hello!], [x86hello.html], [],
    [X86 assembly: Printing a simple string using a DOS function.],
    [software,assembly])
 
-iwz_proj_card([X86 Assembly: Stack], [x86stack.html], [],
-   [X86 assembly: Using the Stack to Pass Arguments],
-   [software,assembly])
-
+dnl iwz_proj_card([X86 Assembly: Stack], [x86stack.html], [],
+dnl    [X86 assembly: Using the Stack to Pass Arguments],
+dnl    [software,assembly])
+ 
 include([footer.m4])
