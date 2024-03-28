@@ -55,4 +55,8 @@ iwz_proj_card([PSUBot], [psubot.html], [],
    [Remote-control robot made from an old PC power supply.],
    [hardware,embedded,robot,msp430])
 
+iwz_proj_card([Mikrotik Scripts], [mikrotik.html], [],
+   [Simple scripts for common tasks on Mikrotik routers.],
+   [networking,scripting])
+
 include([footer.m4])
