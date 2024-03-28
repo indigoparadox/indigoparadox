@@ -407,6 +407,19 @@ a, a:visited {
    background: darkred;
 }
 
+.iwz-table {
+   width: 100%;
+}
+
+.iwz-table th {
+   text-align: left;
+}
+
+.iwz-table th, .iwz-table td {
+   border: 1px solid white;
+   padding: 5px;
+}
+
 .iwz-pcspec {
    background: teal;
 }
@@ -421,6 +434,10 @@ a, a:visited {
 
 .iwz-pcspec-note {
    font-size: 0.8em;
+}
+
+.iwz-pcspec-irq, .iwz-pcspec-dma, .iwz-pcspec-io {
+   width: 300px !important;
 }
 
 .iwz-webring {

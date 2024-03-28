@@ -16,9 +16,74 @@ iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA
 
 iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
 
+iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
+
 iwz_p([This unit came into our possession with a Pro Audio Spectrum 16 sound card, as well as Windows 95. This ran fairly well on the 486 DX2 55MHz CPU, albeit stuck in 256 colors with the built-in Western Digital video chip. It does seem that the video RAM was upgraded to 1MB at some point (SW1P6 is set to OFF per iwz_a([http://ftp.oldskool.org/pub/tvdog/tandy1000/faxback/01013.txt], [Tandy faxback 01013])).])
 
 iwz_p([During our stewardship of the machine, we have replaced the original floppy with a iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator]) and upgraded the accompanying Sony external CD-ROM drive to an internal 52X IDE unit.])
+
+iwz_sect([Resource Assignments])
+
+iwz_p([The following were gathered from Windows 95's Device Manager, and may be incomplete. Only I/O addresses from 0x200-0x3ff were considered. The video card should, in theory use IRQ 9, but Windows's configuration did not reflect this.])
+
+iwz_block_table(
+   [iwz_block_table_head([IRQ]) iwz_block_table_head([Peripheral])],
+   [
+      iwz_block_table_row([
+         iwz_block_table_cell([0]) iwz_block_table_cell([System Timer]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([1]) iwz_block_table_cell([Keyboard]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([2]) iwz_block_table_cell([APIC]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([3]) iwz_block_table_cell([COM2]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([4]) iwz_block_table_cell([COM1]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([6]) iwz_block_table_cell([Floppy Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([8]) iwz_block_table_cell([RTC]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([10]) iwz_block_table_cell([NIC]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([12]) iwz_block_table_cell([Mouse]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([13]) iwz_block_table_cell([FPU]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([14]) iwz_block_table_cell([IDE Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([15]) iwz_block_table_cell([Pro Audio Spectrum]) ])
+   ],
+   [iwz-pcspec-irq]
+)
+
+iwz_block_table(
+   [iwz_block_table_head([DMA Channel]) iwz_block_table_head([Peripheral])],
+   [
+      iwz_block_table_row([
+         iwz_block_table_cell([2]) iwz_block_table_cell([Floppy Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([4]) iwz_block_table_cell([DMA Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([7]) iwz_block_table_cell([Pro Audio Spectrum]) ])
+   ],
+   [iwz-pcspec-dma]
+)
+
+iwz_block_table(
+   [iwz_block_table_head([I/O Port]) iwz_block_table_head([Peripheral])],
+   [
+      iwz_block_table_row([
+         iwz_block_table_cell([0x201]) iwz_block_table_cell([Pro Audio Spectrum]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x300]) iwz_block_table_cell([NIC]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x3f2]) iwz_block_table_cell([Floppy Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x388]) iwz_block_table_cell([Pro Audio Spectrum]) ])
+   ],
+   [iwz-pcspec-io]
+)
 
 iwz_sect([BIOS Images])
 

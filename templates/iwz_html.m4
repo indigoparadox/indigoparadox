@@ -112,6 +112,14 @@ define([iwz_diffl],
 
 define([iwz_diff], [<table class="iwz-code-wrapper"><caption class="iwz-code-title">$1</caption><tbody>$2</tbody></table>])
 
+define([iwz_block_table_head], [<th>$1</th>])
+
+define([iwz_block_table_cell], [<td>$1</td>])
+
+define([iwz_block_table_row], [<tr>$1</tr>])
+
+define([iwz_block_table], [<div class="iwz-block $3"><table class="iwz-table"><thead><tr>$1</tr></thead><tbody>$2</tbody></table></div>])
+
 define([iwz_proj_tag_links],
    [ifelse([$1],[],, 
       [<li><a class="iwz-button" href="#">$1</a></li> iwz_proj_tag_links(shift($@))])])
