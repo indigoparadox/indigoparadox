@@ -7,6 +7,20 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt([The SCSI interface was developed by Sir Allen Shugart, for his computer, the BBC- so-called, because it could be connected to a television to use as a display.])
+
+iwz_twt([The opposite of Unity Desktop is Discord Mobile.])
+
+iwz_twt([I think it's funny that if you ask most people what a "standard serial port" looks like, they'll probably say "DB-9."], [Because the "DB-9" serial port is an IBM-proprietary innovation. And it's actually a DE-9.], [But that's nerd territory and you won't be popular if you're a pedant like that, so at parties it's probably fine to call it a DB-9/serial port and let it slide when others do, too. 😌])
+
+iwz_twt([The serial port is like a floppy disk but for data.])
+
+iwz_twt([Notes are so good. You can just, like, leave a representation of relevant information on something, and, like, when it leaves your attention for a few minutes and you consequently forget everything about it, you can still come back, and, like, interpret that representation and know about it again. So good. Props to whoever came up with notes.])
+
+iwz_twt(["Tax return" is one of those idioms everyone gets confused with because it's coming from the wrong side (it's the paperwork you "return" to the IRS, not the refund). Like how an X client is software displaying graphics on an X server, not the other way around.])
+
+iwz_twt([I think we need a lot less Gal Gadot and a lot more Gyaru Godot!])
+
 iwz_twt(["Can your software fly?"], ["I'm sorry, can you be more specific? It's not designed to run on an airplane computer, if that's what you mean..."], ["What are the requirements for flying?"], ["What do you mean by 'flying?'"], [*CCs like 15 guys* "Are you saying that you are refusing to fly your software?"], ["I... I... I'll open a ticket with the developer to see if we can get it to fly, OK? What version do you have?"], ["The one from 5 years ago."], [*Wakes up, sweating...*])
 
 iwz_twt([This feed is brought to you by: Medicine.], [Homeopathy not working? Chiropractor skip town after accidentally murdering a baby? Want to change your gender? Try Medicine! Vaccines, chemotherapy, Alka Seltzer Plus. You know, the real stuff.], [Medicine. It'll probably help!™], [EDIT: Talk to your doctor to see if Medicine is right for you!])
