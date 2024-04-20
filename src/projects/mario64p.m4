@@ -10,6 +10,8 @@ iwz_img(
    [/images/mario64p/mario64p1.png],
    [Super Mario completing a triple jump in the beginning area with 'AIR TIME' in colorful letters appearing and coins spawning around him.])
 
+iwz_radicle([rad:zoGT6rdM799j4FPUdbRewi7omEwT])
+
 iwz_sect([Compiling])
 
 iwz_p([First, you should install some prerequisites. On Ubuntu 20.04, this can be done with the following command: iwz_cmd([sudo apt install libsdl2-dev libopengl-dev libglew-dev libpython3-dev build-essential])])
