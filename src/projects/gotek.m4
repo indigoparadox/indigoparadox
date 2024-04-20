@@ -75,11 +75,80 @@ iwz_subsect([Companion Software])
 
 iwz_p([Once FlashFloppy is running, the OLED display should show the current version when power is applied. The iwz_a_repo([vfloppy], [indigoparadox], [vfloppy]) repository contains some scripts for working with floppy images from ZIP files and directories on the Linux command line via mtools.])
 
+iwx_sect([Floppy Server])
+
+iwz_p([If your retrocomputer is connected to a KVM and stowed out of the way, you may also want to be able to change the floppy at a distance. This is doable using a Raspberry Pi Zero W connected to the USB port of the Gotek via USB-OTG.])
+
+iwz_subsect([Hardware])
+
+iwz_p([You will need a Raspberry Pi Zero W with appropriate power supply. You will also need a USB-A to Micro-USB-B cable iwz_b([with the power (usually red) wire disconnected!]) This is important! You can use a breakout board or just cut the cable and only rejoin the green, white, and black wires. But the red wire iwz_b([MUST]) be disconnected! We are not responsible for any damage that may occur as a result of failure to do this (or from anything else here, for that matter)!])
+
+iwz_p([Once you have these things:])
+
+iwz_list([
+   iwz_li([Connect the modified USB cable from the "USB" micro-USB port on the Pi to the USB port on your GoTek.])
+   iwz_li([Connect the power supply to the "Power" micro-USB port on the Pi.])
+])
+
+iwz_sect([Floppy Server])
+
+iwz_p([It is possible to use a Raspberry Pi Zero W with a USB Micro-B to A cable to act as a "virtual" USB thumbdrive connected to the Gotek. The Raspberry pi then presents a constructed "container" image which contains both a floppy image and an iwz_filename([FF.CFG]) file which automatically loads that image.])
+
+iwz_p([The "container" image is assembled by a simple piece of software called iwz_a_repo([floppcgi], [indigoparadox], [floppcgi]), which runs as a FastCGI daemon sitting behind nginx. This daemon then responds to web requests, presenting a web page for selecting the image to use.])
+
+iwz_subsect([Software])
+
+iwz_p([This section assumes a standard installation of the current version of the Raspbian OS Lite image. It was tested with Buster, but hopefully future versions should work with minimal modification.])
+
+iwz_p([It is highly recommended to use the iwz_a([https://www.raspberrypi.com/software/], [Raspberry Pi Imager]) utility to flash the imager, as this allows you to setup your wireless network without connecting a display and keyboard to your Raspberry Pi Zero.])
+
+iwz_list(
+	iwz_li([You have cloned the floppcgi repo to /opt/floppcgi.])
+	iwz_li([You have a collection of floppy disk images in /srv/Floppies.])
+)
+
+iwz_p([The script below is simplified, to illustrate the steps to getting it working. It assumes running as root and lacks idempotence. A more robust setup.sh is included in the floppcgi repo.])
+
+iwz_diff(
+	[setup-floppysrv.sh],
+	[
+		iwz_diffl( [], [], [# Install required packages.])
+		iwz_diffl( [], [], [apt install nginx libfcgi-dev mtools git])
+		iwz_diffl( [], [], [#])
+		iwz_diffl( [], [], [# Add dwc2 overlay for USB Gadget support.])
+		iwz_diffl( [], [], [echo "dtoverlay=dwc2" >> /boot/firmware/config.txt])
+		iwz_diffl( [], [], [#])
+		iwz_diffl( [], [], [# Add dwc2 module for USB Gadget support.])
+		iwz_diffl( [], [], [echo "dwc2" >> /etc/modules])
+		iwz_diffl( [], [], [#])
+		iwz_diffl( [], [], [# Copy the site config to nginx.])
+		iwz_diffl( [], [], [cp floppcgi.nginx /etc/nginx/sites-available/floppcgi])
+		iwz_diffl( [], [], [ln -s /etc/nginx/sites-available/floppcgi /etc/nginx/sites-enabled])
+		iwz_diffl( [], [], [rm /etc/nginx/sites-enabled/default])
+		iwz_diffl( [], [], [#])
+		iwz_diffl( [], [], [# Add config variables to FastCGI environment.])
+		iwz_diffl( [], [], [echo "fastcgi_param  FLOPPIES_ROOT  /srv/Floppies;" >> /etc/nginx/fastcgi.conf])
+		iwz_diffl( [], [], [echo "fastcgi_param  FLOPPIES_CONTAINER  /tmp/floppyc.img;" >> /etc/nginx/fastcgi.conf])
+		iwz_diffl( [], [], [echo "fastcgi_param  FLOPPIES_ASSETS /opt/floppcgi;" >> /etc/nginx/fastcgi.conf])
+		iwz_diffl( [], [], [#])
+		iwz_diffl( [], [], [# Copy the floppcgi service to /etc/systemd/system.])
+		iwz_diffl( [], [], [cp /opt/floppcgi/floppcgi.service /etc/systemd/system])
+		iwz_diffl( [], [], [systemctl start floppcgi])
+])
+
+iwz_subsect([Recommendations])
+
+iwz_list(
+	iwz_li([Install the iwz_pkg([log2ram]) package to put log files in RAM and reduce wear on the SD card.])
+	iwz_li([Place iwz_filename([/tmp]) on iwz_pkg([tmpfs]) to reduce wear on the SD card.])
+)
+
 iwz_sect([References])
 
 iwz_refs([
    iwz_ref([https://github.com/keirf/flashfloppy/wiki/Hardware-Mods], [Hardware Mods - keirf/flashfloppy Wiki])
    iwz_ref([https://github.com/keirf/flashfloppy/wiki/Firmware-Programming], [Firmware Programming - keirf/flashfloppy Wiki])
+	iwz_ref([https://gist.github.com/gbaman/50b6cca61dd1c3f88f41], [Raspbery Pi Zero OTG Mode])
 ])
 
 include([footer.m4])
