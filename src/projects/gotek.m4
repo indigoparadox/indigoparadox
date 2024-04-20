@@ -75,7 +75,7 @@ iwz_subsect([Companion Software])
 
 iwz_p([Once FlashFloppy is running, the OLED display should show the current version when power is applied. The iwz_a_repo([vfloppy], [indigoparadox], [vfloppy]) repository contains some scripts for working with floppy images from ZIP files and directories on the Linux command line via mtools.])
 
-iwx_sect([Floppy Server])
+iwz_sect([Floppy Server])
 
 iwz_p([If your retrocomputer is connected to a KVM and stowed out of the way, you may also want to be able to change the floppy at a distance. This is doable using a Raspberry Pi Zero W connected to the USB port of the Gotek via USB-OTG.])
 
@@ -90,13 +90,11 @@ iwz_list([
    iwz_li([Connect the power supply to the "Power" micro-USB port on the Pi.])
 ])
 
-iwz_sect([Floppy Server])
+iwz_subsect([Software])
 
-iwz_p([It is possible to use a Raspberry Pi Zero W with a USB Micro-B to A cable to act as a "virtual" USB thumbdrive connected to the Gotek. The Raspberry pi then presents a constructed "container" image which contains both a floppy image and an iwz_filename([FF.CFG]) file which automatically loads that image.])
+iwz_p([The Raspberry pi will presents a constructed "container" image which contains both a floppy image and an iwz_filename([FF.CFG]) file which automatically loads that image to the Gotek via the USB-OTG layer.])
 
 iwz_p([The "container" image is assembled by a simple piece of software called iwz_a_repo([floppcgi], [indigoparadox], [floppcgi]), which runs as a FastCGI daemon sitting behind nginx. This daemon then responds to web requests, presenting a web page for selecting the image to use.])
-
-iwz_subsect([Software])
 
 iwz_p([This section assumes a standard installation of the current version of the Raspbian OS Lite image. It was tested with Buster, but hopefully future versions should work with minimal modification.])
 
