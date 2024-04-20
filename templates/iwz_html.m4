@@ -99,6 +99,8 @@ define([iwz_filename], [<span class="iwz-filename">$1</span>])
 
 define([iwz_cmd], [<span class="iwz-cmd">$1</span>])
 
+define([iwz_pkg], [<span class="iwz-pkg">$1</span>])
+
 define([iwz_errorm], [<span class="iwz-errorm">$1</span>])
 
 define([iwz_depfiles], [<div class="iwz-depfiles"><p>This source file also depends on the files below:</p><ul>$1</ul></div>]);
