@@ -21,4 +21,7 @@ iwz_p([iwz-webring iwz-hotline], [iwz_a_webring([iwz-button], [https://hotlinewe
 
 iwz_p([iwz-webring iwz-retronaut], [iwz_a_webring([iwz-button], [https://webring.dinhe.net/prev/https://indigoparadox.zone/], [Previous]) iwz_a_webring([https://webring.dinhe.net/], [Retronaut Webring]) iwz_a_webring([iwz-button], [https://webring.dinhe.net/next/https://indigoparadox.zone/], [Next])])
 
+<div id="wcb" class="carbonbadge"></div>
+<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+
 include([footer.m4])
