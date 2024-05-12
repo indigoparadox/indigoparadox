@@ -320,6 +320,35 @@ a, a:visited {
    margin: 20px;
 }
 
+.iwz-card-radicle {
+   background: darkviolet;
+   border-radius: 10px;
+   display: table;
+   margin: 5px auto;
+   padding: 20px;
+   text-align: center;
+}
+
+.iwz-card-radicle h4 {
+   font-family: Arial, Helvetica, sans-serif;
+   margin: 0;
+   padding: 0;
+}
+
+.iwz-card-radicle a, .iwz-card-radicle a:visited {
+   color: darkblue;
+}
+
+.iwz-card-radicle ul {
+   list-style-type: none;
+   margin: 10px 0 5px 0;
+   padding: 0;
+}
+
+.iwz-list-radicle li {
+   font-family: Courier, Courier New, monospace;
+}
+
 .iwz-var, .iwz-filename, .iwz-func, .iwz-errorm {
    font-family: Courier, Courier New, monospace;
 }

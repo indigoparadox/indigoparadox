@@ -5,6 +5,10 @@ define([iwz_enum_styles], [ifelse([$1], [],, [<link href="$1" rel="stylesheet" t
 
 define([iwz_enum_scripts], [ifelse([$1], [],, [<script src="$1" type="application/javascript"></script>iwz_enum_scripts(shift($@))])])
 
+define([iwz_rad_list], [ifelse([$1], [],, [<li>$1</li> iwz_rad_list(shift($@))])])
+
+define([iwz_radicle], [ifelse([$1], [],, [<div class="iwz-card-radicle"><h4>Radicle Repo (<a href="https://radicle.xyz/">What's this?</a>)</h4> <ul>iwz_rad_list($@) </ul></div>])])
+
 define([iwz_num_src_lines], 0)
 
 define([iwz_count_src_lines], [define([iwz_num_src_lines], eval(iwz_num_src_lines + 1)) iwz_num_src_lines])
