@@ -12,7 +12,65 @@ iwz_img(
 
 iwz_sect([Introduction])
 
-iwz_block_pcspec([CPU], [NEC V20 4.77 MHz], [RAM], [640KB], [Video], [Paradise PVGA1A VGA 512KB], [Hard Disk], [USB], [Ports], [PS/2 (Keyboard), RS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
+iwz_block_pcspec([CPU], [NEC V20 4.77 MHz], [RAM], [640KB], [Video], [Paradise PVGA1A VGA 512KB], [Sound], [Sound Blaster 2.0 (CT1350B)], [Hard Disk], [USB], [Ports], [PS/2 (Keyboard), RS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
+
+iwz_sect([Resource Assignments])
+
+iwz_p([These are assigned manually, by jumpers. Keeping a separate written table is critical to avoiding conflicts!])
+
+iwz_p([*IRQ 7 is shared between the sound card and parallel port.])
+
+iwz_block_table(
+   [iwz_block_table_head([IRQ]) iwz_block_table_head([Peripheral])],
+   [
+      iwz_block_table_row([
+         iwz_block_table_cell([0]) iwz_block_table_cell([System Timer]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([1]) iwz_block_table_cell([Keyboard]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([3]) iwz_block_table_cell([COM2]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([4]) iwz_block_table_cell([COM1]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([5]) iwz_block_table_cell([3Com 3c501]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([6]) iwz_block_table_cell([Floppy Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([7]) iwz_block_table_cell([Sound Blaster 2.0*]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([7]) iwz_block_table_cell([Parallel Port*]) ])
+   ],
+   [iwz-pcspec-irq]
+)
+
+iwz_block_table(
+   [iwz_block_table_head([DMA Channel]) iwz_block_table_head([Peripheral])],
+   [
+      iwz_block_table_row([
+         iwz_block_table_cell([2]) iwz_block_table_cell([Floppy Controller]) ])
+   ],
+   [iwz-pcspec-dma]
+)
+
+iwz_block_table(
+   [iwz_block_table_head([I/O Port]) iwz_block_table_head([Peripheral])],
+   [
+      iwz_block_table_row([
+         iwz_block_table_cell([0x220]) iwz_block_table_cell([Sound Blaster 2.0]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x2f8]) iwz_block_table_cell([COM2]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x300]) iwz_block_table_cell([3com 3c501]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x3bc]) iwz_block_table_cell([Parallel Port]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x3f2]) iwz_block_table_cell([Floppy Controller]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x3f8]) iwz_block_table_cell([COM1]) ])
+   ],
+   [iwz-pcspec-io]
+)
+
 
 iwz_sect([ISA Cards])
 

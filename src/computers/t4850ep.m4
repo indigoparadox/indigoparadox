@@ -12,9 +12,7 @@ iwz_img(
 
 iwz_sect([Introduction])
 
-iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Hard Disk], [2GB CompactFlash], [Floppy], [iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator])], [Ports], [2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
-
-iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
+iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Sound], [MediaVision Pro Audio Spectrum (ISA)], [Network], [3com 3c509b-C (ISA)], [Hard Disk], [2GB CompactFlash], [Floppy], [iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator])], [Ports], [2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
 
 iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
 
@@ -44,7 +42,7 @@ iwz_block_table(
       iwz_block_table_row([
          iwz_block_table_cell([8]) iwz_block_table_cell([RTC]) ])
       iwz_block_table_row([
-         iwz_block_table_cell([10]) iwz_block_table_cell([NIC]) ])
+         iwz_block_table_cell([10]) iwz_block_table_cell([3c509b]) ])
       iwz_block_table_row([
          iwz_block_table_cell([12]) iwz_block_table_cell([Mouse]) ])
       iwz_block_table_row([
@@ -76,11 +74,17 @@ iwz_block_table(
       iwz_block_table_row([
          iwz_block_table_cell([0x201]) iwz_block_table_cell([Pro Audio Spectrum]) ])
       iwz_block_table_row([
-         iwz_block_table_cell([0x300]) iwz_block_table_cell([NIC]) ])
+         iwz_block_table_cell([0x2f8]) iwz_block_table_cell([COM2]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x300]) iwz_block_table_cell([3c509b]) ])
       iwz_block_table_row([
          iwz_block_table_cell([0x3f2]) iwz_block_table_cell([Floppy Controller]) ])
       iwz_block_table_row([
          iwz_block_table_cell([0x388]) iwz_block_table_cell([Pro Audio Spectrum]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x3bc]) iwz_block_table_cell([Parallel Port]) ])
+      iwz_block_table_row([
+         iwz_block_table_cell([0x3f8]) iwz_block_table_cell([COM1]) ])
    ],
    [iwz-pcspec-io]
 )
@@ -144,6 +148,12 @@ iwz_p([With the XT-IDE BIOS in place, we installed DOS 6, Windows 3.1 (in iwz_fi
 iwz_p([We suspected the XT-IDE BIOS, but a logged boot (available from the F8 menu) showed that the boot was failing after the 3c509b driver was loading. Disabling the 3c509b driver allowed Windows to boot. Finding another network driver would be a pain, so we first tried the drivers from the 3com EtherDisk, with the same result. Finally, we disabled PnP mode using the iwz_cmd([3C5X9CFG.EXE]) utility and installed the driver using the Windows 95 "detect hardware" option.])
 
 iwz_p([This worked, and now we have consistent booting with network access!])
+
+iwz_sect([Future Plans])
+
+iwz_list(
+   iwz_li([SCSI HBA with PiSCSI for hard disk/CD-ROM emulation.])
+)
 
 iwz_sect([References])
 
