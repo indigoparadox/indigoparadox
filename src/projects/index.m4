@@ -15,6 +15,10 @@ iwz_proj_card([dbfetch and Sensor data], [dbfetch.html], [],
    [Gathering environmental sensor information from various sources.],
    [software,python,database])
 
+iwz_proj_card([Raycaster in Visual Basic 4], [vbray.html], [],
+   [Simple raycaster in Visual Basic 4.0.],
+   [software,visual-basic])
+
 iwz_proj_card([OpenGL in Visual Basic 4], [vb4gl.html], [],
    [OpenGL 1.0 support in Visual Basic 4.0 on Windows 9x/NT.],
    [software,visual-basic,opengl])
