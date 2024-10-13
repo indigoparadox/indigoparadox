@@ -65,7 +65,7 @@ define([iwz_a_file], [ifelse(iwz_count_args($@),3,
    [<a class="iwz-link iwz-link-file" href="$1">$2</a>])])
 
 define([iwz_a_button], [ifelse(iwz_count_args($@),3,
-   [<a class="iwz-link $1" href="$2">$3</a>],
+   [<span class="$1 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-$1" href="$2">$3</a></span>],
    [<a class="iwz-link" href="$1">$2</a>])])
 
 define([iwz_a_webring], [ifelse(iwz_count_args($@),3,
