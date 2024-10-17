@@ -7,6 +7,8 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt([I interject with dumb jokes because I have nothing to add to anything. Literally the only thing I know is Python. If it weren't for list comprehensions I'd have no comprehension at all.])
+
 iwz_twt([The SCSI interface was developed by Sir Allen Shugart, for his computer, the BBC- so-called, because it could be connected to a television to use as a display.])
 
 iwz_twt([The opposite of Unity Desktop is Discord Mobile.])
