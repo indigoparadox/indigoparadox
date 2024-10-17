@@ -4,7 +4,7 @@ IWZ_TEMPDIR="temp"
 IWZ_PROD=0
 SITE_PROD="modern"
 
-if [ "$1" = "prod" ]; then
+if [ "$1" = "prod" ] || [ "$2" = "prod" ]; then
    IWZ_PROD=1
 fi
 
@@ -17,20 +17,17 @@ function proc_m4() {
       "$DEST_DIRNAME/`basename "$1" .m4`.html"
 }
 
-mkdir -p "$IWZ_TEMPDIR"
+function proc_c() {
 
-# Process C literate programming templates.
-for t in `find src -name "*.c"`; do
-   # Figure out intermediate directory and create it.
-   DEST_MIDNAME="`dirname $t | \
-      sed -e "s/^src/$IWZ_TEMPDIR/g"`/`basename "$t" .c`.m4"
-   mkdir -pv "`dirname $t | sed -e "s/^src/$IWZ_TEMPDIR/g"`"
+   # Take a literate C file (first arg) and turn it into an m4 template
+   # (second arg) to be processed with the IWZ macros.
+
+   t="$1"
+   DEST_MIDNAME="$2"
 
    PAGE_TITLE="`cat $t | sed -n 's/^\s*\/\* dnl :title: \(.*\)/\1/p'`"
 
    PAGE_SECTION="`cat $t | sed -n 's/^\s*\/\* dnl :section: \(.*\)/\1/p'`"
-
-   PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
 
    # Create fresh intermediate file.
    echo "divert(-1)" > "$DEST_MIDNAME"
@@ -88,24 +85,19 @@ for t in `find src -name "*.c"`; do
    IFS=$OLDIFS
 
    echo "include([footer.m4])" >> "$DEST_MIDNAME"
+}
 
-   # Process intermediate to final output.
-   proc_m4 "$DEST_MIDNAME" "temp" "$PAGE_LASTMOD"
-   cp -v "$t" "`dirname "$t" | sed -e "s/^src/${SITE_PROD}/g"`"
-done
+function proc_asm() {
 
-# Process assembly literate programming templates.
-for t in `find src -name "*.asm"`; do
-   # Figure out intermediate directory and create it.
-   DEST_MIDNAME="`dirname $t | \
-      sed -e "s/^src/$IWZ_TEMPDIR/g"`/`basename "$t" .asm`.m4"
-   mkdir -pv "`dirname $t | sed -e "s/^src/$IWZ_TEMPDIR/g"`"
+   # Take a literate assembly file (first arg) and turn it into an m4 template
+   # (second arg) to be processed with the IWZ macros.
+
+   t="$1"
+   DEST_MIDNAME="$2"
 
    PAGE_TITLE="`cat $t | sed -n 's/^; dnl :title: \(.*\)/\1/p'`"
 
    PAGE_SECTION="`cat $t | sed -n 's/^; dnl :section: \(.*\)/\1/p'`"
-
-   PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
 
    # Create fresh intermediate file.
    echo "divert(-1)" > "$DEST_MIDNAME"
@@ -163,49 +155,90 @@ for t in `find src -name "*.asm"`; do
    IFS=$OLDIFS
 
    echo "include([footer.m4])" >> "$DEST_MIDNAME"
+}
 
-   # Process intermediate to final output.
-   proc_m4 "$DEST_MIDNAME" "temp" "$PAGE_LASTMOD"
-   cp -v "$t" "`dirname "$t" | sed -e "s/^src/${SITE_PROD}/g"`"
-done
-# Process web template m4 files.
-for t in `find src -name "*.m4"`; do
-   PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
-   proc_m4 "$t" "src" "$PAGE_LASTMOD"
-done
+function do_generate() {
 
-# Process CSS.
-mkdir -p ${SITE_PROD}/styles
-for t in `find styles -name "*.m4"`; do
-   DEST_NAME="${SITE_PROD}/`dirname "$t"`/`basename "$t" .m4`.css"
+   mkdir -p "$IWZ_TEMPDIR"
 
-   mkdir -p "${SITE_PROD}/`dirname "$t"`"
+   # Process C literate programming templates.
+   for t in `find src -name "*.c"`; do
+      # Figure out intermediate directory and create it.
+      DEST_MIDNAME="`dirname $t | \
+         sed -e "s/^src/$IWZ_TEMPDIR/g"`/`basename "$t" .c`.m4"
+      mkdir -pv "`dirname $t | sed -e "s/^src/$IWZ_TEMPDIR/g"`"
 
-   echo "$t > $DEST_NAME"
-   m4 -I ./templates "$t" > "$DEST_NAME"
-done
-cp -v "styles/"*.png "${SITE_PROD}/styles"
+      PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
 
-# Process scripts.
-mkdir -p ${SITE_PROD}/scripts
-for t in `find scripts -name "*.js"`; do
-   mkdir -p "${SITE_PROD}/`dirname "$t"`"
-   cp -v "$t" "${SITE_PROD}/`dirname "$t"`"
-done
-for t in `find scripts -name "*.m4"`; do
-   DEST_NAME="${SITE_PROD}/`dirname "$t"`/`basename "$t" .m4`.js"
-   mkdir -p "${SITE_PROD}/`dirname "$t"`"
-   echo "$t > $DEST_NAME"
-   m4 -I ./templates "$t" > "$DEST_NAME"
-done
+      proc_c "$t" "$DEST_MIDNAME"
 
-cp CNAME ${SITE_PROD}/CNAME
+      # Process intermediate to final output.
+      proc_m4 "$DEST_MIDNAME" "temp" "$PAGE_LASTMOD"
+      cp -v "$t" "`dirname "$t" | sed -e "s/^src/${SITE_PROD}/g"`"
+   done
 
-mkdir -p ${SITE_PROD}/images
-cp -Rf images/* ${SITE_PROD}/images/
+   # Process assembly literate programming templates.
+   for t in `find src -name "*.asm"`; do
+      # Figure out intermediate directory and create it.
+      DEST_MIDNAME="`dirname $t | \
+         sed -e "s/^src/$IWZ_TEMPDIR/g"`/`basename "$t" .asm`.m4"
+      mkdir -pv "`dirname $t | sed -e "s/^src/$IWZ_TEMPDIR/g"`"
 
-cp -v src/robots.txt ${SITE_PROD}/robots.txt
+      PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
 
-# Add pages (except error pages!) to sitemap.
-find ${SITE_PROD}/ -name "*.html" | grep -v "404.html$" | sed -e "s/^${SITE_PROD}/https:\/\/indigoparadox.zone/g" > ${SITE_PROD}/sitemap.txt
+      proc_asm "$t" "$DEST_MIDNAME"
+
+      # Process intermediate to final output.
+      proc_m4 "$DEST_MIDNAME" "temp" "$PAGE_LASTMOD"
+      cp -v "$t" "`dirname "$t" | sed -e "s/^src/${SITE_PROD}/g"`"
+   done
+   # Process web template m4 files.
+   for t in `find src -name "*.m4"`; do
+      PAGE_LASTMOD="`git log $t | grep "^Date" | head -1`"
+      proc_m4 "$t" "src" "$PAGE_LASTMOD"
+   done
+
+   # Process CSS.
+   mkdir -p ${SITE_PROD}/styles
+   for t in `find styles -name "*.m4"`; do
+      DEST_NAME="${SITE_PROD}/`dirname "$t"`/`basename "$t" .m4`.css"
+
+      mkdir -p "${SITE_PROD}/`dirname "$t"`"
+
+      echo "$t > $DEST_NAME"
+      m4 -I ./templates "$t" > "$DEST_NAME"
+   done
+   cp -v "styles/"*.png "${SITE_PROD}/styles"
+
+   # Process scripts.
+   mkdir -p ${SITE_PROD}/scripts
+   for t in `find scripts -name "*.js"`; do
+      mkdir -p "${SITE_PROD}/`dirname "$t"`"
+      cp -v "$t" "${SITE_PROD}/`dirname "$t"`"
+   done
+   for t in `find scripts -name "*.m4"`; do
+      DEST_NAME="${SITE_PROD}/`dirname "$t"`/`basename "$t" .m4`.js"
+      mkdir -p "${SITE_PROD}/`dirname "$t"`"
+      echo "$t > $DEST_NAME"
+      m4 -I ./templates "$t" > "$DEST_NAME"
+   done
+
+   cp meta/CNAME ${SITE_PROD}/CNAME
+
+   mkdir -p ${SITE_PROD}/images
+   cp -Rf images/* ${SITE_PROD}/images/
+
+   cp -v meta/robots.txt ${SITE_PROD}/robots.txt
+
+   # Add pages (except error pages!) to sitemap.
+   find ${SITE_PROD}/ -name "*.html" | grep -v "404.html$" | sed -e "s/^${SITE_PROD}/https:\/\/indigoparadox.zone/g" > ${SITE_PROD}/sitemap.txt
+}
+
+if [ "$1" = "proc_c" ]; then
+   proc_c "$2" "$3"
+elif [ "$1" = "proc_asm" ]; then
+   proc_asm "$2" "$3"
+else
+   do_generate
+fi
 
