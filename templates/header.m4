@@ -17,6 +17,7 @@
   <ul class="iwz-nav iwz-nav-int">
    <li><a class="iwz_section_class(home)" href="/">Home</a></li>
    <li><a class="iwz_section_class(computers)" href="/computers">Computers</a></li>
+   <li><a class="iwz_section_class(devices)" href="/devices">Devices</a></li>
    <li><a class="iwz_section_class(projects)" href="/projects">Projects</a></li>
    <li><a class="iwz_section_class(tutorials)" href="/tutorials">Tutorials</a></li>
    <li><a class="iwz_section_class(utilities)" href="/utilities">Utilities</a></li>
