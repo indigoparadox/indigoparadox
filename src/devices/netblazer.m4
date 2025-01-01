@@ -42,4 +42,6 @@ iwz_block_construction
 
 iwz_p([The executable format is still under research. Hopefully, we will have some useful information here at some point.])
 
+iwz_p([The boot disk contains iwz_filename([TELEBIT.SYS]), which seems to be a COM executable (single segment of executable code). A strings dump includes references to Protected Mode and a "FRED loader." There is also a giant binary blob named iwz_filename([FRED]), which may be related to this.])
+
 include([footer.m4])
