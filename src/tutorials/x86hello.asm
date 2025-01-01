@@ -50,6 +50,8 @@ start:
    mov ah, 04ch ; Termination service.
    int 21h ; Call function handler interrupt.
 
+; The concludes the code section.
+;
 ; dnl :sect: The Code: Data Section
 ;
 ; We're building a COM file which, doesn't technically have sections, but nasm
