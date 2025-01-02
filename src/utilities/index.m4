@@ -13,4 +13,8 @@ iwz_proj_card([ROMPAD], [rompad.html], [],
    [Simple tool for padding a ROM file out to a given size.],
    [c,roms])
 
+iwz_proj_card([Windoes CE 2 SDK], [ce20sdk.html], [],
+   [Bundle of Microsoft compilers for Windows CE 2.0.],
+   [c,compiler])
+
 include([footer.m4])
