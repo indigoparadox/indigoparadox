@@ -16,6 +16,8 @@ iwz_p([If a link is broken, you're aware of a better link for an OS featured on 
 
 <dl class="iwz-alt-os-list">
 
+iwz_alt_os([MinC], [https://minc.commandlinerevolution.nl/english/home.html], [Not strictly an OS on its own, this is a kernel layer which runs an OpenBSD userland in Windows going back to Windows XP])
+
 iwz_alt_os([SerenityOS], [https://serenityos.org/], [A love letter to '90s user interfaces with a custom Unix-like core])
 
 iwz_alt_os([duckOS], [https://github.com/byteduck/duckOS], [An x86 monolithic kernel in C++ with graphical applications and command line utilities])
