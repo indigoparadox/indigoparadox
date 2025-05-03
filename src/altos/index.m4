@@ -16,7 +16,7 @@ iwz_p([If a link is broken, you're aware of a better link for an OS featured on 
 
 <dl class="iwz-alt-os-list">
 
-iwz_alt_os([RetrOS-32] [https://github.com/joexbayer/RetrOS-32], [A minimal 32-bit OS for older or resource-limited computers, complete with GUI and compiler.])
+iwz_alt_os([RetrOS-32], [https://github.com/joexbayer/RetrOS-32], [A minimal 32-bit OS for older or resource-limited computers, complete with GUI and compiler.])
 
 iwz_alt_os([MinC], [https://minc.commandlinerevolution.nl/english/home.html], [Not strictly an OS on its own, this is a kernel layer which runs an OpenBSD userland in Windows going back to Windows XP])
 
