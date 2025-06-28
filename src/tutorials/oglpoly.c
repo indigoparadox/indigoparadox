@@ -8,19 +8,24 @@
 /* dnl :sect: Preamble
  */
 
+/* iwz_depfiles(
+ *    iwz_depfile(ogldefs.html)
+ * )
+ */
+
 /* Include The system OpenGL header for constants and functions used below.
- * Also include mini.h, a header with some program-specific constants we'll
- * also be using.
+ * Also include iwz_filename(ogldefs.h), a header with some program-specific
+ * constants we'll also be using.
  */
 #include <GL/gl.h>
-#include "mini.h"
+#include "ogldefs.h"
 
 /* dnl :sect: Polygon: Cube
  */
 
 /* First, let's draw a simple multi-colored cube.
  */
-void mini_cube() {
+void ogl_cube() {
 
    /* Now begin drawing the faces of the cube.
     */

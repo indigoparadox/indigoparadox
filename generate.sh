@@ -47,6 +47,8 @@ function proc_c() {
    OLDIFS="$IFS"
    IFS=$'\n'
    for l in `cat "$t"`; do
+      l="`echo $l | sed 's|<|\&lt;|g'`"
+      l="`echo $l | sed 's|>|\&gt;|g'`"
       if echo $l | grep -q '^\s*\*\/'; then
          # Found the end of a comment, so add this paragraph to the generated
          # template and clear the currently building paragraph.

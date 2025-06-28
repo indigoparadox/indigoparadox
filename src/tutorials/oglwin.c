@@ -8,14 +8,19 @@
 /* dnl :sect: Preamble
  */
 
+/* iwz_depfiles(
+ *    iwz_depfile(ogldefs.html)
+ * )
+ */
+
 /* Include The system iwz_filename(windows.h) header for constants and
  * functions used below. This pulls in the system OpenGL headers automatically.
  */
-/* Also include mini.h, a header with some program-specific constants we'll
- * also be using.
+/* Also include iwz_filename(ogldefs.h), a header with some program-specific
+ * constants we'll also be using.
  */
 #include <windows.h>
-#include "mini.h"
+#include "ogldefs.h"
 
 /* Define a window style which we will use later in our calls to
  * iwz_func(AdjustWindowRect()) and iwz_func(CreateWindow()).
@@ -134,11 +139,11 @@ LRESULT CALLBACK WndProc(
     * and act accordingly. We only create one timer in this program, though.
     */
    case WM_TIMER:
-      if( mini_opengl_frame() ) {
+      if( ogl_opengl_frame() ) {
          MessageBox( 0, "Error", "OpenGL frame error.", 0 );
          PostQuitMessage( 1 );
       } else {
-         /* As no error was returned by iwz_func(mini_opengl_frame()),
+         /* As no error was returned by iwz_func(ogl_opengl_frame()),
           * swap the double buffers so that the one we've been rasterizing to
           * is visible.
           */
@@ -196,7 +201,7 @@ int WINAPI WinMain(
    /* Get the *real* dimensions of the window, including titlebar.
     */
    /* Reminder that the iwz_var(MINI_SCREEN_W) and iwz_var(MINI_SCREEN_H)
-    * constants are defined in iwz_filename(mini.h)!
+    * constants are defined in iwz_filename(ogldefs.h)!
     */
    wr.right = MINI_SCREEN_W;
    wr.bottom = MINI_SCREEN_H;
@@ -267,7 +272,7 @@ int WINAPI WinMain(
    /* Call our generic OpenGL setup function defined in
     * iwz_filename(openglxx.c).
     */
-   if( mini_opengl_setup() ) {
+   if( ogl_opengl_setup() ) {
       MessageBox( 0, "Error", "OpenGL setup error.", 0 );
       PostQuitMessage( 1 );
    }

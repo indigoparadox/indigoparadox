@@ -27,6 +27,7 @@
  */
 
 /* iwz_depfiles(
+ *    iwz_depfile(ogldefs.html)
  *    iwz_depfile(oglwin.html)
  *    iwz_depfile(oglpoly.html)
  * )
@@ -44,11 +45,11 @@
  */
 
 /* Include The system OpenGL header for constants and functions used below.
- * Also include mini.h, a header with some program-specific constants we'll
- * also be using.
+ * Also include iwz_filename(ogldefs.h) (linked above), a header with some
+ * program-specific constants we'll also be using.
  */
 #include <GL/gl.h>
-#include "mini.h"
+#include "ogldefs.h"
 
 /* dnl :sect: The Code: Setup Function
  */
@@ -56,7 +57,7 @@
 /* A setup function to be called once from our wrapper program during
  * initialization. This is C89, so all of the variables are declared up front!
  */
-int mini_opengl_setup() {
+int ogl_opengl_setup() {
    int retval = 0;
    float aspect_ratio = 0;
    float rzoom = 0;
@@ -65,15 +66,15 @@ int mini_opengl_setup() {
     * necessary in some implementations. However, some other implementations
     * will behave weirdly if it's not done, so it's best to just always do it.
     */
-   /* Reminder that the iwz_var(MINI_SCREEN_W) and iwz_var(MINI_SCREEN_H)
-    * constants are defined in iwz_filename(mini.h)!
+   /* Reminder that the iwz_var(OGL_SCREEN_W) and iwz_var(OGL_SCREEN_H)
+    * constants are defined in iwz_filename(ogldefs.h)!
     */
-   glViewport( 0, 0, MINI_SCREEN_W, MINI_SCREEN_H );
+   glViewport( 0, 0, OGL_SCREEN_W, OGL_SCREEN_H );
 
    /* Calculate the aspect ratio of the screen as a float, which we will
     * use to determine the properties of our frustum.
     */
-   aspect_ratio = MINI_SCREEN_W / MINI_SCREEN_H;
+   aspect_ratio = OGL_SCREEN_W / OGL_SCREEN_H;
   
    /* Change the state of the OpenGL machine so that further commands will
     * affect the projection matrix. We are doing this now so that we can setup
@@ -115,14 +116,14 @@ int mini_opengl_setup() {
    glEnable( GL_CULL_FACE );
 
    /* Renormalize normals after irregular transformations. We're not scaling
-    * yet, and the normals specified in iwz_filename( minicube.c ) are all
+    * yet, and the normals specified in iwz_filename(oglcube.c are all
     * 1.0f in length, so this probably isn't needed. But again, it's good
     * hygiene.
     */
    glEnable( GL_NORMALIZE );
 
    /* Enable lighting. This turns on shading and lights, which can be seen
-    * in the iwz_func(mini_opengl_frame()) function below. Without lighting,
+    * in the iwz_func(ogl_opengl_frame()) function below. Without lighting,
     * all polygons are rasterized flatly with the color specified by
     * iwz_func(glColor3f()).
     */
@@ -160,14 +161,14 @@ int mini_opengl_setup() {
 /* A function to be called several times a second from our wrapper program to
  * draw each frame on-screen before the wrapper flips the buffer.
  */
-int mini_opengl_frame() {
+int ogl_opengl_frame() {
    static int rotate_y = 0;
    int retval = 0;
 
    /* Clear the screen so we can draw a new frame. Note that we are clearing
     * the color buffer (the visible framebuffer we have rasterized to in the
     * previous frame), as well as the depth buffer we created when we
-    * enabled iwz_var(GL_DEPTH_TEST) above in iwz_func(mini_opengl_setup()).
+    * enabled iwz_var(GL_DEPTH_TEST) above in iwz_func(ogl_opengl_setup()).
     */
    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
@@ -199,10 +200,10 @@ int mini_opengl_frame() {
     */
    rotate_y += 10;
 
-   /* Create the vertices for a multi-colored cube (see iwz_filename(minicube.c)
+   /* Create the vertices for a multi-colored cube (see iwz_filename(oglcube.c)
     * for details).
     */
-   mini_cube();
+   ogl_cube();
 
    /* Pop the matrix frame we created at the beginning of this frame.
     */

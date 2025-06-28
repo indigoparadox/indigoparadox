@@ -10,6 +10,7 @@ endif
 IWZ_HTML_PAGES=$(subst src/,,$(subst .m4,.html,$(wildcard src/**/*.m4) \
 	$(wildcard src/*.m4))) \
 	$(subst src/,,$(subst .c,.html,$(wildcard src/**/*.c))) \
+	$(subst src/,,$(subst .h,.html,$(wildcard src/**/*.h))) \
 	$(subst src/,,$(subst .asm,.html,$(wildcard src/**/*.asm)))
 
 IWZ_CSS=$(subst .m4,.css,$(wildcard styles/*))
@@ -22,6 +23,7 @@ IWZ_IMG=$(wildcard images/*.*) $(wildcard images/**/*.*)
 # are generated.
 
 IWZ_LIT_SRC=$(subst src/,,$(wildcard src/**/*.c)) \
+	$(subst src/,,$(wildcard src/**/*.h)) \
 	$(subst src/,,$(wildcard src/**/*.asm))
 
 modern: $(addprefix modern/,$(IWZ_HTML_PAGES)) \
@@ -56,11 +58,19 @@ temp/%.m4: src/%.c
 	mkdir -p $(dir $@)
 	./generate.sh proc_c "$<" "$@"
 
+temp/%.m4: src/%.h
+	mkdir -p $(dir $@)
+	./generate.sh proc_c "$<" "$@"
+
 temp/%.m4: src/%.asm
 	mkdir -p $(dir $@)
 	./generate.sh proc_asm "$<" "$@"
 
 modern/%.c: src/%.c
+	mkdir -p $(dir $@)
+	cp -v "$<" "$@"
+
+modern/%.h: src/%.h
 	mkdir -p $(dir $@)
 	cp -v "$<" "$@"
 
