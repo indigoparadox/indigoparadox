@@ -58,7 +58,7 @@ iwz_img(
 
 iwz_sect([Remote Options])
 
-iwz_p([Additionally, there is the decision of which sites to host on. I've been making use of the following:])
+iwz_p([Additionally, there is the decision of which sites to host on. We've been making use of the following:])
 
 iwz_block_table(
    [iwz_block_table_head([Centralized&nbspForge]) iwz_block_table_head([Notes])],
