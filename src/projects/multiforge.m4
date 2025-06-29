@@ -25,6 +25,8 @@ iwz_list(
 
 iwz_p([Regardless, some degree of autonomy is a necessity, to the extent required to combat the potential decay of centralized platforms. To that end, we believe it is ideal for a modern developer to be autonomously mobile. To be able to jump from one forge to the next (or straddle more than one!) with relatively little difficulty.])
 
+iwz_p([There are a few ways to go about this. The worst of all possible worlds is to iwz_a([https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/git-no-forge/], [eschew code forges altogether]). This loses engagement, discoverability, and longevity while still requiring hosting costs. There are also peer-to-peer solutions like iwz_a([https://radicle.xyz/], [Radicle]), which are intriguing due to their theoretical longevity, though these are currently hampered by their esoteric nature.])
+
 iwz_sect([The Hybrid Approach])
 
 iwz_p([While not perfect, our current solution is a self-hosted platform that pushes updates to several other platforms on a regular basis. This approach brings some of the benefits of self-hosting, while minimizing the costs:])
