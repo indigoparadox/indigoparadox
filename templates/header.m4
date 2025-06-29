@@ -27,6 +27,7 @@
   </ul>
   <h3>Related Web Zones</h3>
   <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
    <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
    <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
   </ul>
