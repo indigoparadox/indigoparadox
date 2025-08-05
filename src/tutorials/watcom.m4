@@ -31,7 +31,7 @@ iwz_sect([Basic Usage])
 
 iwz_p([The watcom compiler is split into iwz_filename([wcc]) for 16-bit programs and iwz_filename([wcc386]) for 32-bit programs. Please note that most target operating systems supported by OpenWatcom can run either. For example: Windows 3.x can run 16-bit Windows programs, and DOS can run 32-bit programs that use a DOS extender.])
 
-iwz_p([Once the individual code translation units are compiled, they can then be linked together with iwz_filename([wlink]). Some programs for Windows or OS/2 may with to use a resource file, to provide icons, localized strings, or other resources. This resource file must be compiled from a .rc as well, with iwz_filename([wrc]), before being included in the linking process. Writing .rc files is beyond the scope of this article, but many other resources on writing Windows resource files are available.])
+iwz_p([Once the individual code translation units are compiled, they can then be linked together with iwz_filename([wlink]). Some programs for Windows or OS/2 may need to use a resource file to provide icons, localized strings, or other resources. This resource file must be compiled from a .rc script with iwz_filename([wrc]) before being included in the linking process. Writing .rc scripts is beyond the scope of this article, but many other resources on writing Windows resource files are available.])
 
 iwz_p([The next section includes some examples for common target platforms, along with an explanation of how they work. These examples are in GNU make format, and assume iwz_var([$WATCOM]) is defined in your shell as the path to your OpenWatcom installation (e.g. iwz_filename([/opt/watcom])).])
 
