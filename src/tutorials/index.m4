@@ -7,6 +7,10 @@ define([iwz_section], [tutorials])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_proj_card([Crossdev with OpenWatcom], [watcom.html], [],
+   [Using OpenWatcom to compile DOS/Windows programs from GNU/Linux.],
+   [software,c])
+
 iwz_proj_card([OpenGL 1.0], [opengl01.html,], [],
    [Notes on early/minimal versions of OpenGL, their usage and limitations.],
    [software,c,opengl])
