@@ -7,6 +7,16 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt([(Me after seeing two guys in any context whatsoever) Well well well if it isn't the Bitmap Brothers.])
+
+iwz_twt(["Wow, this is awful!" I say, wading in and grabbing a fistful and taking a bite. "Absolutely horrible! Dreadful!" I take off my shirt and start swimming around.])
+
+iwz_twt([I hope the "Steam Frame" is one of those art TVs with a gaudy gold-painted wood frame but for gaming.])
+
+iwz_twt([I learned what ohagi are from Higurashi no Naku Koro ni and so I ended up internalizing "they have sewing needles in them" as part of the core concept.])
+
+iwz_twt([The Supreme Court has ruled 5-4 that Elves are monster girls and Landmine gyaru are gyaru, at least for the purposes of categorizing manga.])
+
 iwz_twt([I interject with dumb jokes because I have nothing to add to anything. Literally the only thing I know is Python. If it weren't for list comprehensions I'd have no comprehension at all.])
 
 iwz_twt([The SCSI interface was developed by Sir Allen Shugart, for his computer, the BBC- so-called, because it could be connected to a television to use as a display.])
