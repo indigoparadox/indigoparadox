@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: X86 Assembly: Hello!</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">X86 Assembly: Hello!</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p class="iwz-dlsrc">This page was generated from a source code file. <a href="x86hello.asm">Click here to download</a> the file this page was generated from.</a></p>
+<p> <p> <p> This series of articles on x86 assembly is a set of notes we're making as we learn DOS x86 assembly in a more systematic way than we've done so before. It is placed here in the hope it will be helpful (not least of all to us). If you have questions comments, ideas, or concerns, as always, please <a class="iwz-link iwz-link-ext" href="https://github.com/indigoparadox/indigoparadox/issues">let us know</a>!</p>
+<p> These articles all use syntax for <a class="iwz-link iwz-link-ext" href="https://www.nasm.us/">NASM</a>, which is freely available and even works on DOS!</p>
+<p> This file can be compiled with the command <span class="iwz-cmd">nasm -f bin -o x86hello.com x86hello.asm</span> to produce x86hello.com.</p>
+<p> 
+   
+   
+   
+   <a id="The-Code--Preamble"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> The Code: Preamble</h3></p>
+<p> These statements are instructions to nasm, rather than the CPU. They setup some assumptions that will help the assembler warn us of issues down the line.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86hello.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 1</td><td class="iwz-code-line">bits 16 ; Assume we're using 16-bit instructions by default.</td></tr>
+<tr class="iwz-code-neutral"><td> 2</td><td class="iwz-code-line">org 100h ; Tell the assembler where the program will be loaded.</td></tr>
+<tr class="iwz-code-neutral"><td> 3</td><td class="iwz-code-line">cpu 186 ; Tell the assembler not to allow instructions for the 286+.</td></tr>
+<p> 
+   
+   
+   
+   <a id="The-Code--Start-Procedure"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> The Code: Start Procedure</h3></p>
+<tr class="iwz-code-neutral"><td> 4</td><td class="iwz-code-line">start:</td></tr>
+</tbody></table>
+<p> There are four general-purpose 16-bit registers: ax, bx, cx, and dx. Each is divided into high and low bytes, and can be addressed as such e.g. by using ah (OOXXh) and al (XXOOh) (where OO is the byte being accessed).</p>
+<p> DOS also provides interrupt 21h as a "catch-all" which performs different functions depending on what the byte in ah is set to when it is called.</p>
+<p> In our example here, ah is set to 09h (the equivalent for the full ax register being 0900h). This is the index of the function that prints a string at the pointer placed in the dx register, terminated by a '$' symbol.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86hello.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 5</td><td class="iwz-code-line">   mov ax, 900h ; Print-string-until-$-char service.</td></tr>
+<tr class="iwz-code-neutral"><td> 6</td><td class="iwz-code-line">   mov dx, hello ; Place a pointer to the hello string in the dx register.</td></tr>
+<tr class="iwz-code-neutral"><td> 7</td><td class="iwz-code-line">   int 21h ; Call function handler interrupt.</td></tr>
+</tbody></table>
+<p> COM programs in DOS should call the DOS "terminate" function when they are finished. This lets DOS effectively clean up after us (to the extent that it does) and return to the command interpreter.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86hello.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 8</td><td class="iwz-code-line">   mov ah, 04ch ; Termination service.</td></tr>
+<tr class="iwz-code-neutral"><td> 9</td><td class="iwz-code-line">   int 21h ; Call function handler interrupt.</td></tr>
+</tbody></table>
+<p> The concludes the code section.</p>
+<p> 
+   
+   
+   
+   <a id="The-Code--Data-Section"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> The Code: Data Section</h3></p>
+<p> We're building a COM file which, doesn't technically have sections, but nasm will kinda fake that for us. This lets us store e.g. strings in an organized fashion for use above.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86hello.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 10</td><td class="iwz-code-line">SECTION .data</td></tr>
+</tbody></table>
+<p> This is our string. db means "data bytes" and indicates a series of bytes, the string "pointer" is named for the label that precedes it, and it is terminated with a '$' symbol for the benefit of the <span class="iwz-func">0900h</span> function as described above.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86hello.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 11</td><td class="iwz-code-line">hello: db "Hello!$"</td></tr>
+</tbody></table>
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#The-Code--Preamble">The Code: Preamble</a></li> <li><a href="#The-Code--Start-Procedure">The Code: Start Procedure</a></li> <li><a href="#The-Code--Data-Section">The Code: Data Section</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Hand386</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Hand386</h2>
+  <a class="iwz-breadcrumbs" href="/computers">Back to computers</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-active iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>The Hand386 is a weird little guy from China that was offered for a limited time on Ali Express. It uses (apparently) recycled industrial 386 SoCs and a purpose-build motherboard to create a portable, battery-powered retro gaming handheld device. We have experienced some quality issues so far, but we love a weird little guy and this little guy is rather weird, indeed!</p>
+
+
+   
+   
+   
+   <a id="Sound-Chip"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Sound Chip</h3>
+
+<p>The sound chip is an interesting case: it is a(n apparently) genuine OPL-3 chip. For most DOS games, this can be selected as Ad Lib music with no digital sound.</p>
+
+<p>That's right, there is no digital/PCM sound production in the traditional sense! The included Windows 95 only has a MIDI driver installed, with no mixer or PCM device.</p>
+
+<img class="iwz-img" src="/images/hand386/hand386-win95-mcid.jpg" alt="Windows 95 Multimedia devices list... there are no digital audio devices listed, only the OPL-3." title="Windows 95 Multimedia devices list... there are no digital audio devices listed, only the OPL-3." />
+
+<p>However, the OPL-3 does have some tricks up its sleeve! Programs that know how to, can upload samples as MIDI instruments and play them as sound effects. The device includes a VGM player which plays VGM files using custom instruments, and Wolfenstein 3D, which uses this method to play sound effects and voices.</p>
+
+
+   
+   
+   
+   <a id="VESA-Driver"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> VESA Driver</h3>
+
+<img class="iwz-img" src="/images/hand386/hand386-sc2k.jpg" alt="SimCity 2000 for DOS title screen displayed on a big monitor hooked up to the Hand386 over a messy desk. The screen is... not *too* dark..." title="SimCity 2000 for DOS title screen displayed on a big monitor hooked up to the Hand386 over a messy desk. The screen is... not *too* dark..." />
+
+<p>Some games may require a VESA driver. A VESA driver compatible with the built-in chipset is included as <span class="iwz-filename">C:\VESA.COM</span>! This works with e.g. SimCity 2000. (Thanks to <a class="iwz-link iwz-link-social" href="https://bitbang.social/@polpo">Ian Scott</a> for pointing this out!)</p>
+
+
+   
+   
+   
+   <a id="ISA-Bus"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> ISA Bus</h3>
+
+<p>There is an optional ISA bus module. So far, experimental results are as follows:</p>
+
+<img class="iwz-img" src="/images/hand386/hand386-isa-noser.jpg" alt="Closeup of Hand386 connected to ISA bus with no card inserted. Highlighted on the screen, the BIOS status is showing "Serial Port(s): None, Parallel Port(s): None"" title="Closeup of Hand386 connected to ISA bus with no card inserted. Highlighted on the screen, the BIOS status is showing "Serial Port(s): None, Parallel Port(s): None"" />
+
+<img class="iwz-img" src="/images/hand386/hand386-isa-ser.jpg" alt="Closeup of Hand386 connected to ISA bus with I/O card inserted. Highlighted on the screen, the BIOS status is showing "Serial Port(s): 3F8, Parallel Port(s): 378"" title="Closeup of Hand386 connected to ISA bus with I/O card inserted. Highlighted on the screen, the BIOS status is showing "Serial Port(s): 3F8, Parallel Port(s): 378"" />
+
+<p>The BIOS shows the serial and parallel ports from a multi-I/O card when it is installed. When the card is removed, the BIOS complains about an invalid floppy drive, until the floppy drive is disabled in BIOS setup.</p>
+
+<p>Attempting to boot with a 3Com 3c509 network card inserted simply does not work. It leads to a blue "VGA" screen on the internal display, indicating a failure to start booting. This invites further investigation with a port-80 card (TODO).</p>
+
+
+   
+   
+   
+   <a id="Defects"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Defects</h3>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">Shorted keyboard PS/2 port</dt><dd class="iwz-sum-list-desc">The external keyboard didn't work (and the internal keyboard stopped working!) when the included PS/2 and VGA dongle was plugged into the Hand386. This was found to be because of a solder short in the dongle, itself. Taking solder wick and rosin to soak the excess solder out of the PS/2 connections on the dongle seemed to fix this.</dd>
+</dl>
+
+
+   
+   
+   
+   <a id="Startup-Menu"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> Startup Menu</h3>
+
+<p>It is possible to use the menu feature built in to DOS 7 to create a startup menu, making the device somewhat easier/quicker to use. The startup files <span class="iwz-filename">CONFIG.SYS</span> and <span class="iwz-filename">AUTOEXEC.BAT</span> below demonstrate some examples (both included with the handheld and not). They are examples, but you should be able to pick up the general pattern to use them.</p>
+
+
+   
+   <a id="6-CONFIG-SYS"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">6 - 1.</span> CONFIG.SYS</h4>
+
+<p>The menu items are defined in <span class="iwz-filename">CONFIG.SYS</span> by defining a <span class="iwz-var">[MENU]</span> block. Each <span class="iwz-var">MENUITEM</span> is a comma-separated pair, where the item to the left of the comma (e.g. <span class="iwz-var">DOSP</span> in the first item below) defines the name of the block that will be called both in the rest of the <span class="iwz-filename">CONFIG.SYS</span> and in the <span class="iwz-filename">AUTOEXEC.BAT</span> below. The rest of the text after the comma is the name of the menu item (e.g. <span class="iwz-var">(OS) DOS Prompt</span>, in the same example item).</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">CONFIG.SYS</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">[MENU]</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">MENUITEM=DOSP,(OS) DOS Prompt</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line">MENUITEM=WIN95,(OS) Windows 95</td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line">MENUITEM=DOOM,(Game) DOOM</td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line">MENUITEM=WOLF3D,(Game) Wolfenstein 3D</td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line">MENUITEM=TYRIAN,(Game) Tyrian</td></tr>
+   <tr class="iwz-code-neutral"><td>7</td><td class="iwz-code-line">MENUITEM=SC2K,(Game) SimCity 2000</td></tr>
+   <tr class="iwz-code-neutral"><td>8</td><td class="iwz-code-line">MENUITEM=TIE,(Game) TIE Fighter</td></tr>
+   <tr class="iwz-code-neutral"><td>9</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>10</td><td class="iwz-code-line">[DOSP]</td></tr>
+   <tr class="iwz-code-neutral"><td>11</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>12</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE NOEMS</td></tr>
+   <tr class="iwz-code-neutral"><td>13</td><td class="iwz-code-line">DOS=HIGH,UMB,AUTO</td></tr>
+   <tr class="iwz-code-neutral"><td>14</td><td class="iwz-code-line">DEVICEHIGH=C:\WINDOWS\SETVER.EXE</td></tr>
+   <tr class="iwz-code-neutral"><td>15</td><td class="iwz-code-line">SHELL=C:\COMMAND.COM C:\ /P /E:640</td></tr>
+   <tr class="iwz-code-neutral"><td>16</td><td class="iwz-code-line">REM DEVICEHIGH=C:\DOS71\DISPLAY.SYS CON=(,,1)</td></tr>
+   <tr class="iwz-code-neutral"><td>17</td><td class="iwz-code-line">DEVICE=C:\CH375DOS.SYS @260 %2</td></tr>
+   <tr class="iwz-code-neutral"><td>18</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>19</td><td class="iwz-code-line">[WIN95]</td></tr>
+   <tr class="iwz-code-neutral"><td>20</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>21</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE NOEMS</td></tr>
+   <tr class="iwz-code-neutral"><td>22</td><td class="iwz-code-line">DOS=HIGH,UMB,AUTO</td></tr>
+   <tr class="iwz-code-neutral"><td>23</td><td class="iwz-code-line">DEVICEHIGH=C:\WINDOWS\SETVER.EXE</td></tr>
+   <tr class="iwz-code-neutral"><td>24</td><td class="iwz-code-line">SHELL=C:\COMMAND.COM C:\ /P /E:640</td></tr>
+   <tr class="iwz-code-neutral"><td>25</td><td class="iwz-code-line">DEVICE=C:\CH375DOS.SYS @260 %2</td></tr>
+   <tr class="iwz-code-neutral"><td>26</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>27</td><td class="iwz-code-line">[DOOM]</td></tr>
+   <tr class="iwz-code-neutral"><td>28</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>29</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE NOEMS</td></tr>
+   <tr class="iwz-code-neutral"><td>30</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>31</td><td class="iwz-code-line">[WOLF3D]</td></tr>
+   <tr class="iwz-code-neutral"><td>32</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>33</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE NOEMS</td></tr>
+   <tr class="iwz-code-neutral"><td>34</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>35</td><td class="iwz-code-line">[TYRIAN]</td></tr>
+   <tr class="iwz-code-neutral"><td>36</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>37</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE NOEMS</td></tr>
+   <tr class="iwz-code-neutral"><td>38</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>39</td><td class="iwz-code-line">[SC2K]</td></tr>
+   <tr class="iwz-code-neutral"><td>40</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>41</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE NOEMS</td></tr>
+   <tr class="iwz-code-neutral"><td>42</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>43</td><td class="iwz-code-line">[TIE]</td></tr>
+   <tr class="iwz-code-neutral"><td>44</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\HIMEM.SYS</td></tr>
+   <tr class="iwz-code-neutral"><td>45</td><td class="iwz-code-line">DEVICE=C:\WINDOWS\EMM386.EXE 2048</td></tr>
+   <tr class="iwz-code-neutral"><td>46</td><td class="iwz-code-line">FILES=30</td></tr>
+</tbody></table>
+
+<p>If you are already familiar with this feature, you may note that we are not using a [COMMON] block, which would allow us to define some of the repeating items only once. This is so that we have control over the order in which they load (and in some items prevent their loading altogether!)</p>
+
+
+   
+   <a id="6-AUTOEXEC-BAT"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">6 - 2.</span> AUTOEXEC.BAT</h4>
+
+<p>This is fairly simple: just goto the label defined in <span class="iwz-var">%CONFIG%</span>, which is defined by the <span class="iwz-func">MENUITEM</span> selected in <span class="iwz-filename">CONFIG.SYS</span>.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">AUTOEXEC.BAT</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">@ECHO OFF</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">PROMPT $P$G</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line">GOTO %CONFIG%</td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line">:DOSP</td></tr>
+   <tr class="iwz-code-neutral"><td>7</td><td class="iwz-code-line">ECHO Now you are in MS-DOS 7.10 prompt. Type 'HELP' for help.</td></tr>
+   <tr class="iwz-code-neutral"><td>8</td><td class="iwz-code-line">ECHO.</td></tr>
+   <tr class="iwz-code-neutral"><td>9</td><td class="iwz-code-line">PATH=C:\DOS71;C:\DOS71\norton</td></tr>
+   <tr class="iwz-code-neutral"><td>10</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>11</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>12</td><td class="iwz-code-line">:WIN95</td></tr>
+   <tr class="iwz-code-neutral"><td>13</td><td class="iwz-code-line">PATH=C:\WINDOWS;C:\WINDOWS\COMMAND;C:\DOS71;C:\DOS71\norton</td></tr>
+   <tr class="iwz-code-neutral"><td>14</td><td class="iwz-code-line">WIN</td></tr>
+   <tr class="iwz-code-neutral"><td>15</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>16</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>17</td><td class="iwz-code-line">:DOOM</td></tr>
+   <tr class="iwz-code-neutral"><td>18</td><td class="iwz-code-line">CD GAME\DOOM</td></tr>
+   <tr class="iwz-code-neutral"><td>19</td><td class="iwz-code-line">DOOM</td></tr>
+   <tr class="iwz-code-neutral"><td>20</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>21</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>22</td><td class="iwz-code-line">:WOLF3D</td></tr>
+   <tr class="iwz-code-neutral"><td>23</td><td class="iwz-code-line">CD GAME\WOLF3D</td></tr>
+   <tr class="iwz-code-neutral"><td>24</td><td class="iwz-code-line">WOLF3D</td></tr>
+   <tr class="iwz-code-neutral"><td>25</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>26</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>27</td><td class="iwz-code-line">:TYRIAN</td></tr>
+   <tr class="iwz-code-neutral"><td>28</td><td class="iwz-code-line">CD GAME\TYRIAN</td></tr>
+   <tr class="iwz-code-neutral"><td>29</td><td class="iwz-code-line">TYRIAN</td></tr>
+   <tr class="iwz-code-neutral"><td>30</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>31</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>32</td><td class="iwz-code-line">:SC2K</td></tr>
+   <tr class="iwz-code-neutral"><td>33</td><td class="iwz-code-line">C:\VESA.COM</td></tr>
+   <tr class="iwz-code-neutral"><td>34</td><td class="iwz-code-line">C:\CTMOUSE.EXE</td></tr>
+   <tr class="iwz-code-neutral"><td>35</td><td class="iwz-code-line">CD GAME\SC2000</td></tr>
+   <tr class="iwz-code-neutral"><td>36</td><td class="iwz-code-line">SC2000</td></tr>
+   <tr class="iwz-code-neutral"><td>37</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>38</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>39</td><td class="iwz-code-line">:TIE</td></tr>
+   <tr class="iwz-code-neutral"><td>40</td><td class="iwz-code-line">CD GAME\TIE</td></tr>
+   <tr class="iwz-code-neutral"><td>41</td><td class="iwz-code-line">TIE</td></tr>
+   <tr class="iwz-code-neutral"><td>42</td><td class="iwz-code-line">GOTO END</td></tr>
+   <tr class="iwz-code-neutral"><td>43</td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td>44</td><td class="iwz-code-line">:END</td></tr>
+</tbody></table>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Sound-Chip">Sound Chip</a></li> <li><a href="#VESA-Driver">VESA Driver</a></li> <li><a href="#ISA-Bus">ISA Bus</a></li> <li><a href="#Defects">Defects</a></li> <li><a href="#Startup-Menu">Startup Menu</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Windows CE 2 SDK</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Windows CE 2 SDK</h2>
+  <a class="iwz-breadcrumbs" href="/utilities">Back to utilities</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-active iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Getting-the-Compiler"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Getting the Compiler</h3>
+
+<p>As of this writing, the compilers are available in a bundle available at <a class="iwz-link iwz-link-ext" href="https://archive.org/details/wce-20-dev-20240825.tar">The Internet Archive</a>. They have been extracted from various installers/disc images so that you don't have to. Please see the instructions for use below.</p>
+
+
+   
+   
+   
+   <a id="Creating-a-Makefile"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Creating a Makefile</h3>
+
+<p>The examples below outline arguments to pass to the command-line compilers included in the Windows CE 2.0 SDK in the form of GNU Makefiles. The Makefiles call the compilers through wine, which should be installed beforehand.</p>
+
+<p>The examples assume a source code file called <span class="iwz-filename">example.c</span> and a Windows resource file called <span class="iwz-filename">example.rc</span> and they output an executable called <span class="iwz-filename">example.exe</span>.</p>
+
+<p>The examples also assume that you have extracted the tarball linked above and placed it somewhere (e.g. under <span class="iwz-filename">/opt</span>) and stored that location in the environment variable <span class="iwz-var">$WCE20DEV</span> (e.g. <span class="iwz-func">export WCE20DEV=/opt/wce20dev</span>).</p>
+
+<p>While Makefiles may not be useful on their own, hopefully these will provide a rough outline as to how to use the compilers included in the SDK.</p>
+
+
+   
+   <a id="2-Example-for-SH3"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 1.</span> Example for SH3</h4>
+
+<p>This example demonstrates a basic Makefile for compiling a Windows CE 2.0 program for the SH3 CPU.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">Makefile.SH3</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">example.exe: obj/example.o obj/example.res</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">	wine $(WCE20DEV)/BIN/LINK.EXE /LIBPATH:$(WCE20DEV)/LIB/wce200/HPC/wcesh/ /machine:SH3 $^ /OUT:$@</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line">obj/%.o: %.c</td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line">	wine $(WCE20DEV)/BIN/SHCL.EXE /D "SH3" /D "_SH3_" /c /Fo$@ $<</td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>7</td><td class="iwz-code-line">obj/%.res: %.rc</td></tr>
+   <tr class="iwz-code-neutral"><td>8</td><td class="iwz-code-line">	wine $(WCE20DEV)/BIN/RC.EXE /l 0x409 /r /d "SH3" /d "_SH3_" /d "_WIN32_WCE" /d "UNICODE" /fo $@ $<</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Example-for-MIPS"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 2.</span> Example for MIPS</h4>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Getting-the-Compiler">Getting the Compiler</a></li> <li><a href="#Creating-a-Makefile">Creating a Makefile</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+

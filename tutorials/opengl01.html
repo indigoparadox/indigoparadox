@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: OpenGL 1.0: Part 1</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">OpenGL 1.0: Part 1</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p class="iwz-dlsrc">This page was generated from a source code file. <a href="opengl01.c">Click here to download</a> the file this page was generated from.</a></p>
+<p> <p> <p> <img class="iwz-img" src="/images/opengl/opengl01.png" alt="The inside of a colorful cube rendered in a window." title="The inside of a colorful cube rendered in a window." /></p>
+<p> 
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3></p>
+<p> This is an "anti-tutorial" for working with OpenGL 1.0. A working example is laid out below, along with the rationale for why certain things are implemented the way they are.</p>
+<p> Please note that this may not be a good source for learning how to write *modern* OpenGL code. This is specifically a guide for writing code targeting older OpenGL implementations such as those found in early versions of Windows NT or older video game consoles.</p>
+<p> 
+   
+   
+   
+   <a id="Compiling"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Compiling</h3></p>
+<p> <div class="iwz-depfiles"><p>This source file also depends on the files below:</p><ul><li><a href="ogldefs.html">ogldefs.html</a></li>    <li><a href="oglwin.html">oglwin.html</a></li>    <li><a href="oglpoly.html">oglpoly.html</a></li> </ul></div></p>
+<p> These files can be compiled together by adding them to your Borland or Visual C IDE. You may also compile them by installing the MingW compiler on your Linux distro (e.g. <span class="iwz-cmd">sudo apt install mingw-w64-i686-dev</span> on recent Ubuntu) and using the command <span class="iwz-cmd">i686-w64-mingw32-gcc -o opengl01.exe opengl01.c oglwin.c oglpoly.c -lopengl32 -lgdi32</span> to produce <span class="iwz-filename">opengl01.exe</span>.</p>
+<p> 
+   
+   
+   
+   <a id="The-Code--Preamble"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> The Code: Preamble</h3></p>
+<p> Include The system OpenGL header for constants and functions used below. Also include <span class="iwz-filename">ogldefs.h</span> (linked above), a header with some program-specific constants we'll also be using.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 1</td><td class="iwz-code-line">#include &lt;GL/gl.h&gt;</td></tr>
+<tr class="iwz-code-neutral"><td> 2</td><td class="iwz-code-line">#include "ogldefs.h"</td></tr>
+<p> 
+   
+   
+   
+   <a id="The-Code--Setup-Function"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> The Code: Setup Function</h3></p>
+</tbody></table>
+<p> A setup function to be called once from our wrapper program during initialization. This is C89, so all of the variables are declared up front!</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 3</td><td class="iwz-code-line">int ogl_opengl_setup() {</td></tr>
+<tr class="iwz-code-neutral"><td> 4</td><td class="iwz-code-line">   int retval = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 5</td><td class="iwz-code-line">   float aspect_ratio = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 6</td><td class="iwz-code-line">   float rzoom = 0;</td></tr>
+</tbody></table>
+<p> Set the viewport to the size of the window. This is not strictly necessary in some implementations. However, some other implementations will behave weirdly if it's not done, so it's best to just always do it.</p>
+<p> Reminder that the <span class="iwz-var">OGL_SCREEN_W</span> and <span class="iwz-var">OGL_SCREEN_H</span> constants are defined in <span class="iwz-filename">ogldefs.h</span>!</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 7</td><td class="iwz-code-line">   glViewport( 0, 0, OGL_SCREEN_W, OGL_SCREEN_H );</td></tr>
+</tbody></table>
+<p> Calculate the aspect ratio of the screen as a float, which we will use to determine the properties of our frustum.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 8</td><td class="iwz-code-line">   aspect_ratio = OGL_SCREEN_W / OGL_SCREEN_H;</td></tr>
+</tbody></table>
+<p> Change the state of the OpenGL machine so that further commands will affect the projection matrix. We are doing this now so that we can setup our projection!</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 9</td><td class="iwz-code-line">   glMatrixMode( GL_PROJECTION );</td></tr>
+</tbody></table>
+<p> Reset the matrix properties to defaults... We haven't done anything yet, so this will probably not do anything, but it's good hygiene.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 10</td><td class="iwz-code-line">   glLoadIdentity();</td></tr>
+</tbody></table>
+<p> Setup the frustum... This distorts the lines drawn by the rasterizer, so that objects appear to have depth.</p>
+<p> There are more complicated explanations regarding the math elsewhere, but the bottom line is that the smaller the <span class="iwz-var">rzoom</span> variable is, the closer everything appears to the "camera," or point-of-view.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 11</td><td class="iwz-code-line">   rzoom = 1.0f;</td></tr>
+<tr class="iwz-code-neutral"><td> 12</td><td class="iwz-code-line">   glFrustum(</td></tr>
+<tr class="iwz-code-neutral"><td> 13</td><td class="iwz-code-line">      -1.0f * rzoom * aspect_ratio,</td></tr>
+<tr class="iwz-code-neutral"><td> 14</td><td class="iwz-code-line">      rzoom * aspect_ratio,</td></tr>
+<tr class="iwz-code-neutral"><td> 15</td><td class="iwz-code-line">      -1.0f * rzoom,</td></tr>
+<tr class="iwz-code-neutral"><td> 16</td><td class="iwz-code-line">      rzoom,</td></tr>
+<tr class="iwz-code-neutral"><td> 17</td><td class="iwz-code-line">      0.5f, 20.0f );</td></tr>
+</tbody></table>
+<p> Change the state of the OpenGL machine back so that further commands will affect the model matrix, now that we've setup our projection above.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 18</td><td class="iwz-code-line">   glMatrixMode( GL_MODELVIEW );</td></tr>
+</tbody></table>
+<p> Set the clear color. Here we've chosen a sensible default of black.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 19</td><td class="iwz-code-line">   glClearColor( 0, 0, 0, 0 );</td></tr>
+</tbody></table>
+<p> Enable face culling.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">opengl01.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 20</td><td class="iwz-code-line">   glEnable( GL_CULL_FACE );</td></tr>
+</tbody></table>
+<p> Renormalize normals after irregular transformations. We're not scaling yet, and the normals specified in 

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Tandy 4850 EP</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Tandy 4850 EP</h2>
+  <a class="iwz-breadcrumbs" href="/computers">Back to computers</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-active iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/t4850ep/t4850ep-front-20230620.jpg" alt="The front bezel of our modded Tandy 4850 EP. The 3.25-inch bays have a CompactFlash card reader and a Gotek USB floppy emulator modded with a rotary encoder and OLED screen. The 5.25-inch bay has a classic 8x IDE CD-ROM drive." title="The front bezel of our modded Tandy 4850 EP. The 3.25-inch bays have a CompactFlash card reader and a Gotek USB floppy emulator modded with a rotary encoder and OLED screen. The 5.25-inch bay has a classic 8x IDE CD-ROM drive." />
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<div class="iwz-block iwz-pcspec"><table class="iwz-pcspec-table"><tr><td class="iwz-pcspec-key">CPU</td><td class="iwz-pcspec-value">486 DX2 55MHz</td><tr><td class="iwz-pcspec-key">RAM</td><td class="iwz-pcspec-value">16MB</td><tr><td class="iwz-pcspec-key">Video</td><td class="iwz-pcspec-value">WD90C30-LR VGA 1MB</td><tr><td class="iwz-pcspec-key">Sound</td><td class="iwz-pcspec-value">MediaVision Pro Audio Spectrum (ISA)</td><tr><td class="iwz-pcspec-key">Network</td><td class="iwz-pcspec-value">3com 3c509b-C (ISA)</td><tr><td class="iwz-pcspec-key">Hard Disk</td><td class="iwz-pcspec-value">2GB CompactFlash</td><tr><td class="iwz-pcspec-key">Floppy</td><td class="iwz-pcspec-value"><a href="/projects/gotek.html">Gotek floppy emulator</a></td><tr><td class="iwz-pcspec-key">Ports</td><td class="iwz-pcspec-value">2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI</td></table><p class="iwz-pcspec-note">This information pertains to a particular specimen and may reflect upgrades, repairs, modifications, or factory options not present by default.</p></div>
+
+<p>The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.</p>
+
+<p>This unit came into our possession with a Pro Audio Spectrum 16 sound card, as well as Windows 95. This ran fairly well on the 486 DX2 55MHz CPU, albeit stuck in 256 colors with the built-in Western Digital video chip. It does seem that the video RAM was upgraded to 1MB at some point (SW1P6 is set to OFF per <a class="iwz-link iwz-link-ext" href="http://ftp.oldskool.org/pub/tvdog/tandy1000/faxback/01013.txt">Tandy faxback 01013</a>).</p>
+
+<p>During our stewardship of the machine, we have replaced the original floppy with a <a href="/projects/gotek.html">Gotek floppy emulator</a> and upgraded the accompanying Sony external CD-ROM drive to an internal 52X IDE unit.</p>
+
+
+   
+   
+   
+   <a id="Resource-Assignments"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Resource Assignments</h3>
+
+<p>The following were gathered from Windows 95's Device Manager, and may be incomplete. Only I/O addresses from 0x200-0x3ff were considered. The video card should, in theory use IRQ 9, but Windows's configuration did not reflect this.</p>
+
+<div class="iwz-block iwz-pcspec-irq
+"><table class="iwz-table"><thead><tr><th>IRQ</th> <th>Peripheral</th></tr></thead><tbody>
+      <tr>
+         <td>0</td> <td>System Timer</td> </tr>
+      <tr>
+         <td>1</td> <td>Keyboard</td> </tr>
+      <tr>
+         <td>2</td> <td>APIC</td> </tr>
+      <tr>
+         <td>3</td> <td>COM2</td> </tr>
+      <tr>
+         <td>4</td> <td>COM1</td> </tr>
+      <tr>
+         <td>6</td> <td>Floppy Controller</td> </tr>
+      <tr>
+         <td>8</td> <td>RTC</td> </tr>
+      <tr>
+         <td>10</td> <td>3c509b</td> </tr>
+      <tr>
+         <td>12</td> <td>Mouse</td> </tr>
+      <tr>
+         <td>13</td> <td>FPU</td> </tr>
+      <tr>
+         <td>14</td> <td>IDE Controller</td> </tr>
+      <tr>
+         <td>15</td> <td>Pro Audio Spectrum</td> </tr>
+   </tbody></table></div>
+
+<div class="iwz-block iwz-pcspec-dma
+"><table class="iwz-table"><thead><tr><th>DMA Channel</th> <th>Peripheral</th></tr></thead><tbody>
+      <tr>
+         <td>2</td> <td>Floppy Controller</td> </tr>
+      <tr>
+         <td>4</td> <td>DMA Controller</td> </tr>
+      <tr>
+         <td>7</td> <td>Pro Audio Spectrum</td> </tr>
+   </tbody></table></div>
+
+<div class="iwz-block iwz-pcspec-io
+"><table class="iwz-table"><thead><tr><th>I/O Port</th> <th>Peripheral</th></tr></thead><tbody>
+      <tr>
+         <td>0x201</td> <td>Pro Audio Spectrum</td> </tr>
+      <tr>
+         <td>0x2f8</td> <td>COM2</td> </tr>
+      <tr>
+         <td>0x300</td> <td>3c509b</td> </tr>
+      <tr>
+         <td>0x3f2</td> <td>Floppy Controller</td> </tr>
+      <tr>
+         <td>0x388</td> <td>Pro Audio Spectrum</td> </tr>
+      <tr>
+         <td>0x3bc</td> <td>Parallel Port</td> </tr>
+      <tr>
+         <td>0x3f8</td> <td>COM1</td> </tr>
+   </tbody></table></div>
+
+
+   
+   
+   
+   <a id="BIOS-Images"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> BIOS Images</h3>
+
+<p>Unlike earlier Tandy computers, the 4850 EP does not have an operating system or file system in ROM. It uses the Phoenix BIOS and, fortunately, it does have the setup utility in ROM. The BIOS is limited to a maximum hard disk size of 512 MB, but this can be worked around with disk extender software. Here are <a class="iwz-link iwz-link-file" href="/images/t4850ep/t4850ep-bios.zip">the Tandy 4850 EP BIOS images</a>.</p>
+
+
+   
+   
+   
+   <a id="Inside-Pictures"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Inside Pictures</h3>
+
+<p>In the interest of completeness and in no particular order, here are the insides of the Tandy 4850 EP. Please hover your mouse cursor over each picture for a brief description of the image.</p>
+
+<img class="iwz-img" src="/images/t4850ep/t4850ep-inside-l.jpg" alt="The left half of the motherboard of the Tandy 4850 EP, in front of the risers. ROM chips and GALs are visible." title="The left half of the motherboard of the Tandy 4850 EP, in front of the risers. ROM chips and GALs are visible." />
+
+<img class="iwz-img" src="/images/t4850ep/t4850ep-inside-r.jpg" alt="The right half of the motherboard of the Tandy 4850 EP. Many chips are visible. The 486 is under a small, black heatsink. The keyboard fuse has been replaced with an awkward large fuse holder." title="The right half of the motherboard of the Tandy 4850 EP. Many chips are visible. The 486 is under a small, black heatsink. The keyboard fuse has been replaced with an awkward large fuse holder." />
+
+
+   
+   
+   
+   <a id="Keyboard-Fuse-Replacement"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Keyboard Fuse Replacement</h3>
+
+<p>The large fuse holder of questionable efficacy in the motherboard picture in the previous section is not the original keyboard fuse. The original looked like this:</p>
+
+<img class="iwz-img" src="/images/t4850ep/t4850ep-kb-fuse.jpg" alt="Closeup of the original Tandy 4850 EP keyboard fuse. A tiny, inconspicuous yellow-green cylinder." title="Closeup of the original Tandy 4850 EP keyboard fuse. A tiny, inconspicuous yellow-green cylinder." />
+
+<p>Unfortunately, the original fuse blew at some point during the last 20 years or so. This is why you should always turn the computer off and ground yourself before attaching a PS/2-style keyboard!</p>
+
+<p>While the questionable idea of using a generic fuse holder and fuse of similar specs that we had lying around was ours, the idea to check the fuse because the PC was acting like no keyboard was attached came from <a class="iwz-link iwz-link-social" href="https://ccrvb.com/@yestergearpc">Adam Brisebois</a> (thanks, Adam!)</p>
+
+
+   
+   
+   
+   <a id="XT-IDE-Universal-BIOS-and-Large-Drives"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> XT-IDE Universal BIOS and Large Drives</h3>
+
+<p>The Tandy 4850 EP has a 512MB disk size limitation in its BIOS. Previously, this was worked around using Dynamic Drive Overlay software. In this case, it also has a 3Com 3c509b-C Ethernet ISA card with a free boot ROM socket. This afforded us the opportunity to avoid DDO software altogether by using <a class="iwz-link iwz-link-ext" href="https://www.xtideuniversalbios.org/binaries/">the latest version of the XT-IDE Universal BIOS</a> (r625 at the time of this writing).</p>
+
+
+   
+   <a id="6-Procedure"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">6 - 1.</span> Procedure</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">3c509b Configuration</dt><dd class="iwz-sum-list-desc">This was done on the Tandy with the 3c509b installed, using <span class="iwz-cmd">3C5X9CFG.EXE</span> from the <a class="iwz-link iwz-link-ext" href="http://ohlandl.ipv7.net/NIC/3com_529.html">EtherDisk 6.1</a> collection. Most of the defaults were kept, but the boot ROM size was set to 16KB (even though our physical ROM was 64KB, see the section on flashing, below). We were also forced to disable Plug-and-Play support by Windows issues (see <a class="iwz-link-anchor" href="#5-Troubleshooting">Troubleshooting</a>, below).</dd>
+   <dt class="iwz-sum-list-item">XT-IDE Configuration</dt><dd class="iwz-sum-list-desc">With some experimentation, we found the optimal settings to be those indicated in the images below. Configuration was performed in DOSBox on our host PC using <span class="iwz-filename">XTIDECFG.COM</span> and written to <span class="iwz-filename">IDE_386L.BIN</span>
+         <img class="iwz-img" src="/images/t4850ep/dosbox-xtidecfg-ctrl.png" alt="Controller configuration: device type is 16-bit, base address is 1F0h, control address is 3F0h, IRQ is enabled and set to 14." title="Controller configuration: device type is 16-bit, base address is 1F0h, control address is 3F0h, IRQ is enabled and set to 14." />
+         <img class="iwz-img" src="/images/t4850ep/dosbox-xtidecfg-drive.png" alt="Drive configuration: block transfers enabled, CHS translation set to auto, write cache disabled, and no user-specified CHS or LBA." title="Drive configuration: block transfers enabled, CHS translation set to auto, write cache disabled, and no user-specified CHS or LBA." /></dd>
+   <dt class="iwz-sum-list-item">XT-IDE Flashing</dt><dd class="iwz-sum-list-desc">Before flashing, it was necessary to pad the ROM using <a href="/utilities/rompad.html">ROMPAD</a>. The 3c509b was configured for a 16KB ROM, the actual physical ROM chip we were using was 64KB, and the ROM file was 12KB, so the command we used was <span class="iwz-cmd">./rompad ide_386l.bin ide_pad.bin 16 64</span>. We then burned this to our ROM chip using a TL866 and the <span class="iwz-cmd">minipro</span> package.</dd>
+</dl>
+
+
+   
+   <a id="6-Troubleshooting"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">6 - 2.</span> Troubleshooting</h4>
+
+<p>With the XT-IDE BIOS in place, we installed DOS 6, Windows 3.1 (in <span class="iwz-filename">C:\WIN31</span> and Windows 95 (in <span class="iwz-filename">C:\WIN95</span>. After the first couple reboots for setup, subsequent boots tended to fail with a <span class="iwz-errorm">Windows Protection Error</span>.</p>
+
+<p>We suspected the XT-IDE BIOS, but a logged boot (available from the F8 menu) showed that the boot was failing after the 3c509b driver was loading. Disabling the 3c509b driver allowed Windows to boot. Finding another network driver would be a pain, so we first tried the drivers from the 3com EtherDisk, with the same result. Finally, we disabled PnP mode using the <span class="iwz-cmd">3C5X9CFG.EXE</span> utility and installed the driver using the Windows 95 "detect hardware" option.</p>
+
+<p>This worked, and now we have consistent booting with network access!</p>
+
+
+   
+   
+   
+   <a id="Future-Plans"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">7.</span> Future Plans</h3>
+
+<ul><li>SCSI HBA with PiSCSI for hard disk/CD-ROM emulation.</li>
+</ul>
+
+
+   
+   
+   
+   <a id="References"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">8.</span> References</h3>
+
+<ol class="iwz-refs">
+   <li><a class="iwz-link iwz-link-ext" href="http://ftp.oldskool.org/pub/tvdog/tandy1000/faxback/01014.txt">4850 EP VGA Video Faxback Doc. #1014</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://en.wikipedia.org/wiki/Media_Vision_Pro_AudioSpectrum">Media Vision Pro AudioSpectrum - Wikipedia</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://www.atarimagazines.com/compute/issue142/100_Tandy_4825_SX_Tandy.php">Tandy 4825 SX, 4850 EP - Compute! Magazine</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="http://ohlandl.ipv7.net/NIC/3com_529.html">3com Etherlink 3C529</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://www.lo-tech.co.uk/wiki/XTIDE_Universal_BIOS">XTIDE Universal BIOS - Lo-tech Wiki</a></li>
+<ol>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Resource-Assignments">Resource Assignments</a></li> <li><a href="#BIOS-Images">BIOS Images</a></li> <li><a href="#Inside-Pictures">Inside Pictures</a></li> <li><a href="#Keyboard-Fuse-Replacement">Keyboard Fuse Replacement</a></li> <li><a href="#XT-IDE-Universal-BIOS-and-Large-Drives">XT-IDE Universal BIOS and Large Drives</a></li> <li><a href="#Future-Plans">Future Plans</a></li> <li><a href="#References">References</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+

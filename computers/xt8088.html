@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: XT8088</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">XT8088</h2>
+  <a class="iwz-breadcrumbs" href="/computers">Back to computers</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-active iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/xt8088/xt8088-frame.jpg" alt="XT8088 backplane installed on an open frame with a power supply. Two CPU/RAM cards are installed, as well as three peripheral cards (VGA, Ethernet, Serial)." title="XT8088 backplane installed on an open frame with a power supply. Two CPU/RAM cards are installed, as well as three peripheral cards (VGA, Ethernet, Serial)." />
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<div class="iwz-block iwz-pcspec"><table class="iwz-pcspec-table"><tr><td class="iwz-pcspec-key">CPU</td><td class="iwz-pcspec-value">NEC V20 4.77 MHz</td><tr><td class="iwz-pcspec-key">RAM</td><td class="iwz-pcspec-value">640KB</td><tr><td class="iwz-pcspec-key">Video</td><td class="iwz-pcspec-value">Paradise PVGA1A VGA 512KB</td><tr><td class="iwz-pcspec-key">Sound</td><td class="iwz-pcspec-value">Sound Blaster 2.0 (CT1350B)</td><tr><td class="iwz-pcspec-key">Hard Disk</td><td class="iwz-pcspec-value">USB</td><tr><td class="iwz-pcspec-key">Ports</td><td class="iwz-pcspec-value">PS/2 (Keyboard), RS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI</td></table><p class="iwz-pcspec-note">This information pertains to a particular specimen and may reflect upgrades, repairs, modifications, or factory options not present by default.</p></div>
+
+
+   
+   
+   
+   <a id="Resource-Assignments"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Resource Assignments</h3>
+
+<p>These are assigned manually, by jumpers. Keeping a separate written table is critical to avoiding conflicts!</p>
+
+<p>*IRQ 7 is shared between the sound card and parallel port.</p>
+
+<div class="iwz-block iwz-pcspec-irq
+"><table class="iwz-table"><thead><tr><th>IRQ</th> <th>Peripheral</th></tr></thead><tbody>
+      <tr>
+         <td>0</td> <td>System Timer</td> </tr>
+      <tr>
+         <td>1</td> <td>Keyboard</td> </tr>
+      <tr>
+         <td>3</td> <td>COM2</td> </tr>
+      <tr>
+         <td>4</td> <td>COM1</td> </tr>
+      <tr>
+         <td>5</td> <td>3Com 3c501</td> </tr>
+      <tr>
+         <td>6</td> <td>Floppy Controller</td> </tr>
+      <tr>
+         <td>7</td> <td>Sound Blaster 2.0*</td> </tr>
+      <tr>
+         <td>7</td> <td>Parallel Port*</td> </tr>
+   </tbody></table></div>
+
+<div class="iwz-block iwz-pcspec-dma
+"><table class="iwz-table"><thead><tr><th>DMA Channel</th> <th>Peripheral</th></tr></thead><tbody>
+      <tr>
+         <td>2</td> <td>Floppy Controller</td> </tr>
+   </tbody></table></div>
+
+<div class="iwz-block iwz-pcspec-io
+"><table class="iwz-table"><thead><tr><th>I/O Port</th> <th>Peripheral</th></tr></thead><tbody>
+      <tr>
+         <td>0x220</td> <td>Sound Blaster 2.0</td> </tr>
+      <tr>
+         <td>0x2f8</td> <td>COM2</td> </tr>
+      <tr>
+         <td>0x300</td> <td>3com 3c501</td> </tr>
+      <tr>
+         <td>0x3bc</td> <td>Parallel Port</td> </tr>
+      <tr>
+         <td>0x3f2</td> <td>Floppy Controller</td> </tr>
+      <tr>
+         <td>0x3f8</td> <td>COM1</td> </tr>
+   </tbody></table></div>
+
+
+
+   
+   
+   
+   <a id="ISA-Cards"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> ISA Cards</h3>
+
+<img class="iwz-img" src="/images/xt8088/xt8088-vga.jpg" alt="Closeup of the rear of the VGA card inserted in one of the slots on the XT8088 backplane. It is a 16-bit ISA card, so the part behind the notch is hanging free from the slot." title="Closeup of the rear of the VGA card inserted in one of the slots on the XT8088 backplane. It is a 16-bit ISA card, so the part behind the notch is hanging free from the slot." />
+
+
+   
+   <a id="3-VGA-Controller"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 1.</span> VGA Controller</h4>
+
+<p>This is a 16-bit ISA card based on the <a class="iwz-link iwz-link-ext" href="https://www.vgamuseum.info/index.php/cpu/item/478-paradise-systems-pvga1a">Paradise PVGA1A</a> chip. Even with only the 8-bit half of the card edge inserted, it seems to work very well in text and CGA graphics modes. Higher modes are still untested.</p>
+
+
+   
+   <a id="3-Floppy-Controller"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 2.</span> Floppy Controller</h4>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+<p>Experimenting with several 16-bit ISA floppy/IDE/serial combo boards and the <a href="../projects/gotek.html">GoTek Floppy Emulator</a> failed with an error about the "DOS area" of the floppy in FreeDOS and ignoring floppies on boot. These same cards work in the 8-bit slots on the <a href="hand386.html">Hand386</a>.</p>
+
+<p>We switched to an 8-bit ISA card with Sergey Kiselev's <a class="iwz-link iwz-link-repo" href="https://github.com/skiselev/floppy_bios">floppy_bios</a>. This gives more fine-grained results (all of which are still failures):</p>
+
+<ul>
+   <li>In most cases, it gives an error 40 on boot.</li>
+   <li>In our testing, the one exception we found in trying various combinations of physical drive number and sizes was: If physical drive 1 is set to 720kb, it gives an error 8 on boot.</li>
+   <li>These were tried with and without the S0 jumper that turned out to be the issue on the <a href="t1100fd.html">Tandy 1100FD</a>.</li>
+</ul>
+
+<p>Ideas to try further:</p>
+
+<ul>
+   <li>Go over the GoTek config again.</li>
+   <li>Dig out and try a physical drive.</li>
+   <li>Further research the quirks of the XT architecture.</li>
+</ul>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Resource-Assignments">Resource Assignments</a></li> <li><a href="#ISA-Cards">ISA Cards</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

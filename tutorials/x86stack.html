@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: X86 Assembly: Using the Stack to Pass Arguments</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">X86 Assembly: Using the Stack to Pass Arguments</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p class="iwz-dlsrc">This page was generated from a source code file. <a href="x86stack.asm">Click here to download</a> the file this page was generated from.</a></p>
+<p> <p> <p> This series of articles on x86 assembly is a set of notes we're making as we learn DOS x86 assembly in a more systematic way than we've done so before. It is placed here in the hope it will be helpful (not least of all to us). If you have questions comments, ideas, or concerns, as always, please <a class="iwz-link iwz-link-ext" href="https://github.com/indigoparadox/indigoparadox/issues">let us know</a>!</p>
+<p> These articles all use syntax for <a class="iwz-link iwz-link-ext" href="https://www.nasm.us/">NASM</a>, which is freely available and even works on DOS!</p>
+<p> Please see <a href="x86hello.html">our Hello! example</a> for basics not covered here.</p>
+<p> This file can be compiled with the command <span class="iwz-cmd">nasm -f bin -o x86stack.com x86stack.asm</span> to produce x86hello.com.</p>
+<p> 
+   
+   
+   
+   <a id="The-Code--Preamble-and-Start-Procedure"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> The Code: Preamble and Start Procedure</h3></p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 1</td><td class="iwz-code-line">bits 16 ; Assume we're using 16-bit instructions by default.</td></tr>
+<tr class="iwz-code-neutral"><td> 2</td><td class="iwz-code-line">org 100h ; Tell the assembler where the program will be loaded.</td></tr>
+<tr class="iwz-code-neutral"><td> 3</td><td class="iwz-code-line">cpu 186 ; Tell the assembler not to allow instructions for the 286+.</td></tr>
+<tr class="iwz-code-neutral"><td> 4</td><td class="iwz-code-line">start:</td></tr>
+</tbody></table>
+<p> Our main focus in our main procedure is very simple: we push the argument (in this case, the address of our hello string) onto the stack, and then we call test_func.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 5</td><td class="iwz-code-line">   push hello ; Push a pointer to the hello string onto the stack.</td></tr>
+<tr class="iwz-code-neutral"><td> 6</td><td class="iwz-code-line">   call test_func ; Call our test function.</td></tr>
+</tbody></table>
+<p> When we're done with test func, we still need to dispose of the argument we had pushed onto the stack. The ret instruction in test_func only removes the return address... not anything we put onto the stack before the call!</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 7</td><td class="iwz-code-line">   pop ax ; Dispose of pointer to hello string by popping it to ax.</td></tr>
+</tbody></table>
+<p> Now we can freely overwrite ax (since we just wanted the value off the stack, and no longer care about it) and call our "exit to DOS" service.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 8</td><td class="iwz-code-line">   mov ax, 4c00h ; Termination service.</td></tr>
+<tr class="iwz-code-neutral"><td> 9</td><td class="iwz-code-line">   int 21h ; Call function handler interrupt.</td></tr>
+<p> 
+   
+   
+   
+   <a id="The-Code--Test-Function"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> The Code: Test Function</h3></p>
+<tr class="iwz-code-neutral"><td> 10</td><td class="iwz-code-line">test_func:</td></tr>
+</tbody></table>
+<p> First, we stow bp on the stack so we can get it back later. We then load the sp (stack pointer) register into bp. This is because, at least in 16-bit land, we can't refer to sp + 4 like we refer to bp + 4 below. The assembler will give us the error "invalid effective address" if we try.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 11</td><td class="iwz-code-line">   push bp ; Stow stack bottom.</td></tr>
+<tr class="iwz-code-neutral"><td> 12</td><td class="iwz-code-line">   mov bp, sp ; Put stack pointer on bp so we can do arithmetic below.</td></tr>
+</tbody></table>
+<p> With our preparation done, we can now operate on addresses relative to the stack pointer. In our example, we use bp + 4. This is bp, which we've pushed the stack pointer into, +2 bytes (1 word/16 bits) for the value of bp we pushed onto the stack above, and +2 bytes for the return address  (a 16-bit pointer) that the call instruction pushed onto the stack before jumping to test_func.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 13</td><td class="iwz-code-line">   mov dx, bp + 4 ; Put the address of the char's location in si.</td></tr>
+<tr class="iwz-code-neutral"><td> 14</td><td class="iwz-code-line">   mov ax, 900h ; Print-string-until-$-char service.</td></tr>
+<tr class="iwz-code-neutral"><td> 15</td><td class="iwz-code-line">   int 21h ; Call function handler interrupt.</td></tr>
+</tbody></table>
+<p> Finally, we do our cleanup. This means restoring the previous value of bp before we pushed it onto the stack at the beginning of test_func, and then returning from the call instruction that brought us to test_func.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">x86stack.asm</caption><tbody>
+<tr class="iwz-code-neutral"><td> 16</td><td class="iwz-code-line">   pop bp ; Restore stack bottom stored at start of test_func.</td></tr>
+<tr class="iwz-code-neutral"><td> 17</td><td class="iwz-code-line">   ret ; Return from the call.</td></tr>
+<p> 
+   
+   
+   
+   <a id="The-Code--Data-Section"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> The Code: Data Section</h3></p>
+<tr class="iwz-code-neutral"><td> 18</td><td class="iwz-code-line">SECTION .data</td></tr>
+<tr class="iwz-code-neutral"><td> 19</td><td class="iwz-code-line">hello: db "Hello!$"</td></tr>
+</tbody></table>
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#The-Code--Preamble-and-Start-Procedure">The Code: Preamble and Start Procedure</a></li> <li><a href="#The-Code--Test-Function">The Code: Test Function</a></li> <li><a href="#The-Code--Data-Section">The Code: Data Section</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

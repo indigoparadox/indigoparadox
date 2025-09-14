@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: MIDI Box</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">MIDI Box</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/midibox/midibox-out.jpg" alt="A black plastic box with DIN rail mount, D-shell connector, and two sets of MIDI out/in connectors (DIN and 3.5 miniplug)." title="A black plastic box with DIN rail mount, D-shell connector, and two sets of MIDI out/in connectors (DIN and 3.5 miniplug)." />
+
+<img class="iwz-img" src="/images/midibox/midibox-in.jpg" alt="The inside of the box, the D-shell connector connects to a JST connector on a perfboard, on which is mounted the two sets of MIDI out/in connectors (DIN and 3.5 miniplug) and some LEDs and ICs." title="The inside of the box, the D-shell connector connects to a JST connector on a perfboard, on which is mounted the two sets of MIDI out/in connectors (DIN and 3.5 miniplug) and some LEDs and ICs." />
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>This is not particularly ground-breaking... a little DIN-mountable MIDI interface box to connect a PC game port to some MIDI devices. In particular, the innovations on display here are the alternative 3.5" miniplug ports which may be used alternatively to the DIN connectors (but not at the same time!)</p>
+
+
+   
+   
+   
+   <a id="Schematic"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Schematic</h3>
+
+<img class="iwz-img" src="/images/midibox/midibox-sch.png" alt="Schematic of the MIDI box circuit. It's a basic MIDI interface circuit." title="Schematic of the MIDI box circuit. It's a basic MIDI interface circuit." />
+
+<p>The circuit is very simple. This schematic is missing the 3.5" miniplug for the MIDI-IN port (J1), but that should be trivial to add in parallel by copying the 3.5" jack (J3) wired to the MIDI-OUT port (J2).</p>
+
+<p>The latest version of KiCad files can be found at the <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/midimbox">midimbox repo</a>.</p>
+
+
+   
+   
+   
+   <a id="Demonstration"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Demonstration</h3>
+
+<video controls class="iwz-video" src="/images/midibox/midisid-simcity.mp4" title="Visual of the title screen for SimCity for Windows while the theme plays rendered through the MIDISID."></video>
+
+<p>Please enjoy this rendition of the SimCity for Windows theme. It's rendered from our <a href="/computers/t4850ep.html">Tandy 4850 EP</a> through the MIDI Box to a <a class="iwz-link iwz-link-ext" href="https://peacockmedia.software/midisid/">MIDISID</a>.</p>
+
+
+   
+   
+   
+   <a id="References"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> References</h3>
+
+<ol class="iwz-refs">
+   <li><a class="iwz-link iwz-link-ext" href="http://midi.teragonaudio.com/tech/midispec/hardware.htm">MIDI Specification: Hardware</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://www.ozvalveamps.org/techsite/midibox/midibox.html">MIDI Soundcard adaptor</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="http://www.mirsoft.info/gamemids-ripping-guide.php">PC Game Midi Ripping Guide</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://minimidi.world/">A simplified guide to MIDI over TRS minijacks</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://sonicstate.com/news/2018/08/22/how-to-wire-a-trs-midi-connection/">How To Wire A TRS MIDI Connection</a></li>
+<ol>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Schematic">Schematic</a></li> <li><a href="#Demonstration">Demonstration</a></li> <li><a href="#References">References</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+

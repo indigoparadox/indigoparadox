@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Crossdev with OpenWatcom</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Crossdev with OpenWatcom</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>OpenWatcom may be underappreciated today, but it was the premier compiler of years past. Even now, it is still very useful as a compiler that can process relatively modern source code into executables for many 16-bit or otherwise discontinued platforms.</p>
+
+<p>This tutorial will cover the basics of setting up OpenWatcom under GNU/Linux and compiling a simple program for several platforms.</p>
+
+
+   
+   
+   
+   <a id="Setting-Up"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Setting Up</h3>
+
+<p>For starters, you need the OpenWatcom compiler. This can be found at the <a class="iwz-link iwz-link-ext" href="https://www.openwatcom.org/">OpenWatcom website</a>. You may also want <a class="iwz-link iwz-link-ext" href="http://groups.di.unipi.it/~nids/docs/watcom_glut_sdl.html">SDL and GLUT for OpenWatcom</a> and/or <a class="iwz-link iwz-link-ext" href="https://matejhorvat.si/en/dos/allegwat/index.htm">Allegro 4 for OpenWatcom</a>, if you use those libraries.</p>
+
+<p>For convenience's sake, we have also added some custom-build OpenWatcom debian packages to <a class="iwz-link iwz-link-ext" href="https://codeberg.org/indigoparadox/-/packages?q=watcom&type=">our Codeberg package repositories</a>. Please click on one of those and follow the instructions to install the apt keyring if you wish to use those. They may require adding i386 multilib support to your Debian installation.</p>
+
+<p>Once OpenWatcom is installed, you may note the directories under its installation path. Directories of particular interest include:</p>
+
+binl
+binw
+binnt
+lib286
+lib386
+h
+
+
+   
+   
+   
+   <a id="Basic-Usage"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Basic Usage</h3>
+
+<p>The watcom compiler is split into <span class="iwz-filename">wcc</span> for 16-bit programs and <span class="iwz-filename">wcc386</span> for 32-bit programs. Please note that most target operating systems supported by OpenWatcom can run either. For example: Windows 3.x can run 16-bit Windows programs, and DOS can run 32-bit programs that use a DOS extender.</p>
+
+<p>Once the individual code translation units are compiled, they can then be linked together with <span class="iwz-filename">wlink</span>. Some programs for Windows or OS/2 may need to use a resource file to provide icons, localized strings, or other resources. This resource file must be compiled from a .rc script with <span class="iwz-filename">wrc</span> before being included in the linking process. Writing .rc scripts is beyond the scope of this article, but many other resources on writing Windows resource files are available.</p>
+
+<p>The next section includes some examples for common target platforms, along with an explanation of how they work. These examples are in GNU make format, and assume <span class="iwz-var">$WATCOM</span> is defined in your shell as the path to your OpenWatcom installation (e.g. <span class="iwz-filename">/opt/watcom</span>).</p>
+
+
+   
+   
+   
+   <a id="Makefiles"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Makefiles</h3>
+
+<p>Makefiles allow for multi-stage compiling of complicated programs, compiling only the pieces that have changed since the last time they were compiled. OpenWatcom comes with its own "wmake" utility for this, but if you only use it on Linux then you may be better off using GNU make, instead, as this has a more portable and modern syntax with more features.</p>
+
+<p>Again, these are just some common examples. You can find more information on building for other systems using the <a class="iwz-link iwz-link-ext" href="https://open-watcom.github.io/open-watcom-v2-wikidocs/lguide.html#The_SYSTEM_Directive">OpenWatcom Linker User Guide</a>, the system linker blocks defined in <span class="iwz-filename">$WATCOM/binl/wlink.lnk</span>, and the command help viewable by running either <span class="iwz-filename">wcc</span> or <span class="iwz-filename">wcc386</span> with no arguments.</p>
+
+
+   
+   <a id="4-Windows-3-x-16-bit"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">4 - 1.</span> Windows 3.x 16-bit</h4>
+
+<p>Building for 16-bit Windows 3.x has a number of pitfalls, especially related to memory usage. These are beyond the scope of this article, but you may find the .map file generated with the "option map" option to be useful in finding globals to shift into other segments (e.g. with <span class="iwz-func">__based( __segname( "xxx" ) )</span>). The system type for Windows 3.x is "windows" and the header files are located in <span class="iwz-filename">$WATCOM/h/win</span>.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">Makefile.win16</caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Invidiual Source Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># -zm and -ml should ease memory pressure a 16-bit Windows program will face.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Also note that we chop the .c off of the filename, as wcc assumes the .c.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">%.o: %.c</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wcc -zm -ml -bt=windows -i=$(WATCOM)/h -i=$(WATCOM)/h/win -fo="$@" "$(<:%.c=%)"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Resource File =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">resrc.res: resrc.rc</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wrc -r $< -bt=windows -fo=$@</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Link Compiled Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Use the | to make sure resrc.res is built, but not include it in $^.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># We can then pull in the resource file manually.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Additionally, option map will generate a .map file to help debug segment usage.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">program.exe: $(subst .c,.o,$(C_FILES)) | resrc.res</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wlink name $@ option dosseg option map fil {$^} resource resrc.res</td></tr>
+</tbody></table>
+
+
+   
+   <a id="4-Windows-3-x-32-bit"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">4 - 2.</span> Windows 3.x 32-bit</h4>
+
+<p>This target is somewhat less common, but can be less frustrating to write and build if you wish to support Windows 3.x and know your program will only ever run on a 386 or newer. It is somewhat analogous to using a DOS extender, but for Windows programs. Win386 programs use a flat memory model, but do not require a separate runtime like Win32s. This alleviates a lot of issues with memory usage and segmentation. These use the same headers as Windows 3.x 16-bit programs, along with the "win386" system type..</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">Makefile.win386</caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Invidiual Source Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># -zm and -ml should ease memory pressure a 16-bit Windows program will face.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Also note that we chop the .c off of the filename, as wcc assumes the .c.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">%.o: %.c</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wcc -zm -ml -bt=windows -i=$(WATCOM)/h -i=$(WATCOM)/h/win -fo="$@" "$(<:%.c=%)"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Intermediate File =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># The linker stage here is only an intermediate stage.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># It creates a .rex file which then must be bound with the built-in runtime to create a .exe file below.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">program.rex: $(subst .c,.o,$(C_FILES))</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">	wlink name $@ system win386 fil {$^}</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Link Compiled Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Note that binding the .exe file uses the .rc file directly. wrc is not used!</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">program.exe: program.rex</td></tr>
+	<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wbind "$<" -s "$(WATCOM)/binw/win386.ext" -R resrc.rc "$@"</td></tr>
+</tbody></table>
+
+
+   
+   <a id="4-Windows-NT-9x-32-bit"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">4 - 3.</span> Windows NT/9x 32-bit</h4>
+
+<p>Building for Windows NT is slightly simpler, as you don' have to worry so much about the memory model and debugging segment usage, while also not having to tack a runtime onto the front of the program. Note that 32-bit Windows programs built this way can also run in Windows 9x (provided they only use API functions available in those operating systems). The system type for Windows NT is just "nt" and the header files are located in <span class="iwz-filename">$WATCOM/h/nt</span>.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">Makefile.winnt</caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Invidiual Source Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Note that we are using the 32-bit wcc, wcc386.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Again, note that we chop the .c off of the filename, as wcc assumes the .c.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">%.o: %.c</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wcc386 -bt=nt -i=$(WATCOM)/h -i=$(WATCOM)/h/nt -fo="$@" "$(<:%.c=%)"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Resource File =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">resrc.res: resrc.rc</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wrc -r $< -bt=nt -fo=$@</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Link Compiled Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Use the | to make sure resrc.res is built, but not include it in $^.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># We can then pull in the resource file manually.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">program.exe: $(subst .c,.o,$(C_FILES)) | resrc.res</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wlink name $@ fil {$^} resource resrc.res</td></tr>
+</tbody></table>
+
+
+   
+   <a id="4-DOS-16-bit"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">4 - 4.</span> DOS 16-bit</h4>
+
+<p>This target is very simple. It uses the bare headers in <span class="iwz-filename">$WATCOM/h</span> and generates a map file for segment debugging. There are a number of DOS extenders you can use to write 32-bit DOS programs, but those are beyond the scope of this article (for now). You can find more information on them in the wlink user guide and linker block definition file <span class="iwz-filename">$WATCOM/binl/wlink.lnk</span>.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">Makefile.dos16</caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Compile Invidiual Source Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Note that we just use the headers in $(WATCOM)/h.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Again, note that we chop the .c off of the filename, as wcc assumes the .c.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">%.o: %.c</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wcc -bt=dos -i=$(WATCOM)/h -fo="$@" "$(<:%.c=%)"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># = Link Compiled Files =</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Again, option map will generate a .map file to help debug segment usage.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">program.exe: $(subst .c,.o,$(C_FILES))</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">    wlink name $@ option dosseg option map fil {$^}</td></tr>
+</tbody></table>
+
+
+   
+   
+   
+   <a id="Conclusion"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Conclusion</h3>
+
+<p>Once again, we must emphasize that this is a quick and basic tutorial on getting up and running with OpenWatcom. OpenWatcom supports many more options, and even operating systems like RDOS or OS/2 which we have not covered here. Hopefully this is enough information to get you up and running for now, but please feel free to <a class="iwz-link iwz-link-ext" href="https://github.com/indigoparadox/indigoparadox/issues">let us know</a> if you have questions or suggestions for more details! Thanks for reading!</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Setting-Up">Setting Up</a></li> <li><a href="#Basic-Usage">Basic Usage</a></li> <li><a href="#Makefiles">Makefiles</a></li> <li><a href="#Conclusion">Conclusion</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

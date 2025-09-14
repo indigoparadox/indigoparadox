@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Mario 64 Python</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Mario 64 Python</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/mario64p/mario64p1.png" alt="Super Mario completing a triple jump in the beginning area with 'AIR TIME' in colorful letters appearing and coins spawning around him." title="Super Mario completing a triple jump in the beginning area with 'AIR TIME' in colorful letters appearing and coins spawning around him." />
+
+<div class="iwz-card-radicle"><h4>Radicle Repo (<a href="https://radicle.xyz/">What's this?</a>)</h4> <ul><li>rad:zoGT6rdM799j4FPUdbRewi7omEwT</li>  </ul></div>
+
+
+   
+   
+   
+   <a id="Compiling"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Compiling</h3>
+
+<p>First, you should install some prerequisites. On Ubuntu 20.04, this can be done with the following command: <span class="iwz-cmd">sudo apt install libsdl2-dev libopengl-dev libglew-dev libpython3-dev build-essential</span></p>
+
+<p>If this does not work, either because we missed a package or a package has changed names since then, please feel free to <a class="iwz-link iwz-link-ext" href="https://github.com/indigoparadox/indigoparadox/issues">let us know</a>!</p>
+
+<p>Once you have the dependencies, you can clone the code from <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/sm64pc-python">the sm64pc-python repo</a>. From there, the following set of commands should work:</p>
+
+<ul>
+<li><span class="iwz-cmd">cp ~/Mario64.z64 baserom.us.z64</span></li>
+<li><span class="iwz-cmd">mkdir build && cd build</span></li>
+<li><span class="iwz-cmd">cmake ..</span></li>
+<li><span class="iwz-cmd">cmake ..</span></li>
+<li><span class="iwz-cmd">make</span></li>
+<li><span class="iwz-cmd">cd ..</span></li>
+<li><span class="iwz-cmd">./build/sm64.us.f3dex</span></li>
+</ul>
+
+<p>This will likely produce a lot of warning/error messages, but it should get there in the end.</p>
+
+
+   
+   
+   
+   <a id="Python"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Python</h3>
+
+<p>The python portion of the engine is in <span class="iwz-filename">sm64.py</span>. By default, this module contains a number of functions that have been ported out from C to Python and modified during the process. These can be freely modified to change the game's functionality (though the game must be restarted afterwards!)</p>
+
+<p>The <span class="iwz-filename">sm64.py</span> file must be in the program's current working directory (the directory it was launched from)!</p>
+
+<p>Some of these modifications made to the engine are silly (e.g. the "Air Time" triple jump depicted in the opening image), and there are some bugs (probably floating-point-related) still lurking around that may appear when you e.g. approach a door too fast.</p>
+
+<p>Most of the work involved with adding Python support was in figuring out how the codebase worked, and then adding glue code which exported those functions and constants out to Python via the stack.</p>
+
+<p>This glue code is mostly in the files <span class="iwz-filename">src/pc/*_python.*</span>. By all means, please feel free to poke around and see what's available! Some extra work was put into making things like text boxes and letters more usable, too.</p>
+
+
+   
+   
+   
+   <a id="Web-Server-Demo"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Web Server Demo</h3>
+
+<p>For demonstration purposes, the default <span class="iwz-filename">sm64.py</span> uses standard Python APIs to serve a web page on port 8064 while the game is running. This page has a number of options for affecting gameplay:</p>
+
+<video controls class="iwz-video" src="/images/mario64p/mario64p-webdemo.mp4" title="A brief demo of level warping and text boxes."></video>
+
+
+   
+   
+   
+   <a id="Conclusion"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Conclusion</h3>
+
+<p>There's a lot going on here, and we may come back to revisit this project at some point. There have been quite a few new commits in the original repository that need to be integrated. Please <a class="iwz-link iwz-link-ext" href="https://github.com/indigoparadox/indigoparadox/issues">let us know</a> if you do something fun with it!</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Compiling">Compiling</a></li> <li><a href="#Python">Python</a></li> <li><a href="#Web-Server-Demo">Web Server Demo</a></li> <li><a href="#Conclusion">Conclusion</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

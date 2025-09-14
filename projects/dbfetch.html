@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: dbfetch and Sensor Data</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">dbfetch and Sensor Data</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p><a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/dbfetch">dbfetch</a> is a utility that will fetch a JSON object (or list of JSON objects) from a web source and flatten it to store relevant fields into a traditional SQL-based relational database. Fields and transformations for flattening JSON blobs are provided in YAML files, the format of which is outlined below.</p>
+
+<p>The notes on this page mostly apply to the <span class="iwz-var">classic</span> branch. The <span class="iwz-var">master</span> branch went in a slightly new direction that hasn't been tested as thoroughly and may not be as compatible as we'd like.</p>
+
+
+   
+   
+   
+   <a id="YAML-Model-Definition"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> YAML Model Definition</h3>
+
+<p>Models are defined in YAML files under the <span class="iwz-filename">models</span> subdirectory. dbfetch will try to create a table and add columns to match the model. If a column is added to the model for an existing table, dbfetch will attempt to add those columns to the existing table.</p>
+
+<p>All models must have at least one field with the <span class="iwz-struct">primary_key</span> property.</p>
+
+
+   
+   <a id="2-Top-Level"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 1.</span> Top Level</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">tablename</dt><dd class="iwz-sum-list-desc">The name of the SQL table in which to store processed JSON objects as rows.</dd>
+   <dt class="iwz-sum-list-item">options</dt><dd class="iwz-sum-list-desc">Options pertaining to fetch operations. See <a class="iwz-link-anchor" href="#2-Options">Options</a> for more information.</dd>
+   <dt class="iwz-sum-list-item">transformations</dt><dd class="iwz-sum-list-desc">A list of field names, each containing a list of <a class="iwz-link-anchor" href="#2-Transformations">Transformations</a> that should be applied to each object field before it is stored in a column.</dd>
+   <dt class="iwz-sum-list-item">fields</dt><dd class="iwz-sum-list-desc">A list of field names, each containing a set of <a class="iwz-link-anchor" href="#2-Field-Properties">Field Properties</a> for the database column it defines.</dd>
+</dl>
+
+
+   
+   <a id="2-Options"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 2.</span> Options</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">delete_undef</dt><dd class="iwz-sum-list-desc">Delete all fields of the JSON object which are not listed in the <span class="iwz-var">fields</span> list before pushing to the database.</dd>
+</dl>
+
+
+   
+   <a id="2-Transformations"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 3.</span> Transformations</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">Requester.format_date</dt><dd class="iwz-sum-list-desc">Takes a UNIX epoch timestamp or ISO-ish date string and attempts to turn it into a <span class="iwz-struct">DateTime</span> object compatible with an SQL <span class="iwz-struct">DateTime</span> field.</dd>
+   <dt class="iwz-sum-list-item">Requester.format_flatten</dt><dd class="iwz-sum-list-desc">Pulls the fields inside of an object field up to the same level as their parent, adding the parent's key as a prefix to each child's key. Removes the parent object field.</dd>
+</dl>
+
+
+   
+   <a id="2-Field-Properties"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 4.</span> Field Properties</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">type</dt><dd class="iwz-sum-list-desc">      The SQL type of the column. Generally, <span class="iwz-struct">int</span>, <span class="iwz-struct">datetime</span>, <span class="iwz-struct">float</span> should be usable, among others.</dd>
+   <dt class="iwz-sum-list-item">primary_key</dt><dd class="iwz-sum-list-desc">A value of <span class="iwz-var">true</span> or <span class="iwz-var">false</span>, indicating the whether this field is part of the primary key in the database. <span class="iwz-span-bold">All models should have at least one primary key, and this should not be modified after the table is created!</span></dd>
+</dl>
+
+
+   
+   
+   
+   <a id="Configuration"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Configuration</h3>
+
+<p>With some models present, dbfetch can then be configured to fetch JSON objects from various sources and process them using those models. The configuration file is <span class="iwz-filename">dbfetch.ini</span> by default, but this can be changed using the <span class="iwz-cmd">-c</span> command-line argument.</p>
+
+<p>The configuration file is split into stanzas, with one stanza per model to define options for that model and multiple <span class="iwz-struct">location</span> stanzas per model to define different sources to pull JSON objects from for processing and storage with that model.</p>
+
+
+   
+   <a id="3-Model-Stanza-Options"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 1.</span> Model Stanza Options</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">connection</dt><dd class="iwz-sum-list-desc">The database connection string (any <a class="iwz-link iwz-link-ext" href="https://docs.sqlalchemy.org/en/20/core/engines.html">SQLAlchemy-compatible connection string</a> should work).</dd>
+   <dt class="iwz-sum-list-item">locations</dt><dd class="iwz-sum-list-desc">Comma-separated list of integers matched to location stanzas.</dd>
+</dl>
+
+
+   
+   <a id="3-Location-Stanza-Options"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 2.</span> Location Stanza Options</h4>
+
+<dl class="iwz-sum-list">
+   <dt class="iwz-sum-list-item">url</dt><dd class="iwz-sum-list-desc">Web URL from which to fetch JSON objects.</dd>
+</dl>
+
+
+   
+   
+   
+   <a id="Basic-Example"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Basic Example</h3>
+
+<p>This example will attempt to process the following JSON object, fetched from <span class="iwz-var">http://example.com/aqi.json</span>:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">aqi.json</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">{</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">   "pm25_standard": 24,</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line">   "relative_humidity": 39.67132568359375,</td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+<p>This example will also use a simplified version of the model <span class="iwz-filename">i2cerv.yml</span>, with irrelevant parts (e.g. for plotting) stripped out.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">i2cerv.yml</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">---</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">tablename: i2cerv</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line">options: {}</td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line">transformations:</td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line">  updated:</td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line">  - Requester.format_date</td></tr>
+   <tr class="iwz-code-neutral"><td>7</td><td class="iwz-code-line">fields:</td></tr>
+   <tr class="iwz-code-neutral"><td>8</td><td class="iwz-code-line">  location:</td></tr>
+   <tr class="iwz-code-neutral"><td>9</td><td class="iwz-code-line">    type: int</td></tr>
+   <tr class="iwz-code-neutral"><td>10</td><td class="iwz-code-line">    primary_key: true</td></tr>
+   <tr class="iwz-code-neutral"><td>11</td><td class="iwz-code-line">  updated:</td></tr>
+   <tr class="iwz-code-neutral"><td>12</td><td class="iwz-code-line">    type: datetime</td></tr>
+   <tr class="iwz-code-neutral"><td>13</td><td class="iwz-code-line">    primary_key: true</td></tr>
+   <tr class="iwz-code-neutral"><td>14</td><td class="iwz-code-line">  pm25_standard:</td></tr>
+   <tr class="iwz-code-neutral"><td>15</td><td class="iwz-code-line">    type: float</td></tr>
+   <tr class="iwz-code-neutral"><td>16</td><td class="iwz-code-line">  relative_humidity:</td></tr>
+   <tr class="iwz-code-neutral"><td>17</td><td class="iwz-code-line">    type: float</td></tr>
+</tbody></table>
+
+<p>Finally, the following stanza in the configuration file, <span class="iwz-filename">dbfetch.ini</span> will activate the model above when it is placed in the <span class="iwz-filename">models</span> directory and use it to process the JSON object fetched from the example URL into an SQLite database (any valid SQLAlchemy connection string should work):</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">dbfetch.ini</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">[i2cerv]</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">connection = sqlite:///i2cerv.db</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line">locations = 1</td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line">[dbfetch-location-1]</td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line">url = http://example.com/aqi.json</td></tr>
+</tbody></table>
+
+
+   
+   
+   
+   <a id="Flattening-Example"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Flattening Example</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+<p>Please see <span class="iwz-filename">models/waqi.yml</span> for an example of a model that pulls the children from the <span class="iwz-struct">object.data.x</span> fields up to multiple <span class="iwz-struct">object.data_x</span> fields.</p>
+
+
+   
+   
+   
+   <a id="Plotting"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> Plotting</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+
+   
+   
+   
+   <a id="MQTT"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">7.</span> MQTT</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#YAML-Model-Definition">YAML Model Definition</a></li> <li><a href="#Configuration">Configuration</a></li> <li><a href="#Basic-Example">Basic Example</a></li> <li><a href="#Flattening-Example">Flattening Example</a></li> <li><a href="#Plotting">Plotting</a></li> <li><a href="#MQTT">MQTT</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

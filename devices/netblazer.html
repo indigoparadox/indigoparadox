@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Telebit NetBlazer PN2</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Telebit NetBlazer PN2</h2>
+  <a class="iwz-breadcrumbs" href="/devices">Back to devices</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-active iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/netblazer/front.jpg" alt="Front view of the NetBlazer PN2. It is a relatively small device, about the size of a phone book or dictionary. It has a floppy drive and some status lights on the front." title="Front view of the NetBlazer PN2. It is a relatively small device, about the size of a phone book or dictionary. It has a floppy drive and some status lights on the front." />
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>The Telebit NetBlazer PN2 (circa 1993) is a router/RAS device designed to connect remote sites by dialing them up with an attached modem. It comes with a rudementary OS that acts a little like UNIX and has limited support for loadable modules.</p>
+
+<p>Two striking features of the NetBlazer PN2 are its ability to boot from a built-in floppy drive, and its 386 CPU. While the CPU is a 386, the architecture is apparently incompatible with that of the IBM PC.</p>
+
+<img class="iwz-img" src="/images/netblazer/inside-1.jpg" alt="Inside view of the NetBlazer PN2. The commodity floppy drive is mounted to the motherboard from the bottom. The Intel i386 CPU is a relatively tiny surface-mount package located closest to the viewer, next to the VLSI chipset." title="Inside view of the NetBlazer PN2. The commodity floppy drive is mounted to the motherboard from the bottom. The Intel i386 CPU is a relatively tiny surface-mount package located closest to the viewer, next to the VLSI chipset." />
+
+<p>It also includes a built-in Ethernet RJ-45/BNC/AUI port and two serial ports for connecting modems or direct RS-232 serial connections.</p>
+
+<img class="iwz-img" src="/images/netblazer/rear.jpg" alt="Rear view of the NetBlazer PN2. Displayed are the ports mentioned above, plus a power connection." title="Rear view of the NetBlazer PN2. Displayed are the ports mentioned above, plus a power connection." />
+
+
+   
+   
+   
+   <a id="Boot-Disk"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Boot Disk</h3>
+
+<p>Fortunately, our NetBlazer PN2 came with a working boot diskette. We have made it available at <a class="iwz-link iwz-link-ext" href="https://archive.org/details/netblazer-pn2-uunet-boot">The Internet Archive</a>. It has a configuration on it which is invalid by now, but provides a starting point to get to a working configuration.</p>
+
+
+   
+   
+   
+   <a id="Commands"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Commands</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+<p>A shell is available via serial port or telnet. Typing "?" in this shell provides a list of available commands. Specific procedures for setting up connections are still under research. Hopefully, we will have some more useful information here at some point.</p>
+
+
+   
+   
+   
+   <a id="Executable-Format"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Executable Format</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+<p>The executable format is still under research. Hopefully, we will have some useful information here at some point.</p>
+
+<p>The boot disk contains <span class="iwz-filename">TELEBIT.SYS</span>, which seems to be a COM executable (single segment of executable code). A strings dump includes references to Protected Mode and a "FRED loader." There is also a giant binary blob named <span class="iwz-filename">FRED</span>, which may be related to this.</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Boot-Disk">Boot Disk</a></li> <li><a href="#Commands">Commands</a></li> <li><a href="#Executable-Format">Executable Format</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

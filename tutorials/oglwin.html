@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: OpenGL 1.0: Win32-Specific</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">OpenGL 1.0: Win32-Specific</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p class="iwz-dlsrc">This page was generated from a source code file. <a href="oglwin.c">Click here to download</a> the file this page was generated from.</a></p>
+<p> <p> <p> 
+   
+   
+   
+   <a id="Preamble"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Preamble</h3></p>
+<p> <div class="iwz-depfiles"><p>This source file also depends on the files below:</p><ul><li><a href="ogldefs.html">ogldefs.html</a></li> </ul></div></p>
+<p> Include The system <span class="iwz-filename">windows.h</span> header for constants and functions used below. This pulls in the system OpenGL headers automatically.</p>
+<p> Also include <span class="iwz-filename">ogldefs.h</span>, a header with some program-specific constants we'll also be using.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 1</td><td class="iwz-code-line">#include &lt;windows.h&gt;</td></tr>
+<tr class="iwz-code-neutral"><td> 2</td><td class="iwz-code-line">#include "ogldefs.h"</td></tr>
+</tbody></table>
+<p> Define a window style which we will use later in our calls to <span class="iwz-func">AdjustWindowRect()</span> and <span class="iwz-func">CreateWindow()</span>.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 3</td><td class="iwz-code-line">#define WIN_STYLE (WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX & ~WS_THICKFRAME)</td></tr>
+</tbody></table>
+<p> Define an arbitrary timer ID to use later in our call to <span class="iwz-func">SetTimer()</span>. Please see the note before the <span class="iwz-var">WM_TIMER</span> handler code in <span class="iwz-func">WndProc()</span>, below, for more information.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 4</td><td class="iwz-code-line">#define WIN_TIMER_ID 1000</td></tr>
+<p> 
+   
+   
+   
+   <a id="Window-Message-Processor"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Window Message Processor</h3></p>
+</tbody></table>
+<p> Setup the window message processing callback. This will be called for each Win32 message received by the application window and defines how the window will respond.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 5</td><td class="iwz-code-line">LRESULT CALLBACK WndProc(</td></tr>
+<tr class="iwz-code-neutral"><td> 6</td><td class="iwz-code-line">   HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam</td></tr>
+<tr class="iwz-code-neutral"><td> 7</td><td class="iwz-code-line">) {</td></tr>
+</tbody></table>
+<p> Define the hGLRC statically so that we can create it in one call and dispose of it later on in a different call when it is no longer needed.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 8</td><td class="iwz-code-line">   static HGLRC hrc = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 9</td><td class="iwz-code-line">   int pixel_fmt_int = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 10</td><td class="iwz-code-line">   HDC hdc = 0;</td></tr>
+</tbody></table>
+<p> Provide some parameters for Windows to pass to the driver and query what available pixel formats match. In a more robust program, many of these parameters would be defined from a configuration file or registry settings, but for now, we're going to define them statically.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 11</td><td class="iwz-code-line">   PIXELFORMATDESCRIPTOR pixel_fmt = {</td></tr>
+</tbody></table>
+<p> A struct size field and version, as is common in Win32-related structs.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 12</td><td class="iwz-code-line">      sizeof( PIXELFORMATDESCRIPTOR ),</td></tr>
+<tr class="iwz-code-neutral"><td> 13</td><td class="iwz-code-line">      1,</td></tr>
+</tbody></table>
+<p> This buffer will be drawn to a window (hWnd), support OpenGL, and will use double-buffering with <span class="iwz-func">SwapBuffers()</span>.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 14</td><td class="iwz-code-line">      PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,</td></tr>
+</tbody></table>
+<p> This buffer will use non-indexed colors specified by RGB values.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 15</td><td class="iwz-code-line">      PFD_TYPE_RGBA,</td></tr>
+</tbody></table>
+<p> This will be a 16-bit color buffer.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 16</td><td class="iwz-code-line">      16,</td></tr>
+</tbody></table>
+<p> These values will not be used for now, and can be ignored.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 17</td><td class="iwz-code-line">      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,</td></tr>
+</tbody></table>
+<p> This is the size of the "cells" in the depth buffer. See <span class="iwz-var">GL_DEPTH_TEST</span> in <span class="iwz-filename">opengl01.c</span> for more information.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 18</td><td class="iwz-code-line">      8,</td></tr>
+</tbody></table>
+<p> These values will not be used for now, and can be ignored.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 19</td><td class="iwz-code-line">      0, 0,</td></tr>
+</tbody></table>
+<p> Specify the main plane.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 20</td><td class="iwz-code-line">      PFD_MAIN_PLANE,</td></tr>
+</tbody></table>
+<p> These values will not be used for now, and can be ignored.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 21</td><td class="iwz-code-line">      0, 0, 0, 0</td></tr>
+<tr class="iwz-code-neutral"><td> 22</td><td class="iwz-code-line">   };</td></tr>
+</tbody></table>
+<p> Now that our variables are declared, let's handle the window message we were called with this time!</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 23</td><td class="iwz-code-line">   switch( message ) {</td></tr>
+</tbody></table>
+<p> The <span class="iwz-var">WM_CREATE</span> message is received by the window when it is created, so we'll act on it to setup an OpenGL context to render into for the rest of the program.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 24</td><td class="iwz-code-line">   case WM_CREATE:</td></tr>
+</tbody></table>
+<p> First, get the device context (hDC) associated with this window (hWnd).</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 25</td><td class="iwz-code-line">      hdc = GetDC( hWnd );</td></tr>
+</tbody></table>
+<p> Get the index of the pixel format which matches the descriptor provided.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 26</td><td class="iwz-code-line">      pixel_fmt_int = ChoosePixelFormat( hdc, &pixel_fmt );</td></tr>
+<tr class="iwz-code-neutral"><td> 27</td><td class="iwz-code-line">      if( 0 == pixel_fmt_int ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 28</td><td class="iwz-code-line">         MessageBox( 0, "Unable to choose pixel format!", "OpenGL Error", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 29</td><td class="iwz-code-line">         break;</td></tr>
+<tr class="iwz-code-neutral"><td> 30</td><td class="iwz-code-line">      }</td></tr>
+</tbody></table>
+<p> Set this window to use the pixel format found by <span class="iwz-func">ChoosePixelFormat()</span>.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 31</td><td class="iwz-code-line">      if( !SetPixelFormat( hdc, pixel_fmt_int, &pixel_fmt ) ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 32</td><td class="iwz-code-line">         MessageBox( 0, "Unable to set pixel format!", "OpenGL Error", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 33</td><td class="iwz-code-line">         break;</td></tr>
+<tr class="iwz-code-neutral"><td> 34</td><td class="iwz-code-line">      }</td></tr>
+</tbody></table>
+<p> Create an OpenGL context (hGLRC) associated with this window's device context and make it the current OpenGL context for this window.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 35</td><td class="iwz-code-line">      hrc = wglCreateContext( hdc );</td></tr>
+<tr class="iwz-code-neutral"><td> 36</td><td class="iwz-code-line">      if( 0 == hrc ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 37</td><td class="iwz-code-line">         MessageBox( 0, "Invalid hGLRC!", "OpenGL Error", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 38</td><td class="iwz-code-line">      }</td></tr>
+<tr class="iwz-code-neutral"><td> 39</td><td class="iwz-code-line">      if( FALSE == wglMakeCurrent( hdc, hrc ) ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 40</td><td class="iwz-code-line">         MessageBox( 0, "Unable to set HGLRC!", "OpenGL Error", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 41</td><td class="iwz-code-line">         break;</td></tr>
+<tr class="iwz-code-neutral"><td> 42</td><td class="iwz-code-line">      }</td></tr>
+<tr class="iwz-code-neutral"><td> 43</td><td class="iwz-code-line">      break;</td></tr>
+</tbody></table>
+<p> The <span class="iwz-var">WM_TIMER</span> message is received when the timer we create later with <span class="iwz-func">SetTimer()</span> reaches its interval. Some programs might have multiple timers, in which case they would need to check the <span class="iwz-var">wParam</span> parameter to see which timer is sending the message and act accordingly. We only create one timer in this program, though.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 44</td><td class="iwz-code-line">   case WM_TIMER:</td></tr>
+<tr class="iwz-code-neutral"><td> 45</td><td class="iwz-code-line">      if( ogl_opengl_frame() ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 46</td><td class="iwz-code-line">         MessageBox( 0, "Error", "OpenGL frame error.", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 47</td><td class="iwz-code-line">         PostQuitMessage( 1 );</td></tr>
+<tr class="iwz-code-neutral"><td> 48</td><td class="iwz-code-line">      } else {</td></tr>
+</tbody></table>
+<p> As no error was returned by <span class="iwz-func">ogl_opengl_frame()</span>, swap the double buffers so that the one we've been rasterizing to is visible.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 49</td><td class="iwz-code-line">         hdc = GetDC( hWnd );</td></tr>
+<tr class="iwz-code-neutral"><td> 50</td><td class="iwz-code-line">         SwapBuffers( hdc );</td></tr>
+<tr class="iwz-code-neutral"><td> 51</td><td class="iwz-code-line">      }</td></tr>
+<tr class="iwz-code-neutral"><td> 52</td><td class="iwz-code-line">      break;</td></tr>
+</tbody></table>
+<p> The <span class="iwz-var">WM_DESTROY</span> message is received when the window is closing (either because the user clicked the close button or the application was terminated in some other way).</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 53</td><td class="iwz-code-line">   case WM_DESTROY:</td></tr>
+</tbody></table>
+<p> Reset this window back to the <span class="iwz-var">NULL</span> OpenGL context and destroy the context we created earlier.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 54</td><td class="iwz-code-line">      hdc = GetDC( hWnd );</td></tr>
+<tr class="iwz-code-neutral"><td> 55</td><td class="iwz-code-line">      wglMakeCurrent( hdc, NULL );</td></tr>
+<tr class="iwz-code-neutral"><td> 56</td><td class="iwz-code-line">      wglDeleteContext( hrc );</td></tr>
+</tbody></table>
+<p> Make sure we terminate the program, since the main window is closing.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 57</td><td class="iwz-code-line">      PostQuitMessage( 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 58</td><td class="iwz-code-line">      break;</td></tr>
+</tbody></table>
+<p> <span class="iwz-func">DefWindowProc()</span> will handle all messages not specifically enumerated here.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 59</td><td class="iwz-code-line">   default:</td></tr>
+<tr class="iwz-code-neutral"><td> 60</td><td class="iwz-code-line">      return DefWindowProc( hWnd, message, wParam, lParam );</td></tr>
+<tr class="iwz-code-neutral"><td> 61</td><td class="iwz-code-line">   }</td></tr>
+<tr class="iwz-code-neutral"><td> 62</td><td class="iwz-code-line">}</td></tr>
+<p> 
+   
+   
+   
+   <a id="Main-Function"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Main Function</h3></p>
+</tbody></table>
+<p> This is the application entry point. In traditional C, this would be defined as <span class="iwz-func">main()</span>, and most modern Windows compilers can also accept <span class="iwz-func">main()</span> as an entry point, but this gives us our <span class="iwz-var">hInstance</span> and <span class="iwz-var">nCmdShow</span> simply, so we will use it for our demonstration.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 63</td><td class="iwz-code-line">int WINAPI WinMain(</td></tr>
+<tr class="iwz-code-neutral"><td> 64</td><td class="iwz-code-line">   HINSTANCE hInstance, HINSTANCE hPrevInstance,</td></tr>
+<tr class="iwz-code-neutral"><td> 65</td><td class="iwz-code-line">   LPSTR lpCmdLine, int nCmdShow</td></tr>
+<tr class="iwz-code-neutral"><td> 66</td><td class="iwz-code-line">) {</td></tr>
+<tr class="iwz-code-neutral"><td> 67</td><td class="iwz-code-line">   int retval = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 68</td><td class="iwz-code-line">   int msg_retval = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 69</td><td class="iwz-code-line">   WNDCLASS wc = { 0 };</td></tr>
+<tr class="iwz-code-neutral"><td> 70</td><td class="iwz-code-line">   RECT wr = { 0, 0, 0, 0 };</td></tr>
+<tr class="iwz-code-neutral"><td> 71</td><td class="iwz-code-line">   MSG msg;</td></tr>
+<tr class="iwz-code-neutral"><td> 72</td><td class="iwz-code-line">   HWND hWnd = 0;</td></tr>
+</tbody></table>
+<p> Get the *real* dimensions of the window, including titlebar.</p>
+<p> Reminder that the <span class="iwz-var">MINI_SCREEN_W</span> and <span class="iwz-var">MINI_SCREEN_H</span> constants are defined in <span class="iwz-filename">ogldefs.h</span>!</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 73</td><td class="iwz-code-line">   wr.right = MINI_SCREEN_W;</td></tr>
+<tr class="iwz-code-neutral"><td> 74</td><td class="iwz-code-line">   wr.bottom = MINI_SCREEN_H;</td></tr>
+<tr class="iwz-code-neutral"><td> 75</td><td class="iwz-code-line">   AdjustWindowRect( &wr, WIN_STYLE, FALSE );</td></tr>
+</tbody></table>
+<p> Create and register the window class, using <span class="iwz-func">WndProc()</span>, which we defined above, as the message processor. Use a generic arrow cursor defined by <span class="iwz-var">IDC_ARROW</span> and (by default) gray background defined by <span class="iwz-var">COLOR_BTNFACE</span>. The class name is arbitrary, but we'll use it when we create the actual window to associate it with this class.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 76</td><td class="iwz-code-line">   memset( &wc, '\0', sizeof( WNDCLASS ) );</td></tr>
+<tr class="iwz-code-neutral"><td> 77</td><td class="iwz-code-line">   wc.lpfnWndProc   = (WNDPROC)&WndProc;</td></tr>
+<tr class="iwz-code-neutral"><td> 78</td><td class="iwz-code-line">   wc.hInstance     = hInstance;</td></tr>
+<tr class="iwz-code-neutral"><td> 79</td><td class="iwz-code-line">   wc.hCursor       = LoadCursor( 0, IDC_ARROW );</td></tr>
+<tr class="iwz-code-neutral"><td> 80</td><td class="iwz-code-line">   wc.hbrBackground = (HBRUSH)( COLOR_BTNFACE + 1 );</td></tr>
+<tr class="iwz-code-neutral"><td> 81</td><td class="iwz-code-line">   wc.lpszClassName = "MiniTestGLClass";</td></tr>
+<tr class="iwz-code-neutral"><td> 82</td><td class="iwz-code-line">   if( !RegisterClass( &wc ) ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 83</td><td class="iwz-code-line">      MessageBox( 0, "Error", "Could not register window class!", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 84</td><td class="iwz-code-line">      retval = 1;</td></tr>
+<tr class="iwz-code-neutral"><td> 85</td><td class="iwz-code-line">      goto cleanup;</td></tr>
+<tr class="iwz-code-neutral"><td> 86</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Create the actual window.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 87</td><td class="iwz-code-line">   hWnd = CreateWindow(</td></tr>
+</tbody></table>
+<p> Notice that we use the window class we defined above.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 88</td><td class="iwz-code-line">      "MiniTestGLClass",</td></tr>
+</tbody></table>
+<p> Set the window title visible to the user to a generic string.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 89</td><td class="iwz-code-line">      "Mini OpenGL Test",</td></tr>
+</tbody></table>
+<p> Use the window style we defined at the beginning of the source file.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 90</td><td class="iwz-code-line">      WIN_STYLE,</td></tr>
+</tbody></table>
+<p> Use the default window position on the center of the active screen, or thereabouts.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 91</td><td class="iwz-code-line">      CW_USEDEFAULT, CW_USEDEFAULT,</td></tr>
+</tbody></table>
+<p> Use the window size adjusted by <span class="iwz-func">AdjustWindowRect()</span> above to give the pixel dimensions we requested while accounting for the title bar and decorations.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 92</td><td class="iwz-code-line">      wr.right - wr.left, wr.bottom - wr.top,</td></tr>
+</tbody></table>
+<p> No menus or parent window, and use the <span class="iwz-var">hInstance</span> provided to the initial call to <span class="iwz-func">WinMain()</span> by the OS.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 93</td><td class="iwz-code-line">      0, 0, hInstance, 0</td></tr>
+<tr class="iwz-code-neutral"><td> 94</td><td class="iwz-code-line">   );</td></tr>
+<tr class="iwz-code-neutral"><td> 95</td><td class="iwz-code-line">   if( 0 == hWnd ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 96</td><td class="iwz-code-line">      MessageBox( 0, "Error", "Could not create window!", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 97</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Show the window we just created on-screen.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 98</td><td class="iwz-code-line">   ShowWindow( hWnd, nCmdShow );</td></tr>
+</tbody></table>
+<p> Create a timer to refresh the screen. This will continually send the <span class="iwz-var">WM_TIMER</span> message we're setup to handle in <span class="iwz-func">WndProc()</span>.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 99</td><td class="iwz-code-line">   if( !SetTimer( hWnd, WIN_TIMER_ID, (int)(1000 / MINI_FPS), NULL ) ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 100</td><td class="iwz-code-line">      MessageBox( 0, "Error", "Could not create graphics timer!", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 101</td><td class="iwz-code-line">      retval = 1;</td></tr>
+<tr class="iwz-code-neutral"><td> 102</td><td class="iwz-code-line">      goto cleanup;</td></tr>
+<tr class="iwz-code-neutral"><td> 103</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Call our generic OpenGL setup function defined in <span class="iwz-filename">openglxx.c</span>.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 104</td><td class="iwz-code-line">   if( ogl_opengl_setup() ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 105</td><td class="iwz-code-line">      MessageBox( 0, "Error", "OpenGL setup error.", 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 106</td><td class="iwz-code-line">      PostQuitMessage( 1 );</td></tr>
+<tr class="iwz-code-neutral"><td> 107</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Run the message-processing loop which will continually pass messages to <span class="iwz-func">WndProc</span></p>
+<p> This will effectively call <span class="iwz-func">opengl_frame()</span> repeatedly via the <span class="iwz-var">WM_TIMER</span> message generated by the timer we created earlier.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 108</td><td class="iwz-code-line">   do {</td></tr>
+<tr class="iwz-code-neutral"><td> 109</td><td class="iwz-code-line">      msg_retval = GetMessage( &msg, 0, 0, 0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 110</td><td class="iwz-code-line">      TranslateMessage( &msg );</td></tr>
+<tr class="iwz-code-neutral"><td> 111</td><td class="iwz-code-line">      DispatchMessage( &msg );</td></tr>
+<tr class="iwz-code-neutral"><td> 112</td><td class="iwz-code-line">   } while( 0 &lt; msg_retval );</td></tr>
+</tbody></table>
+<p> Handle generic cleanup. There isn't much to cleanup in this minimal example program, but putting things like calls to <span class="iwz-func">free()</span> after the <span class="iwz-var">cleanup</span> label will allow them to still be called in an error state by using <span class="iwz-func">goto</span> in the error handler, as opposed to if the handler just <span class="iwz-func">return</span>ed directly.</p>
+<p> Modern operating systems generally handle cleanup pretty well on their own, but older versions of Windows tended to leak resources (particularly GDI objects) for the whole operating system if those resources were not cleaned up in every program that used them.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglwin.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 113</td><td class="iwz-code-line">cleanup:</td></tr>
+<tr class="iwz-code-neutral"><td> 114</td><td class="iwz-code-line">   return retval;</td></tr>
+<tr class="iwz-code-neutral"><td> 115</td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Preamble">Preamble</a></li> <li><a href="#Window-Message-Processor">Window Message Processor</a></li> <li><a href="#Main-Function">Main Function</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Neoroom</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Neoroom</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<iframe src="https://neoroom.indigoparadox.zone" width="800" height="650" class="iwz-iframe-proj iwz-iframe-neoroom" frameborder="0" scrolling="no"></iframe>
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>This was an early experiment with a rather extravagant web page format, inspired by 90's room-based PC interfaces like Packard Bell Navigator, combined with the excessive capabilities of modern CSS transforms. All of the walls and furniture are made of HTML elements (primarily divs), rotated to fit together as a 3D model.</p>
+
+<p>The fact that modern web pages can do this is still incredible, to us.</p>
+
+
+   
+   
+   
+   <a id="Composition"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Composition</h3>
+
+<p>Some highlights are called out below, but the source code is also available in <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/neoroom">the neoroom repo</a>.</p>
+
+<p>This example uses JavaScript to create and position the divs. But it is entirely possible to do this on a static page (save for possibly the interactive click-to-rotate buttons).</p>
+
+<p>We built an intermediate layer we call "RoomJL" on top of jQuery that moves and sizes the divs (which we call quads, internally) and applies CSS transforms. Models like the bench or desk are built on top of this.</p>
+
+
+   
+   <a id="2-The-TV--Shape"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 1.</span> The TV: Shape</h4>
+
+<p>The "TV" shape uses an slanted top to give it some "character," but this took a disproportionate effort. The sides are actually two "quads" (i.e. divs): the slants of the sides are a second set of quads above the cube walls with special CSS to make only half of them visible, creating fake "triangles."</p>
+
+<p>The code below is that special CSS. Essentially, the fake "triangles" just have very large opaque borders on two sides, and a large transparent border which shears one of them in half on another side. It's awkward, but it works!</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">style.css</caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">.tv-left-t {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-top: 0;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-left: 40px solid transparent;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-right: 40px solid dimgray;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-bottom: 40px solid dimgray;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   outline: none;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">}</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">.tv-right-t {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-top: 0;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-right: 40px solid transparent;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-left: 40px solid dimgray;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   border-bottom: 40px solid dimgray;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   outline: none;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+<p>The slanted part of the top of the TV is just rotated at an angle that was visibly estimated to "look right." The end result is somewhat underwhelming for the effort it required.</p>
+
+
+   
+   <a id="2-The-TV--Screen"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 2.</span> The TV: Screen</h4>
+
+<p>Also of note is the YouTube video embedded in an iframe on the TV screen. It requires a click to play and one must move the mouse cursor away so that the YouTube gadgets vanish, but it hammers home that these are just rotated divs!</p>
+
+
+   
+   
+   
+   <a id="Conclusion"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Conclusion</h3>
+
+<p>While the potential for this project is limited due to a high cost/reward ratio, it does have some interesting points. Hopefully some of the things we learn here may be useful elsewhere... including this website!</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Composition">Composition</a></li> <li><a href="#Conclusion">Conclusion</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

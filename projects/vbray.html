@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Raycaster in Visual Basic 4</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Raycaster in Visual Basic 4</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/vbray/desktop.jpg" alt="Screenshot of the Raycaster running on a Windows 95 desktop with a "Windows 95 4.00.950" System Properties window open in the background showing that it's running on a 486 with 16 MB RAM." title="Screenshot of the Raycaster running on a Windows 95 desktop with a "Windows 95 4.00.950" System Properties window open in the background showing that it's running on a 486 with 16 MB RAM." />
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p><a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/vbray">vbray</a> is an extremely simple raycasting proof-of-concept. It borrows heavily from Lodev's Raycasting tutorial, but it uses GDI lines to draw the walls on a Windows form.</p>
+
+
+   
+   
+   
+   <a id="Playing"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Playing</h3>
+
+Uses WASD to move. Load the example world "Arcade.csv" from the File menu to start!
+
+<p>We've run it on a 486 DX-2 55 Mhz, but it was very slow. There are lower-resolution options for display if needed. There's also a minimap window which shows the path of the rays used for casting!</p>
+
+
+   
+   
+   
+   <a id="Data-Formats"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Data Formats</h3>
+
+<p>Below is an annotation of the example starting map, Arcade.csv. The annotations give a general idea of how each line is structured. Values are separated by commas.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">Arcade.csv</caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Determines ground color by hex number.</td></tr>
+   <tr class="iwz-code-add"><td>1</td><td class="iwz-code-line">ground,&H3000</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Determines sky color by hex number.</td></tr>
+   <tr class="iwz-code-add"><td>2</td><td class="iwz-code-line">sky,&Hffff00</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Map width in tiles. map statements must not be longer than this number.</td></tr>
+   <tr class="iwz-code-add"><td>3</td><td class="iwz-code-line">width,20</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Map height in tiles. Must not have more map statements than this number.</td></tr>
+   <tr class="iwz-code-add"><td>4</td><td class="iwz-code-line">height,20</td></tr>
+   <tr class="iwz-code-add"><td></td><td class="iwz-code-line">Version of reader this map is intended for.</td></tr>
+   <tr class="iwz-code-add"><td>5</td><td class="iwz-code-line">version,1</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Starting positin in tiles (X/Y) followed by facing angle.</td></tr>
+   <tr class="iwz-code-add"><td>6</td><td class="iwz-code-line">start,11,8,-0.5596647,0.8287189,0.5469547,0.3693788</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Wall definitions. Each is an index used in the map statements followed by light/dark hex colors and color names.</td></tr>
+   <tr class="iwz-code-add"><td>7</td><td class="iwz-code-line">wall,1,&H808080,&H404040,gray</td></tr>
+   <tr class="iwz-code-add"><td>8</td><td class="iwz-code-line">wall,2,&HFF00,&H8000,green</td></tr>
+   <tr class="iwz-code-add"><td>9</td><td class="iwz-code-line">wall,3,&HFF,&H80,red</td></tr>
+   <tr class="iwz-code-add"><td>10</td><td class="iwz-code-line">wall,4,&HFF00FF,&H800080,purple</td></tr>
+   <tr class="iwz-code-add"><td>11</td><td class="iwz-code-line">wall,5,&H00,&H00,black</td></tr>
+   <tr class="iwz-code-add"><td>12</td><td class="iwz-code-line">wall,6,&HFFFF,&H8080,yellow</td></tr>
+   <tr class="iwz-code-add"><td>13</td><td class="iwz-code-line">wall,7,&HFFFF00,&H808000,cyan</td></tr>
+   <tr class="iwz-code-add"><td>14</td><td class="iwz-code-line">wall,8,&H8000,&H4000,darkgreen</td></tr>
+   <tr class="iwz-code-add"><td>15</td><td class="iwz-code-line">wall,9,&HFF0000,&H800000,blue</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Map in rows/columns. Each number is a 0 for free space or a number from the wall table above.</td></tr>
+   <tr class="iwz-code-add"><td>16</td><td class="iwz-code-line">map,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</td></tr>
+   <tr class="iwz-code-add"><td>17</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>18</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>19</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,6,6,6,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>20</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,6,0,6,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>21</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,6,5,6,0,0,0,0,0,5</td></tr>
+   <tr class="iwz-code-add"><td>22</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>23</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>24</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>25</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>26</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,6,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>27</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>28</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>29</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>30</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>31</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>32</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>33</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>34</td><td class="iwz-code-line">map,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</td></tr>
+   <tr class="iwz-code-add"><td>35</td><td class="iwz-code-line">map,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,1</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Mobile definition: name of the mobile, followed by X/Y position, two walking animation frames (in .ico format), and a string to say on interaction.</td></tr>
+   <tr class="iwz-code-add"><td>36</td><td class="iwz-code-line">mobile,Maid,2,2,s_maid1.ico,s_maid2.ico,Fine weather- isn't it?</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Warp definition: location to warp from on current map (X/Y), followed by name of map to warp to and location to start there (X/Y), followed by angular facing direction.</td></tr>
+   <tr class="iwz-code-add"><td>37</td><td class="iwz-code-line">warp,5,18,Cave.csv,4,2,7.912095E-02,0.996865,0.657931,-5.221983E-02</td></tr>
+</tbody></table>
+
+<p>Mobile icons are 16 colors Windows 3.x format. In theory, they can be 32x32, but it's only been tested with 16x16.</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Playing">Playing</a></li> <li><a href="#Data-Formats">Data Formats</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+

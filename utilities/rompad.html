@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Rom Padder</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Rom Padder</h2>
+  <a class="iwz-breadcrumbs" href="/utilities">Back to utilities</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-active iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p class="iwz-dlsrc">This page was generated from a source code file. <a href="rompad.c">Click here to download</a> the file this page was generated from.</a></p>
+<p> <p> <p> 
+   
+   
+   
+   <a id="Compiling"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Compiling</h3>  This file should compile in most C compilers. By way of example in one of the most common compilers, the command to compile in gcc is:  <span class="iwz-cmd">gcc -o rompad rompad.c</span></p>
+<p> 
+   
+   
+   
+   <a id="Preamble"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Preamble</h3></p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 1</td><td class="iwz-code-line">#include &lt;stdio.h&gt;</td></tr>
+<tr class="iwz-code-neutral"><td> 2</td><td class="iwz-code-line">#include &lt;stdlib.h&gt;</td></tr>
+<tr class="iwz-code-neutral"><td> 3</td><td class="iwz-code-line">#include &lt;string.h&gt;</td></tr>
+<p> 
+   
+   
+   
+   <a id="Main-Function"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Main Function</h3></p>
+<tr class="iwz-code-neutral"><td> 4</td><td class="iwz-code-line">int main( int argc, char* argv ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 5</td><td class="iwz-code-line">   int retval = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 6</td><td class="iwz-code-line">   FILE* bios_in = NULL;</td></tr>
+<tr class="iwz-code-neutral"><td> 7</td><td class="iwz-code-line">   FILE* bios_out = NULL;</td></tr>
+<tr class="iwz-code-neutral"><td> 8</td><td class="iwz-code-line">   size_t pg_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 9</td><td class="iwz-code-line">   size_t rom_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 10</td><td class="iwz-code-line">   size_t in_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 11</td><td class="iwz-code-line">   size_t pg_writ_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 12</td><td class="iwz-code-line">   size_t iter_r_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 13</td><td class="iwz-code-line">   size_t iter_w_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 14</td><td class="iwz-code-line">   size_t file_writ_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 15</td><td class="iwz-code-line">   char* bios_in_c = argv1;</td></tr>
+<tr class="iwz-code-neutral"><td> 16</td><td class="iwz-code-line">   char buffer1024;</td></tr>
+</tbody></table>
+<p> Make sure command line makes sense.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 17</td><td class="iwz-code-line">   if( 5 != argc ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 18</td><td class="iwz-code-line">      printf( "usage: pad &lt;bios_in&gt; &lt;bios_out&gt; &lt;pg_sz_kb&gt; &lt;rom_sz_kb&gt;\n" );</td></tr>
+<tr class="iwz-code-neutral"><td> 19</td><td class="iwz-code-line">      retval = 1;</td></tr>
+<tr class="iwz-code-neutral"><td> 20</td><td class="iwz-code-line">      goto cleanup;</td></tr>
+<tr class="iwz-code-neutral"><td> 21</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Open input and output ROM files.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 22</td><td class="iwz-code-line">   bios_in = fopen( bios_in_c, "rb" );</td></tr>
+<tr class="iwz-code-neutral"><td> 23</td><td class="iwz-code-line">   bios_out = fopen( argv2, "wb" );</td></tr>
+</tbody></table>
+<p> Get page and output ROM size from the command line, converting from KB to bytes.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 24</td><td class="iwz-code-line">   pg_sz = atoi( argv3 ) * 1024;</td></tr>
+<tr class="iwz-code-neutral"><td> 25</td><td class="iwz-code-line">   rom_sz = atoi( argv4 ) * 1024;</td></tr>
+</tbody></table>
+<p> Get the input ROM size from the input ROM file, in bytes.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 26</td><td class="iwz-code-line">   fseek( bios_in, 0, SEEK_END );</td></tr>
+<tr class="iwz-code-neutral"><td> 27</td><td class="iwz-code-line">   in_sz = ftell( bios_in );</td></tr>
+<tr class="iwz-code-neutral"><td> 28</td><td class="iwz-code-line">   fseek( bios_in, 0, SEEK_SET );</td></tr>
+</tbody></table>
+<p> Status update.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 29</td><td class="iwz-code-line">   printf( "bios_in \"%s\" sz: %lu\n", bios_in_c, in_sz );</td></tr>
+<tr class="iwz-code-neutral"><td> 30</td><td class="iwz-code-line">   if( in_sz &lt; pg_sz ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 31</td><td class="iwz-code-line">      printf( "pages will be padded to %lu\n", pg_sz );</td></tr>
+<tr class="iwz-code-neutral"><td> 32</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Iterate pages until the output ROM file matches the size specified on the command line.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 33</td><td class="iwz-code-line">   while( file_writ_sz &lt; rom_sz ) {</td></tr>
+</tbody></table>
+<p> Iterate bytes from the input ROM and then zero-padding until the current position in the output ROM matches a page size.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 34</td><td class="iwz-code-line">      pg_writ_sz = 0;</td></tr>
+<tr class="iwz-code-neutral"><td> 35</td><td class="iwz-code-line">      while( pg_writ_sz &lt; pg_sz ) {</td></tr>
+</tbody></table>
+<p> Determine if there are still bytes to read from the input ROM, or if we should switch to zero-padding.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 36</td><td class="iwz-code-line">         if( pg_writ_sz &lt; in_sz ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 37</td><td class="iwz-code-line">            iter_r_sz = fread( buffer, 1, 1024, bios_in );</td></tr>
+<tr class="iwz-code-neutral"><td> 38</td><td class="iwz-code-line">            printf( "copying %lu bytes to page...\n", iter_r_sz );</td></tr>
+<tr class="iwz-code-neutral"><td> 39</td><td class="iwz-code-line">         } else {</td></tr>
+<tr class="iwz-code-neutral"><td> 40</td><td class="iwz-code-line">            iter_r_sz = 1024;</td></tr>
+<tr class="iwz-code-neutral"><td> 41</td><td class="iwz-code-line">            printf( "padding %lu bytes to page...\n", iter_r_sz );</td></tr>
+<tr class="iwz-code-neutral"><td> 42</td><td class="iwz-code-line">            memset( buffer, '\0', iter_r_sz );</td></tr>
+<tr class="iwz-code-neutral"><td> 43</td><td class="iwz-code-line">         }</td></tr>
+</tbody></table>
+<p> Write read bytes or zero padding to output ROM file.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 44</td><td class="iwz-code-line">         iter_w_sz = fwrite( buffer, 1, iter_r_sz, bios_out );</td></tr>
+<tr class="iwz-code-neutral"><td> 45</td><td class="iwz-code-line">         if( iter_w_sz &lt; iter_r_sz ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 46</td><td class="iwz-code-line">            printf( "could not write buffer!\n" );</td></tr>
+<tr class="iwz-code-neutral"><td> 47</td><td class="iwz-code-line">            retval = 2;</td></tr>
+<tr class="iwz-code-neutral"><td> 48</td><td class="iwz-code-line">            goto cleanup;</td></tr>
+<tr class="iwz-code-neutral"><td> 49</td><td class="iwz-code-line">         }</td></tr>
+<tr class="iwz-code-neutral"><td> 50</td><td class="iwz-code-line">         pg_writ_sz += iter_w_sz;</td></tr>
+<tr class="iwz-code-neutral"><td> 51</td><td class="iwz-code-line">      }</td></tr>
+</tbody></table>
+<p> Bump up file written size by this page's written size.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 52</td><td class="iwz-code-line">      file_writ_sz += pg_writ_sz;</td></tr>
+<tr class="iwz-code-neutral"><td> 53</td><td class="iwz-code-line">      fseek( bios_in, 0, SEEK_SET );</td></tr>
+<tr class="iwz-code-neutral"><td> 54</td><td class="iwz-code-line">      printf( "wrote %lu bytes to file...\n", file_writ_sz );</td></tr>
+<tr class="iwz-code-neutral"><td> 55</td><td class="iwz-code-line">   }</td></tr>
+</tbody></table>
+<p> Close remaining open ROM files.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">rompad.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 56</td><td class="iwz-code-line">cleanup:</td></tr>
+<tr class="iwz-code-neutral"><td> 57</td><td class="iwz-code-line">   if( NULL != bios_in ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 58</td><td class="iwz-code-line">      fclose( bios_in );</td></tr>
+<tr class="iwz-code-neutral"><td> 59</td><td class="iwz-code-line">   }</td></tr>
+<tr class="iwz-code-neutral"><td> 60</td><td class="iwz-code-line">   if( NULL != bios_out ) {</td></tr>
+<tr class="iwz-code-neutral"><td> 61</td><td class="iwz-code-line">      fclose( bios_out );</td></tr>
+<tr class="iwz-code-neutral"><td> 62</td><td class="iwz-code-line">   }</td></tr>
+<tr class="iwz-code-neutral"><td> 63</td><td class="iwz-code-line">   return retval;</td></tr>
+<tr class="iwz-code-neutral"><td> 64</td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Compiling">Compiling</a></li> <li><a href="#Preamble">Preamble</a></li> <li><a href="#Main-Function">Main Function</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

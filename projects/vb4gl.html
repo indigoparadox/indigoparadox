@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: OpenGL in Visual Basic 4</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">OpenGL in Visual Basic 4</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<video controls class="iwz-video" src="/images/vb4gl/vb4gl-demo2.mp4" title="Visual Basic 4 workspace, with a form with a beveled box in which the cube is now rotating. The rotation can be adjusted with a horizontal scrollbar, zoomed with a vertical scrollbar, and there's a checkbox which, when checked, causes the cube to rotate automatically."></video>
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>This project might be a real head-scratcher, even for those normally willing to extend the benefit of the doubt to knowledge for knowledge's sake. It seems fairly common for folks to dig out their old childhood computers these days and look at them with new eyes. Less common, however, seems to be the impulse to dig out one's old childhood programming languages.</p>
+
+<p>But we wanted a change of pace, and we do what we want! So here it is. A combination of a language we haven't touched in around 20 years with our most recent interest: <a href="/tutorials/opengl01.html">OpenGL 1.0</a>.</p>
+
+<p>This is not an exhaustive tutorial. Putting together basic knowledge of Visual Basic with <span class="iwz-func">declare()</span> statements and knowledge of the quirks below and the information from the tutorial linked in the previous paragraph should be enough to reproduce these results if one is so inclined.</p>
+
+<p>This is merely a collection of notes and observations. With that out of the way...</p>
+
+
+   
+   
+   
+   <a id="Visual-Basic-Basics"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Visual Basic Basics</h3>
+
+<p>We said this is not a tutorial, but Visual Basic is not difficult to pick up in a hurry if you're already familiar with programming. With that in mind, and because it's not exactly a popular language, these days, here are some basics for getting started:</p>
+
+<ul>
+   <li>Declare variables with <span class="iwz-func">Dim x as type</span>. Types are <span class="iwz-var">Integer</span> (16-bit), <span class="iwz-var">Long</span> (32-bit), <span class="iwz-var">Single</span> (32-bit floating point), <span class="iwz-var">Double</span> (64-bit floating point), <span class="iwz-var">Boolean</span> (boolean), and <span class="iwz-var">String</span>, which is variable length (although you can fix its length by declaring it as e.g. String * 1 for 1-length, which is also how you might declare a byte, since there's no <span class="iwz-var">Char</span>!)</li>
+   <li>Procedures can either be a <span class="iwz-func">Function</span> (returns a value) or a <span class="iwz-func">Sub</span> (does not return a value). Generally, you don't use parentheses to surround arguments when calling either, unless you're assigning the return value of a <span class="iwz-func">Function</span>, in which case you do!</li>
+   <li>You can call procedures from external libraries (DLL files) using the syntax: Declare <span class="iwz-var">Procedure_Name</span> Lib "<span class="iwz-var">Library_Name (sans .DLL)</span>" (<span class="iwz-var">Arguments</span>) As <span class="iwz-var">Return_Type</span>, replacing <span class="iwz-var">Procedure_Name</span>, <span class="iwz-var">Library_Name (sans .DLL)</span>, <span class="iwz-var">Arguments</span>, and <span class="iwz-var">Return_Type</span> as appropriate to match the procedure's signature. If you get this wrong, VB will throw an Invalid Calling Convention error!</li>
+</ul>
+
+
+   
+   
+   
+   <a id="Visual-Basic-Quirks"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Visual Basic Quirks</h3>
+
+<p>A not-insignificant part of this project was re-learning Visual Basic 4. This was complicated by a factor somewhat common to learning all obsolete APIs and programming languages: there are newer versions out there. Some things that will work in Visual Basic 5 or 6 will not work in Visual Basic 4. VB.net is basically a completely different language. All of these seem to be much more popular than Visual Basic 4, specifically.</p>
+
+<p>Below is a list of things to keep in mind using Visual Basic 4, not just in comparison to later versions of Visual Basic, but perhaps to modern languages in general:</p>
+
+
+   
+   <a id="3-Visual-Basic-4-uses-Banker-s-Rounding"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 1.</span> Visual Basic 4 uses Banker's Rounding</h4>
+
+<p>This means that floats converted to integers will round to the nearest *even* number. This can catch you off-guard and be especially annoying if you're trying to bit shift via dividing by 2 because...</p>
+
+
+   
+   <a id="3-Visual-Basic-4-Does-Not-Have-Bitwise-Operators"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 2.</span> Visual Basic 4 Does Not Have Bitwise Operators</h4>
+
+<p>At least not that we could figure out! If it does, then please feel free to correct us on this. In order to compensate for this, you can do something like this:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">BitShift.bas</caption><tbody><tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">Public Function ShiftRight(ByVal x As Double)</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line">    Dim Out As Integer</td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line">    If 0 = x Then</td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line">        'Trivial case.</td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line">        ShiftRight = 0</td></tr>
+   <tr class="iwz-code-neutral"><td>7</td><td class="iwz-code-line">    ElseIf x Mod 2 > 0 Then</td></tr>
+   <tr class="iwz-code-neutral"><td>8</td><td class="iwz-code-line">        'Subtract 1 to make the number even to avoid weird VB rounding.</td></tr>
+   <tr class="iwz-code-neutral"><td>9</td><td class="iwz-code-line">        ShiftRight = (x - 1) / 2</td></tr>
+   <tr class="iwz-code-neutral"><td>10</td><td class="iwz-code-line">    Else</td></tr>
+   <tr class="iwz-code-neutral"><td>11</td><td class="iwz-code-line">        ShiftRight = x / 2</td></tr>
+   <tr class="iwz-code-neutral"><td>12</td><td class="iwz-code-line">    End If</td></tr>
+   <tr class="iwz-code-neutral"><td>13</td><td class="iwz-code-line">End Function</td></tr>
+</tbody></table>
+
+
+   
+   <a id="3-Visual-Basic-4-Has-Objects----But-Not-Really-Instancing----"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 3.</span> Visual Basic 4 Has Objects... But Not Really Instancing...?</h4>
+
+<p>There is no <span class="iwz-func">New</span> operator in Visual Basic 4.</p>
+
+<p>To instantiate controls, you must drag them onto a form at design time. From there, you can create a control array by setting their index property to 0. You may then address other indexes at run time and use the <span class="iwz-func">Load</span> statement (e.g. <span class="iwz-cmd">Load ChkExample(1)</span>) to instantiate a new control in that array, which you can then move around the form by changing its Left/Top properties.</p>
+
+<p>For more abstract uses, there are custom types, which are closer to structs. You can declare variables with them and pass them around <span class="iwz-func">ByRef</span> or <span class="iwz-func">ByVal</span>. They can also be marshaled into C function calls, where they behave as structs.</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Visual-Basic-Basics">Visual Basic Basics</a></li> <li><a href="#Visual-Basic-Quirks">Visual Basic Quirks</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+

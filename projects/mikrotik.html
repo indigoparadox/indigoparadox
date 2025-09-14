@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Mikrotik Scripts</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Mikrotik Scripts</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Replicate-DNS"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Replicate DNS</h3>
+
+<p>This script will gather the local static DNS records, SSH into another Mikrotik router, and add each one to that router. It can be used from a scheduled task as a lightweight DNS replication in environments with multiple Mikrotik routers, providing more than one DNS server to clients. </p>
+
+<p>Before using this script, a SSH private key for the opposite router should be uploaded and added under Users / Private SSH keys. <span class="iwz-span-bold">The private key should be created with ssh-keygen -m pem for the uploader to work properly!</span></p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">replicate-dns</caption><tbody>
+	<tr class="iwz-code-add"><td>1</td><td class="iwz-code-line">foreach i in=[/ip dns static find] do={</td></tr>
+	<tr class="iwz-code-add"><td>2</td><td class="iwz-code-line">   # Grab the properties of this entry.</td></tr>
+	<tr class="iwz-code-add"><td>3</td><td class="iwz-code-line"> 	:local dreg [/ip dns static get $i regex]</td></tr>
+	<tr class="iwz-code-add"><td>4</td><td class="iwz-code-line"> 	:local dcom [/ip dns static get $i comment]</td></tr>
+	<tr class="iwz-code-add"><td>5</td><td class="iwz-code-line"> 	:local dadd [/ip dns static get $i address]</td></tr>
+	<tr class="iwz-code-add"><td>6</td><td class="iwz-code-line"> 	:local dnam [/ip dns static get $i name]</td></tr>
+	<tr class="iwz-code-add"><td>7</td><td class="iwz-code-line"> 	:local dregSafe ""</td></tr>
+	<tr class="iwz-code-add"><td>8</td><td class="iwz-code-line"></td></tr>
+	<tr class="iwz-code-add"><td>9</td><td class="iwz-code-line"> 	# Go by name by default.</td></tr>
+	<tr class="iwz-code-add"><td>10</td><td class="iwz-code-line"> 	:local syncom "/ip dns static add address=$dadd name=$dnam"</td></tr>
+	<tr class="iwz-code-add"><td>11</td><td class="iwz-code-line"> 	:if ( [:len $dnam] = 0 ) do={</td></tr>
+	<tr class="iwz-code-add"><td>12</td><td class="iwz-code-line"> 	   # Name len is 0 so use regex.</td></tr>
+	<tr class="iwz-code-add"><td>13</td><td class="iwz-code-line"></td></tr>
+	<tr class="iwz-code-add"><td>14</td><td class="iwz-code-line"> 	   # Encode dollar signs or they'll mess up in transmission.</td></tr>
+	<tr class="iwz-code-add"><td>15</td><td class="iwz-code-line"> 	   :for i from=0 to=([:len $dreg] - 1) do={</td></tr>
+	<tr class="iwz-code-add"><td>16</td><td class="iwz-code-line"> 	      :local char [:pick $dreg $i]</td></tr>
+	<tr class="iwz-code-add"><td>17</td><td class="iwz-code-line"> 	      :if ( $char = "\$" ) do={</td></tr>
+	<tr class="iwz-code-add"><td>18</td><td class="iwz-code-line"> 	         :set $char "\\\$"</td></tr>
+	<tr class="iwz-code-add"><td>19</td><td class="iwz-code-line"> 	      }</td></tr>
+	<tr class="iwz-code-add"><td>20</td><td class="iwz-code-line"> 	      :set $dregSafe ( $dregSafe . $char )</td></tr>
+	<tr class="iwz-code-add"><td>21</td><td class="iwz-code-line"> 	   }</td></tr>
+	<tr class="iwz-code-add"><td>22</td><td class="iwz-code-line"></td></tr>
+	<tr class="iwz-code-add"><td>23</td><td class="iwz-code-line"> 	   # Construct remote command.</td></tr>
+	<tr class="iwz-code-add"><td>24</td><td class="iwz-code-line"> 	   :set syncom "/ip dns static add address=$dadd regex=\"$dregSafe\""</td></tr>
+	<tr class="iwz-code-add"><td>25</td><td class="iwz-code-line">   }</td></tr>
+	<tr class="iwz-code-add"><td>26</td><td class="iwz-code-line"></td></tr>
+	<tr class="iwz-code-add"><td>27</td><td class="iwz-code-line">   # Execute command remotely.</td></tr>
+	<tr class="iwz-code-add"><td>28</td><td class="iwz-code-line">   :put $syncom</td></tr>
+	<tr class="iwz-code-add"><td>29</td><td class="iwz-code-line">   /system ssh-exec user=admin charle command=$syncom</td></tr>
+	<tr class="iwz-code-add"><td>30</td><td class="iwz-code-line">}</td></tr>
+	<tr class="iwz-code-add"><td>31</td><td class="iwz-code-line">:log info "dns replication complete!"</td></tr>
+</tbody></table>
+
+
+   
+   
+   
+   <a id="Check-URL-Status"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Check URL Status</h3>
+
+<p>This script uses error reporting to provide a basic availability check for a URL. It would be useful to call this from a scheduled task. <span class="iwz-span-bold">Please note that a 301 or other redirect counts as an error, so make sure to expand all URLs to their final expected destination!</span> </p>
+
+<p>Before using, you must replace <span class="iwz-var">example.com</span> with the URL to check and <span class="iwz-var">admin@example.com</span> with the address to send reports to.</p>
+ 
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">check-url</caption><tbody><tr class="iwz-code-add"><td>1</td><td class="iwz-code-line">do {</td></tr>
+   <tr class="iwz-code-add"><td>2</td><td class="iwz-code-line">   /tool fetch url="https://example.com" as-value output=user</td></tr>
+	<tr class="iwz-code-add"><td>3</td><td class="iwz-code-line">} on-error={</td></tr>
+	<tr class="iwz-code-add"><td>4</td><td class="iwz-code-line">   /tool e-mail send to="admin@example.com" subject="WARNING example.com DOWN" body="example.com is not available!"</td></tr>
+	<tr class="iwz-code-add"><td>5</td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Replicate-DNS">Replicate DNS</a></li> <li><a href="#Check-URL-Status">Check URL Status</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+

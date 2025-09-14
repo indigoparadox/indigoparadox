@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Tandy 1100FD</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Tandy 1100FD</h2>
+  <a class="iwz-breadcrumbs" href="/computers">Back to computers</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-active iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<img class="iwz-img" src="/images/t1100fd/front-open.jpg" alt="Front view of the Tandy 1100FD with the old-timey monochrome liquid crystal display upright and visible." title="Front view of the Tandy 1100FD with the old-timey monochrome liquid crystal display upright and visible." />
+
+<img class="iwz-img" src="/images/t1100fd/inside-mboard.jpg" alt="Inside of the Tandy 1100FD motherboard." title="Inside of the Tandy 1100FD motherboard." />
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<div class="iwz-block iwz-pcspec"><table class="iwz-pcspec-table"><tr><td class="iwz-pcspec-key">CPU</td><td class="iwz-pcspec-value">NEC V20 10MHz</td><tr><td class="iwz-pcspec-key">RAM</td><td class="iwz-pcspec-value">640KB</td><tr><td class="iwz-pcspec-key">Video</td><td class="iwz-pcspec-value">Monochrome CGA-Compatible</td><tr><td class="iwz-pcspec-key">Floppy</td><td class="iwz-pcspec-value"><a href="/projects/gotek.html">Gotek floppy emulator</a></td><tr><td class="iwz-pcspec-key">Ports</td><td class="iwz-pcspec-value">RS-232/DE-9, Parallel/DB-25</td></table><p class="iwz-pcspec-note">This information pertains to a particular specimen and may reflect upgrades, repairs, modifications, or factory options not present by default.</p></div>
+
+<p>This was an immediate buy based on its relatively low price at the time, coupled with its monochrome LCD screen which deeply appealed to our sensibilities. Our childhood fondness for the Tandy brand may have also been a factor.</p>
+
+<p>Connectivity is limited and the 8088-alike CPU puts this among the bottom rungs of PC performance. On the other hand, the OS in ROM simplifies some things and makes it a quaint machine for word processing.</p>
+
+
+   
+   
+   
+   <a id="Clock-Crystal-Replacement"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Clock Crystal Replacement</h3>
+
+<img class="iwz-img" src="/images/t1100fd/inside-crystal.jpg" alt="Closeup of the original clock chip in a bright blue package near the ROM socket. Practically invisible is the crack around one of the legs in the blue package." title="Closeup of the original clock chip in a bright blue package near the ROM socket. Practically invisible is the crack around one of the legs in the blue package." />
+
+<p>For a while, we thought we had fried the ROM chip by attempting to read it with our TL866. It turned out to be a chip that the TL866 did not support, and the 1100FD failed to boot once we put it back together...</p>
+
+<p>As it turns out, on closer inspection, we had broken a 16MHz ceramic oscillator next to the ROM socket. While we weren't able to find an identical part, we replaced it with a common quartz crystal oscillator (the little tin-can-type) and now it boots again!</p>
+
+
+   
+   
+   
+   <a id="Gotek-Floppy-Emulator"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Gotek Floppy Emulator</h3>
+
+<img class="iwz-img" src="/images/t1100fd/t1100fd-gotek.jpg" alt="Side view of the Tandy 1100FD, with the screen in the upright position. A Gotek floppy emulator with LCD and jog dial mods is installed in the side where the floppy drive used to be." title="Side view of the Tandy 1100FD, with the screen in the upright position. A Gotek floppy emulator with LCD and jog dial mods is installed in the side where the floppy drive used to be." />
+
+<p>Through hints in various forums, we learned it might be possible to replace the internal floppy drive with a more modern <a href="/projects/gotek.html">Gotek floppy emulator</a> through the use of a <a class="iwz-link iwz-link-ext" href="https://floppyemulator.com/products/34-24p1-25adaptor/">34- to 24-pin adaptor</a>. The floppy drive mount holds a standard-size floppy drive, though the front bezel had to be cut out with a Dremel. It's a tight fit, but it *does* fit!</p>
+
+<p>One snag that we got caught on was the jumper configuration: <span class="iwz-span-bold">S1 must be closed and S0 must be open!</span> If the drive is not responding to DOS commands, this may be the issue.</p>
+
+<p>Once the floppy emulator is connected, please also keep in mind that <span class="iwz-span-bold">it can only load up to 720k-sized images</span>. HD floppies are not supported by the controller on the 1100FD.</p>
+
+
+   
+   
+   
+   <a id="Screenshots"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Screenshots</h3>
+
+<p>Similar to the HP 200LX, this machine has a monochrome LCD with no backlight. This unit is also CGA-compatible, though it is quite a bit larger than the 200LX.</p>
+
+<img class="iwz-img" src="/images/t1100fd/simcity-title.jpg" alt="Tandy 1100FD displaying the SimCity title screen in monochrome green/black." title="Tandy 1100FD displaying the SimCity title screen in monochrome green/black." />
+
+<img class="iwz-img" src="/images/t1100fd/simcity-copypro.jpg" alt="Tandy 1100FD displaying the SimCity gameplay screen in monochrome green/black. The copy protection dialog is on top." title="Tandy 1100FD displaying the SimCity gameplay screen in monochrome green/black. The copy protection dialog is on top." />
+
+<img class="iwz-img" src="/images/t1100fd/zzt-title.jpg" alt="Tandy 1100FD displaying the Town of ZZT title screen with the contrast turned up to emphasize the light grays in the CGA display." title="Tandy 1100FD displaying the Town of ZZT title screen with the contrast turned up to emphasize the light grays in the CGA display." />
+
+<img class="iwz-img" src="/images/t1100fd/zzt-config.jpg" alt="Tandy 1100FD displaying the ZZT mouse/keyboard select prompt. Some of the text is very light.]" title="Tandy 1100FD displaying the ZZT mouse/keyboard select prompt. Some of the text is very light.]" />
+
+<img class="iwz-img" src="/images/t1100fd/fs4-runway.jpg" alt="Tandy 1100FD displaying the Flight Simulator 4 simulation screen, sitting on the runway." title="Tandy 1100FD displaying the Flight Simulator 4 simulation screen, sitting on the runway." />
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Clock-Crystal-Replacement">Clock Crystal Replacement</a></li> <li><a href="#Gotek-Floppy-Emulator">Gotek Floppy Emulator</a></li> <li><a href="#Screenshots">Screenshots</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: RC2014 Assembly</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">RC2014 Assembly</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>The <a class="iwz-link iwz-link-ext" href="https://z80kits.com/">RC2014</a> is a classic kit-style homebrew computer nominally designed around a Z80 CPU and Microsoft BASIC or CP/M. This page is intended to document our (mis)adventures with this fascinating device.</p>
+
+
+   
+   
+   
+   <a id="Troubleshooting-Attempts"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Troubleshooting Attempts</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+<dl class="iwz-sum-list">
+
+<dt class="iwz-sum-list-item">2022-06-05</dt><dd class="iwz-sum-list-desc">Oscilloscope shows clock, address, and data lines are active. Cannot get it to send or receive anything on the SIO/2 serial ports. Tx and Rx just stay high even when sending data from the PC. Rx shows input when power is off but gets pulled high when on... <img class="iwz-img" src="/images/rc2014/rc2014-ts-20220605.png
+      Screenshot of logic analyzer attached to Tx/Rx lines: Tx line is high for two short intervals (labeled as being when the power is turned on) interrupted by longer intervals of it being low. Rx line is high the whole time, with short bursts of high-frequency cycles labeled "hitting enter in picocom/with no response." The high-frequency bursts are puled high (invisible) when Tx is high." alt="" title="" />
+   </dd>
+
+<dt class="iwz-sum-list-item">2022-06-06</dt><dd class="iwz-sum-list-desc">Attached a logic probe to CE line on serial SIO/2. Output is very non-deterministic between boot attempts (power cycles are indicated by long "low" stretches.) <img class="iwz-img" src="/images/rc2014/rc2014-ts-20220606.png" alt="Screenshot of logic analyzer: several longer periods of line high interrupted by longer periods of line low. The periods of line high contain very rapid low-high activity in irregular patterns." title="Screenshot of logic analyzer: several longer periods of line high interrupted by longer periods of line low. The periods of line high contain very rapid low-high activity in irregular patterns." />
+   </dd>
+
+<dt class="iwz-sum-list-item">2022-06-21</dt><dd class="iwz-sum-list-desc">Got a bigger logic analyzer. It seems to be doing a whole string of NOPs but then eventually it starts executing from the ROM. <span class="iwz-var">0xf3 0xc3 0x93 0x01</span> are the first four bytes at <span class="iwz-var">0x2000</span> in the ROM dump. There are glitches here and there but that might just be the analyzer... <img class="iwz-img" src="/images/rc2014/rc2014-ts-20220621.png" alt="Screenshot of logic analyzer: Z80 decoder is enabled and shows a few NOP instructions before showing instructions indicating CPU is reading from ROM." title="Screenshot of logic analyzer: Z80 decoder is enabled and shows a few NOP instructions before showing instructions indicating CPU is reading from ROM." />
+   </dd>
+
+<dt class="iwz-sum-list-item">2023-06-15</dt><dd class="iwz-sum-list-desc">Walked each pin in each backplane connector to ensure all lanes are continuous between connectors and there is NO continuity between adjacent pins (except for double 5V pins and double ground pins). Determined lots of noise on serial line when backplane connected to power and turned OFF if either ROM board or clock board are connected. Based on this, built replacement ROM board with no change in behavior (including when powered off with new ROM and no clock inserted).</dd>
+
+<dt class="iwz-sum-list-item">2023-06-16</dt><dd class="iwz-sum-list-desc">Success! It seems the issue was failure to connect the "link" pin on the pageable RAM card, possibly combined with a faulty serial terminal adapter masking this during earlier tests (which works with other things, but is very iffy with the RC2014 in particular!) When using the serial terminal adapter that came with the new Pride kit, a prompt is received (although it freezes on loading CP/M):
+      <table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Press [SPACE] to activate console</td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"></td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"></td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Z80 SBC Boot ROM 1.1 by G. Searle</td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Type ? for options</td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"></td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">>x</td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Boot CP/M?</td></tr>
+         <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Loading CP/M...</td></tr>
+      </tbody></table>
+      <img class="iwz-img" src="/images/rc2014/rc2014-ts-20230616.jpg" alt="An extreme closeup of the RC2014 Pro paged RAM card, where the "Link" pin is connected to the backplane via a spare L-shaped pin set into the backplane socket, connected to one of the jumper legs on the board with a jumper." title="An extreme closeup of the RC2014 Pro paged RAM card, where the "Link" pin is connected to the backplane via a spare L-shaped pin set into the backplane socket, connected to one of the jumper legs on the board with a jumper." />
+   </dd>
+
+<dt class="iwz-sum-list-item">2023-06-17</dt><dd class="iwz-sum-list-desc">Assembled enough of the Pride kit so that it can boot, and it boots successfully! The Pro kit also boots successfully when using the CF module v2.1 from the Pride kit. The Pro CF card works in the v2.1 CF module, but nothing works in the v1.3 CF module from the Pro kit. At least the issue is narrowed down, and we can boot into CP/M, now!</dd>
+
+</dl>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Troubleshooting-Attempts">Troubleshooting Attempts</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

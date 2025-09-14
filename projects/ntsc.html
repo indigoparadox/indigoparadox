@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: NTSC</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">NTSC</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p>This page documents our adventures with simulated NTSC/CRT effects, typically using the <a class="iwz-link iwz-link-repo" href="https://github.com/LMP88959/NTSC-CRT">NTSC-CRT library by LMP88959</a>. We have condensed this library to a single header and inserted it into the rendering paths of various softwares to great and amusing effect.</p>
+
+
+   
+   
+   
+   <a id="doomgeneric"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> doomgeneric</h3>
+
+<video controls class="iwz-video" src="/images/ntsc/ntsc-doomg1.mp4" title="A few seconds of wandering through the first map of FreeDoom. The screen is very fuzzy, with poor vertical hold and visible interlacing."></video>
+
+<p>This was a relatively quick <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/doomgeneric/commit/d9c909455422c4cec6c087adeb598a6ce06fe1ae">single-commit</a> job, which breaks down roughly as follows:</p>
+
+<p>First, we included the <span class="iwz-filename">ntsc.h</span> single-file header mentioned above and shimmed an additional framebuffer (<span class="iwz-var">ntsc_buffer</span>), as well as the <span class="iwz-struct">NTSC_SETTINGS</span> and <span class="iwz-struct">CRT</span> structs into the start of <span class="iwz-filename">doomgeneric_xlib.c</span>.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">doomgeneric_xlib.c</caption><tbody><tr class="iwz-code-add"><td>16</td><td class="iwz-code-line">#ifdef DG_NTSC</td></tr>
+   <tr class="iwz-code-add"><td>17</td><td class="iwz-code-line">#define NTSC_C</td></tr>
+   <tr class="iwz-code-add"><td>18</td><td class="iwz-code-line">#include "ntsc.h"</td></tr>
+   <tr class="iwz-code-add"><td>19</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-add"><td>20</td><td class="iwz-code-line">static uint32_t* ntsc_buffer = NULL;</td></tr>
+   <tr class="iwz-code-add"><td>21</td><td class="iwz-code-line">static struct NTSC_SETTINGS ntsc;</td></tr>
+   <tr class="iwz-code-add"><td>22</td><td class="iwz-code-line">static struct CRT crt;</td></tr>
+   <tr class="iwz-code-add"><td>23</td><td class="iwz-code-line">static int ntsc_field = 0;</td></tr>
+   <tr class="iwz-code-add"><td>24</td><td class="iwz-code-line">#endif /* DG_NTSC */</td></tr>
+</tbody></table>
+
+<p>Next, in the <span class="iwz-func">DG_Init()</span> function, we allocated the new framebuffer (<span class="iwz-var">ntsc_buffer</span>) to hold a 32-bit word for every pixel on the screen. We then setup the <span class="iwz-struct">CRT</span> struct to point to that framebuffer for its output and turned on scanlines, and we setup the <span class="iwz-struct">NTSC_SETTINGS</span> struct with the sizing and pixel format information for the incoming framebuffer (<span class="iwz-var">DG_ScreenBuffer</span>), which we also added a pointer to.</p>
+
+<p>This is a pretty simple and intuitive pattern... The <span class="iwz-struct">NTSC_SETTINGS</span> struct processes the incoming framebuffer before passing the resulting data off to the <span class="iwz-struct">CRT</span> struct to display!</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">doomgeneric_xlib.c</caption><tbody><tr class="iwz-code-add"><td>110</td><td class="iwz-code-line">#ifdef DG_NTSC</td></tr>
+   <tr class="iwz-code-add"><td>111</td><td class="iwz-code-line">    ntsc_buffer = malloc( DOOMGENERIC_RESX * DOOMGENERIC_RESY * 4 );</td></tr>
+   <tr class="iwz-code-add"><td>112</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-add"><td>113</td><td class="iwz-code-line">    /* Initialize CRT buffer. */</td></tr>
+   <tr class="iwz-code-add"><td>114</td><td class="iwz-code-line">    crt_init(</td></tr>
+   <tr class="iwz-code-add"><td>115</td><td class="iwz-code-line">       &crt, DOOMGENERIC_RESX, DOOMGENERIC_RESY,</td></tr>
+   <tr class="iwz-code-add"><td>116</td><td class="iwz-code-line">       CRT_PIX_FORMAT_RGBA, (unsigned char*)ntsc_buffer );</td></tr>
+   <tr class="iwz-code-add"><td>117</td><td class="iwz-code-line">    crt.blend = 1;</td></tr>
+   <tr class="iwz-code-add"><td>118</td><td class="iwz-code-line">    crt.scanlines = 1;</td></tr>
+   <tr class="iwz-code-add"><td>119</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-add"><td>120</td><td class="iwz-code-line">    ntsc.data = (unsigned char*)DG_ScreenBuffer;</td></tr>
+   <tr class="iwz-code-add"><td>121</td><td class="iwz-code-line">    ntsc.format = CRT_PIX_FORMAT_RGBA;</td></tr>
+   <tr class="iwz-code-add"><td>122</td><td class="iwz-code-line">    ntsc.w = DOOMGENERIC_RESX;</td></tr>
+   <tr class="iwz-code-add"><td>123</td><td class="iwz-code-line">    ntsc.h = DOOMGENERIC_RESY;</td></tr>
+   <tr class="iwz-code-add"><td>124</td><td class="iwz-code-line">    ntsc.as_color = 1;</td></tr>
+   <tr class="iwz-code-add"><td>125</td><td class="iwz-code-line">    ntsc.raw = 1;</td></tr>
+   <tr class="iwz-code-add"><td>126</td><td class="iwz-code-line">#endif /* DG_NTSC */</td></tr>
+</tbody></table>
+
+<p>We also inserted the new framebuffer (<span class="iwz-var">ntsc_buffer</span>) into the <span class="iwz-func">XCreateImage()</span> call, so that we would be drawing the output of the <span class="iwz-struct">CRT</span> struct, and not the (now intermediate-stage) <span class="iwz-var">DG_ScreenBuffer</span> framebuffer.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">doomgeneric_xlib.c</caption><tbody><tr class="iwz-code-remove"><td>124</td><td class="iwz-code-line">    s_Image = XCreateImage(s_Display, DefaultVisual(s_Display, s_Screen), depth, ZPixmap, 0, (char *)DG_ScreenBuffer, DOOMGENERIC_RESX, DOOMGENERIC_RESX, 32, 0);</td></tr>
+   <tr class="iwz-code-add"><td>152</td><td class="iwz-code-line">    s_Image = XCreateImage(s_Display, DefaultVisual(s_Display, s_Screen), depth, ZPixmap, 0,</td></tr>
+   <tr class="iwz-code-add"><td>153</td><td class="iwz-code-line">#ifdef DG_NTSC</td></tr>
+   <tr class="iwz-code-add"><td>154</td><td class="iwz-code-line">    (char *)ntsc_buffer,</td></tr>
+   <tr class="iwz-code-add"><td>155</td><td class="iwz-code-line">#else</td></tr>
+   <tr class="iwz-code-add"><td>156</td><td class="iwz-code-line">    (char *)DG_ScreenBuffer,</td></tr>
+   <tr class="iwz-code-add"><td>157</td><td class="iwz-code-line">#endif /* DG_NTSC */</td></tr>
+   <tr class="iwz-code-add"><td>158</td><td class="iwz-code-line">    DOOMGENERIC_RESX, DOOMGENERIC_RESX, 32, 0);</td></tr>
+</tbody></table>
+
+<p>Finally, in the <span class="iwz-func">DG_DrawFrame()</span> function, we call the <span class="iwz-func">crt_modulate()</span>/<span class="iwz-func">crt_demodulate()</span> to apply the transformation on every frame. We also flip the field/frame bits between frames, as this seems to be necessary? Worth noting, as well, is that we hard-coded the noise value to 52 (which is rather high, but matches our preference). In a future refinement, this should be more easily configurable!</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">doomgeneric_xlib.c</caption><tbody><tr class="iwz-code-add"><td>185</td><td class="iwz-code-line">#ifdef DG_NTSC</td></tr>
+   <tr class="iwz-code-add"><td>186</td><td class="iwz-code-line">        ntsc.field = ntsc_field & 1;</td></tr>
+   <tr class="iwz-code-add"><td>187</td><td class="iwz-code-line">        if( 0 == ntsc.field ) {</td></tr>
+   <tr class="iwz-code-add"><td>188</td><td class="iwz-code-line">            ntsc.frame ^= 1;</td></tr>
+   <tr class="iwz-code-add"><td>189</td><td class="iwz-code-line">        }</td></tr>
+   <tr class="iwz-code-add"><td>190</td><td class="iwz-code-line">        crt_modulate( &crt, &ntsc );</td></tr>
+   <tr class="iwz-code-add"><td>191</td><td class="iwz-code-line">        crt_demodulate( &crt, 52 /* noise */ );</td></tr>
+   <tr class="iwz-code-add"><td>192</td><td class="iwz-code-line">        ntsc_field ^= 1;</td></tr>
+   <tr class="iwz-code-add"><td>193</td><td class="iwz-code-line">#endif /* DG_NTSC */</td></tr>
+</tbody></table>
+
+<p>This is enough to give us the effect demonstrated in the video above, albeit in a rather quick and dirty fashion. One flaw that is immediately apparent is the strange discrepency that arises from the high output resolution. A real CRT using NTSC with that type of noise would not have a resolution of 640x480! We might investigate turning down the output resolution of the <span class="iwz-struct">CRT</span> struct, providing a more realistic scaled image.</p>
+
+
+   
+   
+   
+   <a id="maug-Under--nix--SDL-"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> maug Under *nix (SDL)</h3>
+
+<div class="iwz-block iwz-construction">
+      <p>This section is under construction!</p>
+      <p>Please stay tuned for updates pending research and development.</p>
+   </div>
+
+<video controls class="iwz-video" src="/images/ntsc/ntsc-aleggo.mp4" title="Fuzzy NTSC-style rendering of a gray isometric field with some red bricks stacked. A mouse cursor moves around and stacks some green bricks. It looks like found footage and is very cool."></video>
+
+
+
+   
+   
+   
+   <a id="maug-Under-Windows"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> maug Under Windows</h3>
+
+<video controls class="iwz-video" src="/images/ntsc/ntsc-mbean.mp4" title="mbean, a minimal clone of Puyo Puyo, running under Windows NT 4. The colors are kind of blurred and washed out."></video>
+
+<p>This video is much clearer than the previous examples, as the noise was turned down significantly. This was because, during out testing, noise over a certain level would start to cause vertical roll. This only seemed to be an issue in Windows, and we have not yet tracked down the cause.</p>
+
+<p>The primary difficulties in the Windows implementation of the maug VDP had to do with figuring out how <span class="iwz-func">GetDIBits()</span> and <span class="iwz-func">SetDIBits()</span> worked... Long story short, one needs to fill out *all* the fields in the bitmap header passed to those functions- particularly the biPlanes field. maug now does this, so the VDP subsystem in maug now works on Windows, nominally.</p>
+
+<p>Also note that the Windows version uses the <span class="iwz-var">CRT_PIX_FORMAT_BGRA</span> format, as that is the byte order in Windows bitmaps.</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#doomgeneric">doomgeneric</a></li> <li><a href="#maug-Under--nix--SDL-">maug Under *nix (SDL)</a></li> <li><a href="#maug-Under-Windows">maug Under Windows</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

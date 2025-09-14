@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: PSUBot</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">PSUBot</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+<div class="iwz-block iwz-quality">
+      <p>This section has been integrated from a previous web zone or forum post with minimal modification to preserve images or accessibility.</p>
+      <p>It may be out of date, and/or not adhere to style or quality guidelines maintained by the rest of this web zone.</p>
+   </div>
+
+<p>Tentatively called the PSUBot, a remote-controlled rover built mostly out of spare parts and junk I had lying around. I'm posting this now since I'm not planning on bringing my tablet due to the fact that I'll probably be bicycling to the meeting and I want to provide links/information from home where I have them beforehand.</p>
+
+<p>I think of the PSUBot as more of a "puppet" than a robot for the moment due to the lack of on-board sensors and the ample control surfaces/colorful LEDs added for "personality". The MSP430G2553 is its primary control processor; it doesn't have anything more power than that on-board in its standard configuration, though it does have room to carry something like a Raspberry Pi or whatever as a ride-along payload to be spliced into its current power/communication system. It can communicate remotely with other devices as a slave via Bluetooth RFCOMM sockets using the Serial Port Profile.</p>
+
+<p>I've written a few example programs for controlling the PSUBot from various devices via its crude RTOS, available in the <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/psubot">PSUBot repository</a>. An Android application for controlling it from a cellphone are available in the <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/psubot-android">PSUBot Android repository</a>. Any code not marked otherwise should be considered to be licensed under GPLv3.</p>
+
+<p>And finally, some images:</p>
+
+<img class="iwz-img" src="/images/psubot/front-l.jpg" alt="PSUBot (PC power supply with wheels and a CD-ROM laser face, front left." title="PSUBot (PC power supply with wheels and a CD-ROM laser face, front left." />
+
+<img class="iwz-img" src="/images/psubot/front-r.jpg" alt="PSUBot (PC power supply with wheels and a CD-ROM laser face, front right." title="PSUBot (PC power supply with wheels and a CD-ROM laser face, front right." />
+
+<img class="iwz-img" src="/images/psubot/rear-l.jpg" alt="PSUBot (PC power supply with wheels and a CD-ROM laser face, rear left." title="PSUBot (PC power supply with wheels and a CD-ROM laser face, rear left." />
+
+<img class="iwz-img" src="/images/psubot/inside-over.jpg" alt="Inside PSUBot (Some perfboards stacked on top of a red board, AA batteries." title="Inside PSUBot (Some perfboards stacked on top of a red board, AA batteries." />
+
+<p>And some closeups of the perfboard/Launchpad processing core:</p>
+
+<img class="iwz-img" src="/images/psubot/inside-l.jpg" alt="Inside PSUBot (Closeup of the red circuit board under perfboards." title="Inside PSUBot (Closeup of the red circuit board under perfboards." />
+
+<p>The ICs are L293D motor drivers for the eye rack/pinion and the drive wheels. The heatsink on top is attached to the 5V supply regulator from the batteries.</p>
+
+<p>The Bluetooth communication module is one of those commonly available surface-mount Bluetooth daughterboards soldered down on top of some kapton tape. It's mounted under the top perfboard expansion, as seen here:</p>
+
+<img class="iwz-img" src="/images/psubot/inside-btmodule-close.jpg" alt="Inside PSUBot (Closeup of the Bluetooth module soldered to perfboard." title="Inside PSUBot (Closeup of the Bluetooth module soldered to perfboard." />
+
+<p>I stopped working on the PSUBot a couple weeks ago because I didn't want to break it too badly before the meeting. In the future I plan to maybe add some sensors and possibly another MSP430 to manage them and communicate with the primary MSP430 via a 1-wire bus. I also hope to add a remote bootloader to upload new firmwares to the device in action, on the software side. Therefore, files attached or other content may be subject to change.</p>
+
+
+ </div> <!-- iwz-body -->
+ 
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: OpenGL 1.0: Polygons</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">OpenGL 1.0: Polygons</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+<p class="iwz-dlsrc">This page was generated from a source code file. <a href="oglpoly.c">Click here to download</a> the file this page was generated from.</a></p>
+<p> <p> <p> 
+   
+   
+   
+   <a id="Preamble"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Preamble</h3></p>
+<p> <div class="iwz-depfiles"><p>This source file also depends on the files below:</p><ul><li><a href="ogldefs.html">ogldefs.html</a></li> </ul></div></p>
+<p> Include The system OpenGL header for constants and functions used below. Also include <span class="iwz-filename">ogldefs.h</span>, a header with some program-specific constants we'll also be using.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 1</td><td class="iwz-code-line">#include &lt;GL/gl.h&gt;</td></tr>
+<tr class="iwz-code-neutral"><td> 2</td><td class="iwz-code-line">#include "ogldefs.h"</td></tr>
+<p> 
+   
+   
+   
+   <a id="Polygon--Cube"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Polygon: Cube</h3></p>
+</tbody></table>
+<p> First, let's draw a simple multi-colored cube.</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 3</td><td class="iwz-code-line">void ogl_cube() {</td></tr>
+</tbody></table>
+<p> Now begin drawing the faces of the cube.</p>
+<p> For each face, please note that the normals are orthogonal to the face. If the face is at the base of the normal, the normal points directly "upwards."</p>
+<p> Please also note that the faces are defined in terms of triangles. For most implementations of older OpenGL versions, quads are also an option, but triangles are generally the most portable.</p>
+<p> Draw the back face:</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 4</td><td class="iwz-code-line">   glBegin( GL_TRIANGLES );</td></tr>
+<tr class="iwz-code-neutral"><td> 5</td><td class="iwz-code-line">   glNormal3f(     0,     0, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 6</td><td class="iwz-code-line">   glColor3f(   1.0f,     0,    0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 7</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 8</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 9</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 10</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 11</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 12</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, 1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 13</td><td class="iwz-code-line">   glEnd();</td></tr>
+</tbody></table>
+<p> Draw the right face:</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 14</td><td class="iwz-code-line">   glBegin( GL_TRIANGLES );</td></tr>
+<tr class="iwz-code-neutral"><td> 15</td><td class="iwz-code-line">   glNormal3f(  1.0f,     0,     0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 16</td><td class="iwz-code-line">   glColor3f(      0 , 1.0f,     0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 17</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 18</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 19</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 20</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 21</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 22</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 23</td><td class="iwz-code-line">   glEnd();</td></tr>
+</tbody></table>
+<p> Draw the left face:</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 24</td><td class="iwz-code-line">   glBegin( GL_TRIANGLES );</td></tr>
+<tr class="iwz-code-neutral"><td> 25</td><td class="iwz-code-line">   glNormal3f( -1.0f,     0,     0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 26</td><td class="iwz-code-line">   glColor3f(      0,     0,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 27</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 28</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 29</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 30</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 31</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 32</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 33</td><td class="iwz-code-line">   glEnd();</td></tr>
+</tbody></table>
+<p> Draw the front face:</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 34</td><td class="iwz-code-line">   glBegin( GL_TRIANGLES );</td></tr>
+<tr class="iwz-code-neutral"><td> 35</td><td class="iwz-code-line">   glNormal3f(     0,     0, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 36</td><td class="iwz-code-line">   glColor3f(   1.0f,  1.0f,     0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 37</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 38</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 39</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 40</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 41</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 42</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 43</td><td class="iwz-code-line">   glEnd();</td></tr>
+</tbody></table>
+<p> Draw the top face:</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 44</td><td class="iwz-code-line">   glBegin( GL_TRIANGLES );</td></tr>
+<tr class="iwz-code-neutral"><td> 45</td><td class="iwz-code-line">   glNormal3f(     0,  1.0f,     0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 46</td><td class="iwz-code-line">   glColor3f(      0,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 47</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 48</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 49</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 50</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 51</td><td class="iwz-code-line">   glVertex3f( -1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 52</td><td class="iwz-code-line">   glVertex3f(  1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 53</td><td class="iwz-code-line">   glEnd();</td></tr>
+</tbody></table>
+<p> Draw the bottom face:</p>
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">oglpoly.c</caption><tbody>
+<tr class="iwz-code-neutral"><td> 54</td><td class="iwz-code-line">   glBegin( GL_TRIANGLES );</td></tr>
+<tr class="iwz-code-neutral"><td> 55</td><td class="iwz-code-line">   glNormal3f(     0, -1.0f,     0 );</td></tr>
+<tr class="iwz-code-neutral"><td> 56</td><td class="iwz-code-line">   glColor3f(   1.0f,  1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 57</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 58</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 59</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 60</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f,  1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 61</td><td class="iwz-code-line">   glVertex3f( -1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 62</td><td class="iwz-code-line">   glVertex3f(  1.0f, -1.0f, -1.0f );</td></tr>
+<tr class="iwz-code-neutral"><td> 63</td><td class="iwz-code-line">   glEnd();</td></tr>
+<tr class="iwz-code-neutral"><td> 64</td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Preamble">Preamble</a></li> <li><a href="#Polygon--Cube">Polygon: Cube</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

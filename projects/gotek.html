@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Gotek Floppy Mods</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Gotek Floppy Mods</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>The <a class="iwz-link iwz-link-amazon" href="https://www.amazon.com/dp/B088ZT7J7G">GoTek USB floppy emulator</a> is a device that allows one to connect floppy disk images stored on a USB stick to a physical IBM PC floppy disk interface. This is a device we use ubiquitously in our retrocomputing pursuits, and this page is a record of the modifications and procedures we use in conjunction with the custom <a class="iwz-link iwz-link-repo" href="https://github.com/keirf/flashfloppy">flashfloppy</a> firmware on this device.</p>
+
+
+   
+   
+   
+   <a id="Hardware-Modification"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Hardware Modification</h3>
+
+<p>Most of these modifications are taken from the <a class="iwz-link iwz-link-ext" href="https://github.com/keirf/FlashFloppy/wiki/Hardware-Mods">FlashFloppy Wiki</a>, though the information has been condensed based on a "standard" build that we do for every Gotek that we use.</p>
+
+<p>The information here applies to the current revision of the Gotek floppy emulator as of this writing, using the Artery microcontroller and with the jogdial header present... older revisions do not have the jogdial header and newer revisions may have other issues. <span class="iwz-span-bold">Make sure the headers in the diagram below are available! Check the wiki if in doubt!</span></p>
+
+<p>Please note that it may be advisable to <a class="iwz-link-anchor" href="#4-Firmware-Flashing">flash the firmware</a> first, as plugging in the USB cable for that may cause the speaker to emit a constant, irritating screech until firmware is flashed. <span class="iwz-span-bold">These modifications REQUIRE the FlashFloppy firmware to be used!</span></p>
+
+
+   
+   <a id="2-Bill-of-Materials"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 1.</span> Bill of Materials</h4>
+
+<ul>
+   <li><a class="iwz-link iwz-link-amazon" href="https://www.amazon.com/dp/B07QBP1W5L">Electronic Buzzer</a></li>
+   <li><a class="iwz-link iwz-link-amazon" href="https://www.amazon.com/dp/B09MZ8DW4R">OLED Display</a></li>
+   <li><a class="iwz-link iwz-link-amazon" href="https://www.amazon.com/gp/product/B07T3672VK">Rotary Dial</a></li>
+   <li>2n3904 NPN Transistor</li>
+   <li>1k Resistor</li>
+</ul>
+
+
+   
+   <a id="2-Diagram"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 2.</span> Diagram</h4>
+
+<img class="iwz-img" src="/images/gotek/gotek-diagram.png" alt="Diagram of the GoTek mainboard, with the jumper/connection blocks called out with their pins highlighted in colors that correspond to the pins on an additional rotary dial, OLED display, and speaker (with transistor for amplification)." title="Diagram of the GoTek mainboard, with the jumper/connection blocks called out with their pins highlighted in colors that correspond to the pins on an additional rotary dial, OLED display, and speaker (with transistor for amplification)." />
+
+
+   
+   
+   
+   <a id="Photos"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Photos</h3>
+
+<img class="iwz-img" src="/images/gotek/gotek-front.jpg" alt="Front view of our modified Gotek floppy emulator." title="Front view of our modified Gotek floppy emulator." />
+
+<img class="iwz-img" src="/images/gotek/gotek-inside.jpg" alt="Top view of the inside of one of our modified Gotek floppy emulators." title="Top view of the inside of one of our modified Gotek floppy emulators." />
+
+
+   
+   
+   
+   <a id="Flashing-and-Software"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Flashing and Software</h3>
+
+
+   
+   <a id="4-Firmware-Flashing"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">4 - 1.</span> Firmware Flashing</h4>
+
+<p>This is fairly standard, according to the <a class="iwz-link iwz-link-ext" href="https://github.com/keirf/FlashFloppy/wiki/Firmware-Programming">FlashFloppy Wiki</a>. The script below will flash a Gotek connected via a double-A-ended USB cable and with the jumper wire installed as per the FlashFloppy wiki page.</p>
+
+<p>If the firmware does not flash with this procedure, make sure you have the jumper wire installed and try running the script several times!</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">flashfloppy.sh</caption><tbody>
+   <tr class="iwz-code-neutral"><td>1</td><td class="iwz-code-line">#!/bin/sh</td></tr>
+   <tr class="iwz-code-neutral"><td>2</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>3</td><td class="iwz-code-line">DFU_FILE="$1"</td></tr>
+   <tr class="iwz-code-neutral"><td>4</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>5</td><td class="iwz-code-line"># First, run the unprotect command (needs -D, even tho it doesn't use the file).</td></tr>
+   <tr class="iwz-code-neutral"><td>6</td><td class="iwz-code-line"># This will probably generate an error, but it's fine.</td></tr>
+   <tr class="iwz-code-neutral"><td>7</td><td class="iwz-code-line">sudo dfu-util -s :unprotect:force -D $DFU_FILE -a 0</td></tr>
+   <tr class="iwz-code-neutral"><td>8</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>9</td><td class="iwz-code-line">sleep 3</td></tr>
+   <tr class="iwz-code-neutral"><td>10</td><td class="iwz-code-line"></td></tr>
+   <tr class="iwz-code-neutral"><td>11</td><td class="iwz-code-line"># Perform the actual flash.</td></tr>
+   <tr class="iwz-code-neutral"><td>12</td><td class="iwz-code-line">sudo dfu-util -D $DFU_FILE -a 0</td></tr>
+</tbody></table>
+
+
+   
+   <a id="4-Companion-Software"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">4 - 2.</span> Companion Software</h4>
+
+<p>Once FlashFloppy is running, the OLED display should show the current version when power is applied. The <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/vfloppy">vfloppy</a> repository contains some scripts for working with floppy images from ZIP files and directories on the Linux command line via mtools.</p>
+
+
+   
+   
+   
+   <a id="Floppy-Server"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Floppy Server</h3>
+
+<p>If your retrocomputer is connected to a KVM and stowed out of the way, you may also want to be able to change the floppy at a distance. This is doable using a Raspberry Pi Zero W connected to the USB port of the Gotek via USB-OTG.</p>
+
+
+   
+   <a id="5-Hardware"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">5 - 1.</span> Hardware</h4>
+
+<p>You will need a Raspberry Pi Zero W with appropriate power supply. You will also need a USB-A to Micro-USB-B cable <span class="iwz-span-bold">with the power (usually red) wire disconnected!</span> This is important! You can use a breakout board or just cut the cable and only rejoin the green, white, and black wires. But the red wire <span class="iwz-span-bold">MUST</span> be disconnected! We are not responsible for any damage that may occur as a result of failure to do this (or from anything else here, for that matter)!</p>
+
+<p>Once you have these things:</p>
+
+<ul>
+   <li>Connect the modified USB cable from the "USB" micro-USB port on the Pi to the USB port on your GoTek.</li>
+   <li>Connect the power supply to the "Power" micro-USB port on the Pi.</li>
+</ul>
+
+
+   
+   <a id="5-Software"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">5 - 2.</span> Software</h4>
+
+<p>The Raspberry pi will presents a constructed "container" image which contains both a floppy image and an <span class="iwz-filename">FF.CFG</span> file which automatically loads that image to the Gotek via the USB-OTG layer.</p>
+
+<p>The "container" image is assembled by a simple piece of software called <a class="iwz-link iwz-link-repo" href="https://github.com/indigoparadox/floppcgi">floppcgi</a>, which runs as a FastCGI daemon sitting behind nginx. This daemon then responds to web requests, presenting a web page for selecting the image to use.</p>
+
+<p>This section assumes a standard installation of the current version of the Raspbian OS Lite image. It was tested with Buster, but hopefully future versions should work with minimal modification.</p>
+
+<p>It is highly recommended to use the <a class="iwz-link iwz-link-ext" href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a> utility to flash the imager, as this allows you to setup your wireless network without connecting a display and keyboard to your Raspberry Pi Zero.</p>
+
+<ul><li>You have cloned the floppcgi repo to /opt/floppcgi.</li>
+	<li>You have a collection of floppy disk images in /srv/Floppies.</li>
+</ul>
+
+<p>The script below is simplified, to illustrate the steps to getting it working. It assumes running as root and lacks idempotence. A more robust setup.sh is included in the floppcgi repo.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title">setup-floppysrv.sh</caption><tbody>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Install required packages.</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">apt install nginx libfcgi-dev mtools git</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Add dwc2 overlay for USB Gadget support.</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo "dtoverlay=dwc2" >> /boot/firmware/config.txt</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Add dwc2 module for USB Gadget support.</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo "dwc2" >> /etc/modules</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Copy the site config to nginx.</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp floppcgi.nginx /etc/nginx/sites-available/floppcgi</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">ln -s /etc/nginx/sites-available/floppcgi /etc/nginx/sites-enabled</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">rm /etc/nginx/sites-enabled/default</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Add config variables to FastCGI environment.</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo "fastcgi_param  FLOPPIES_ROOT  /srv/Floppies;" >> /etc/nginx/fastcgi.conf</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo "fastcgi_param  FLOPPIES_CONTAINER  /tmp/floppyc.img;" >> /etc/nginx/fastcgi.conf</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo "fastcgi_param  FLOPPIES_ASSETS /opt/floppcgi;" >> /etc/nginx/fastcgi.conf</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Copy the floppcgi service to /etc/systemd/system.</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp /opt/floppcgi/floppcgi.service /etc/systemd/system</td></tr>
+		<tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">systemctl start floppcgi</td></tr>
+</tbody></table>
+
+
+   
+   <a id="5-Recommendations"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">5 - 3.</span> Recommendations</h4>
+
+<ul><li>Install the <span class="iwz-pkg">log2ram</span> package to put log files in RAM and reduce wear on the SD card.</li>
+	<li>Place <span class="iwz-filename">/tmp</span> on <span class="iwz-pkg">tmpfs</span> to reduce wear on the SD card.</li>
+</ul>
+
+
+   
+   
+   
+   <a id="References"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> References</h3>
+
+<ol class="iwz-refs">
+   <li><a class="iwz-link iwz-link-ext" href="https://github.com/keirf/flashfloppy/wiki/Hardware-Mods">Hardware Mods - keirf/flashfloppy Wiki</a></li>
+   <li><a class="iwz-link iwz-link-ext" href="https://github.com/keirf/flashfloppy/wiki/Firmware-Programming">Firmware Programming - keirf/flashfloppy Wiki</a></li>
+	<li><a class="iwz-link iwz-link-ext" href="https://gist.github.com/gbaman/50b6cca61dd1c3f88f41">Raspbery Pi Zero OTG Mode</a></li>
+<ol>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Hardware-Modification">Hardware Modification</a></li> <li><a href="#Photos">Photos</a></li> <li><a href="#Flashing-and-Software">Flashing and Software</a></li> <li><a href="#Floppy-Server">Floppy Server</a></li> <li><a href="#References">References</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+

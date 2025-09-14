@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Multiforge</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Multiforge</h2>
+  <a class="iwz-breadcrumbs" href="/projects">Back to projects</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-active iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Other Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li>Coming Soon!</li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>Source forges and git hubs come and go. Being backed by a private company gives them the resources to have reach and gather users, but also tends to doom them to activities that those not desperate for profitability may deem unconscionable.</p>
+
+<p>It is as unfortunate as it is axiomatic that the network effects which make these systems so attractive to venture capital work so well in gathering developers to use them. And so the cycle continues.</p>
+
+
+   
+   
+   
+   <a id="Self-Hosting"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Self-Hosting</h3>
+
+<p>Self-hosting one's own forge is ideal in many ways. It grants a level of autonomy that commercial forges do not provide. However, it also comes with its own drawbacks:</p>
+
+<ul><li>Other developers are far less likely to sign up and submit pull requests.</li>
+   <li>Hosting costs are not zero. Especially if your projects become popular!</li>
+   <li>Your projects will likely die when you do. Nuggets of context that could otherwise be mined by future generations will be lost forever.</li>
+   <li>Your code is not findable! Nobody will submit pull requests if they cannot find your projects!</li>
+</ul>
+
+<p>Regardless, some degree of autonomy is a necessity, to the extent required to combat the potential decay of centralized platforms. To that end, we believe it is ideal for a modern developer to be autonomously mobile. To be able to jump from one forge to the next (or straddle more than one!) with relatively little difficulty.</p>
+
+<p>There are a few ways to go about this. The worst of all possible worlds is to <a class="iwz-link iwz-link-ext" href="https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/git-no-forge/">eschew code forges altogether</a>. This loses engagement, discoverability, and longevity while still requiring hosting costs. There are also peer-to-peer solutions like <a class="iwz-link iwz-link-ext" href="https://radicle.xyz/">Radicle</a>, which are intriguing due to their theoretical longevity, though these are currently hampered by their esoteric nature.</p>
+
+
+   
+   
+   
+   <a id="The-Hybrid-Approach"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> The Hybrid Approach</h3>
+
+<p>While not perfect, our current solution is a self-hosted platform that pushes updates to several other platforms on a regular basis. This approach brings some of the benefits of self-hosting, while minimizing the costs:</p>
+
+<ul><li>Nobody has to sign up to your site!</li>
+   <li>Hosting costs are less (or nothing, if you simply run your central forge on your own network, pushing all updates to public repos on public forges!)</li>
+   <li>Your projects will live as long as the longest-lived forge on which they exist.</li>
+   <li>Your code can be found!</li>
+</ul>
+
+<p>Of course, there are still drawbacks. This is certainly a more complicated solution than any of its constituent parts! Additionally: as much as your code becomes available to fellow humans, it may also be incorporated into machine learning algorithms. This latter drawback may be mitigated by careful selection of the forges you push to, at the cost of some significant share of reach.</p>
+
+
+   
+   
+   
+   <a id="Forgejo"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Forgejo</h3>
+
+<p>For this plan, we use Forgejo. It can be hosted in a container, a FreeBSD jail, or whatever works for you. It's written in Go and consequently, it's very flexible in how you can set it up!</p>
+
+<p>The centerpiece of this plan is Forgejo's <a class="iwz-link iwz-link-ext" href="https://forgejo.org/docs/v11.0/user/repo-mirror/#pushing-to-a-remote-repository">Push Mirrors</a> feature. This allows individual repos to be setup to push to one or more remote code forges.</p>
+
+<p>Again, there are tradeoffs: This feature must be setup on each repository, for each remote it pushes to. The remote repositories on the code forge sites must be created manually and one must get OAuth keys from those sites setup beforehand. But this also means that it's a simple matter to not push repos to forges you do not wish them to be present on, and you have fine control over whether you want one key for the whole remote site or individual keys per repo.</p>
+
+
+   
+   
+   
+   <a id="Pull-Requests"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Pull Requests</h3>
+
+<p>Without a doubt, the key benefit to centralized forges is engagement, particularly in the form of issues and pull requests. This situation allows us to merge a pull request on one site, pull it directly down to our local repo, and then push it back up to our self-hosted Forgejo instance. From there, it is pushed back, both to the site on which it originated and any other mirrors present!</p>
+
+<p>This maximizes our reach in a way no individual centralized forge could. Because Forgejo uses force-pushes for our mirroring, it also tends to run smoothly. Just be sure to grab the repo just after the pull request merge, or there's a chance it may be overwritten!</p>
+
+<img class="iwz-img" src="/images/multiforge/cycle.png" alt="Diagram of the cycle of code flow from Forgejo to CodeBerg/GitHub, and back to Forgejo." title="Diagram of the cycle of code flow from Forgejo to CodeBerg/GitHub, and back to Forgejo." />
+
+
+   
+   
+   
+   <a id="Remote-Options"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> Remote Options</h3>
+
+<p>Additionally, there is the decision of which sites to host on. We've been making use of the following:</p>
+
+<div class="iwz-block iwz-forge
+"><table class="iwz-table"><thead><tr><th>Centralized&nbspForge</th> <th>Notes</th></tr></thead><tbody>
+      <tr>
+         <td><a class="iwz-link iwz-link-ext" href="https://github.com">GitHub</a></td>
+         <td>Great reach and engagement, but they do train their ML on your code!</td> </tr>
+      <tr>
+         <td><a class="iwz-link iwz-link-ext" href="https://codeberg.org">CodeBerg</a></td>
+         <td>Non-profit, but their discovery tools and engagement are still in
+            their infancy stages.</td>
+      </tr>
+      <tr>
+         <td><a class="iwz-link iwz-link-ext" href="https://worktree.ca">WorkTree</a></td>
+         <td>Canadian-aligned.</td></tr>
+      <tr>
+         <td><a class="iwz-link iwz-link-ext" href="https://sourceforge.net">SourceForge</a></td>
+         <td>They still exist! But they do not seem to support OAuth2. You must use
+            your account password.</td></tr>
+   </tbody></table></div>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Self-Hosting">Self-Hosting</a></li> <li><a href="#The-Hybrid-Approach">The Hybrid Approach</a></li> <li><a href="#Forgejo">Forgejo</a></li> <li><a href="#Pull-Requests">Pull Requests</a></li> <li><a href="#Remote-Options">Remote Options</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Sep 13 23:39:59 2025 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2025
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
