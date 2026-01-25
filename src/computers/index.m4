@@ -23,4 +23,8 @@ iwz_proj_card([Tandy 4850 EP], [t4850ep.html], [],
    [Brief teardown and look at one of the rarer late Tandy PC models.],
    [hardware,pc])
 
+iwz_proj_card([PowerMac G4 MDD], [g4mdd.html], [],
+   [Some notes on our PowerMac G4 Mirror Drive Doors.],
+   [hardware,mac])
+
 include([footer.m4])
