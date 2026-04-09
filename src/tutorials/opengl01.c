@@ -116,7 +116,7 @@ int ogl_opengl_setup() {
    glEnable( GL_CULL_FACE );
 
    /* Renormalize normals after irregular transformations. We're not scaling
-    * yet, and the normals specified in iwz_filename(oglcube.c are all
+    * yet, and the normals specified in iwz_filename(oglcube.c) are all
     * 1.0f in length, so this probably isn't needed. But again, it's good
     * hygiene.
     */
