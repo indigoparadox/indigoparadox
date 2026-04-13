@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: PowerMac G4 MDD</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">PowerMac G4 MDD</h2>
+  <a class="iwz-breadcrumbs" href="/computers">Back to computers</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-active iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Our Friends</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a href="https://alicela1n.space/"><img src="/images/88x31/alice.png" alt="Alice" /></li>
+   <li><a href="https://vocelia.nekoweb.org/"><img src="/images/88x31/vocel.gif" alt="Vocelia" /></li>
+   <li><a href="https://pizzuhh.dev/"><img src="/images/88x31/pizzuh.jpg" alt="Pizzuh" /></li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<div class="iwz-block iwz-pcspec"><table class="iwz-pcspec-table"><tr><td class="iwz-pcspec-key">CPU</td><td class="iwz-pcspec-value">Dual PowerPC G4 1.25 GHz</td><tr><td class="iwz-pcspec-key">RAM</td><td class="iwz-pcspec-value">384MB</td><tr><td class="iwz-pcspec-key">Video</td><td class="iwz-pcspec-value">NVIDIA GeForce4 Ti 4600 128MB AGP</td><tr><td class="iwz-pcspec-key">Network</td><td class="iwz-pcspec-value">Wired Ethernet</td><tr><td class="iwz-pcspec-key">Hard Disk</td><td class="iwz-pcspec-value">160GB Spinning Rust</td><tr><td class="iwz-pcspec-key">Optical</td><td class="iwz-pcspec-value">ZuluIDE w/ Wireless Interface</td></table><p class="iwz-pcspec-note">This information pertains to a particular specimen and may reflect upgrades, repairs, modifications, or factory options not present by default.</p></div>
+
+<p>This specific PowerMac G4 Mirror Drive Doors uses a spinning rust hard drive because it has stubbornly refused to work with the CF cards and other replacements attempted so far. One thing we have *not* attempted is a SATA controller with a modern SSD, so that may be worth a shot!</p>
+
+<img class="iwz-img" src="/images/pmg4mdd/pmg4mdd-front.jpg" alt="Front view of the PowerMac G4 Mirror Drive Doors. A ZuluIDE is awkwardly sticking out of one of the mirror drive doors." title="Front view of the PowerMac G4 Mirror Drive Doors. A ZuluIDE is awkwardly sticking out of one of the mirror drive doors." />
+
+
+   
+   
+   
+   <a id="Power-Button-Relay"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Power Button Relay</h3>
+
+<p>Being one of our "permanent" retro fixtures, this machine is awkwardly placed up high using pullies and ladders. This makes physically reaching it to power it on impractical, leading to a need for a remote power button in the form of our relay bank.</p>
+
+<p>Wires from the relay bank are connected directly to the power board. At first we attempted a continuity test on the cable from the power board, but the board seems to do some kind of encoding which renders this useless. This board was surprisingly difficult to find replacement instructions for online, so we have provided some notes here:</p>
+
+<p>Accessing the front screw holding the power board box in requires removing the front panel, which requires the removal of at least one of the front legs with an allen key.</p>
+
+<img class="iwz-img" src="/images/pmg4mdd/pmg4mdd-legbolt.jpg" alt="Photo of the corner leg of the computer with the allen bolt partially screwed out." title="Photo of the corner leg of the computer with the allen bolt partially screwed out." />
+
+<p>With the screw holding the power board box in removed, two plastic rivets must also be popped out, ideally with an eyeglass-size regular (flat) screwdriver or similar.</p>
+
+<img class="iwz-img" src="/images/pmg4mdd/pmg4mdd-pwr-rivet.jpg" alt="Plastic rivet standing partially out of the rear of the power board box inside of the PC." title="Plastic rivet standing partially out of the rear of the power board box inside of the PC." />
+
+<p>The socket shown below must also be popped out!</p>
+
+<img class="iwz-img" src="/images/pmg4mdd/pmg4mdd-pwr-rivet-socket.jpg" alt="Plastic rivet socket on the rear of the power board box inside of the PC." title="Plastic rivet socket on the rear of the power board box inside of the PC." />
+
+
+<p>Initially, we routed the wires out of the rear of the power board box. This was a mistake, as the sharp edges of the box quickly broke through the insulation and bridged them, leading the computer to act as if the power button was always being pressed.</p>
+
+<img class="iwz-img" src="/images/pmg4mdd/pmg4mdd-relay-wired.jpg" alt="Two wires soldered to the connections on the rear of the physical power button on the power board." title="Two wires soldered to the connections on the rear of the physical power button on the power board." />
+
+<p>We rerouted the wires out of one of the tab holes in the side of the box, after applying a dab of hot glue on the inside to provide strain relief.</p>
+
+<img class="iwz-img" src="/images/pmg4mdd/pmg4mdd-relay-reroute.jpg" alt="Two wires coming out of the tab hole in the side of the power board box." title="Two wires coming out of the tab hole in the side of the power board box." />
+
+<p>With these considerations, we were able to attach the wires to the relay bank controlled by esphome.</p>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Power-Button-Relay">Power Button Relay</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Mon Apr 13 17:24:20 2026 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2026
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
