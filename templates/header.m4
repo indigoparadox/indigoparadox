@@ -33,9 +33,9 @@
   </ul>
   <h3>Our Friends</h3>
   <ul class="iwz-nav iwz-nav-ext">
-   <li><a href="https://alicela1n.space/"><img src="/images/88x31/alice.png" alt="Alice" /></li>
-   <li><a href="https://vocelia.nekoweb.org/"><img src="/images/88x31/vocel.gif" alt="Vocelia" /></li>
-   <li><a href="https://pizzuhh.dev/"><img src="/images/88x31/pizzuh.jpg" alt="Pizzuh" /></li>
+   <li><a href="https://alicela1n.space/"><img src="/images/88x31/alice.png" alt="Alice" /></a></li>
+   <li><a href="https://vocelia.nekoweb.org/"><img src="/images/88x31/vocel.gif" alt="Vocelia" /></a></li>
+   <li><a href="https://pizzuhh.dev/"><img src="/images/88x31/pizzuh.jpg" alt="Pizzuh" /></a></li>
   </ul>
  </div>
  <div class="iwz-body">
