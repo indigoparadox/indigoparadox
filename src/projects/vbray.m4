@@ -7,7 +7,7 @@ define([iwz_section], [projects])
 divert(0)include([header.m4])
 
 iwz_img(
-   [/images/vbray/desktop.jpg],
+   [/images/vbray/desktop.png],
    [Screenshot of the Raycaster running on a Windows 95 desktop with a "Windows 95 4.00.950" System Properties window open in the background showing that it's running on a 486 with 16 MB RAM.])
 
 iwz_sect([Introduction])
