@@ -27,4 +27,8 @@ iwz_proj_card([PowerMac G4 MDD], [g4mdd.html], [],
    [Some notes on our PowerMac G4 Mirror Drive Doors.],
    [hardware,mac])
 
+iwz_proj_card([Toshiba T200 Tablet], [t200.html], [],
+   [Exploring and repairing an early tablet PC with a 486 CPU and Windows for Pen Computing.],
+   [hardware,portable,table,pc])
+
 include([footer.m4])

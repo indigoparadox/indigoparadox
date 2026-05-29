@@ -8,11 +8,11 @@ divert(0)include([header.m4])
 
 iwz_img(
    [/images/t4850ep/t4850ep-front-20230620.jpg],
-   [The front bezel of our modded Tandy 4850 EP. The 3.25-inch bays have a CompactFlash card reader and a Gotek USB floppy emulator modded with a rotary encoder and OLED screen. The 5.25-inch bay has a classic 8x IDE CD-ROM drive.])
+   [The front bezel of our modded Tandy 4850 EP. The 3.25-inch bays have a Compact Flash card reader and a Gotek USB floppy emulator modded with a rotary encoder and OLED screen. The 5.25-inch bay has a classic 8x IDE CD-ROM drive.])
 
 iwz_sect([Introduction])
 
-iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Sound], [MediaVision Pro Audio Spectrum (ISA)], [Network], [3com 3c509b-C (ISA)], [Hard Disk], [2GB CompactFlash], [Floppy], [iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator])], [Ports], [2xPS/2, 2xRS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
+iwz_block_pcspec([CPU], [486 DX2 55MHz], [RAM], [16MB], [Video], [WD90C30-LR VGA 1MB], [Sound], [MediaVision Pro Audio Spectrum (ISA)], [Network], [3com 3c509b-C (ISA)], [Hard Disk], [2GB Compact Flash], [Floppy], [iwz_a_ipage([/projects/gotek.html], [Gotek floppy emulator])], [Ports], [2x PS/2, 2x RS-232/DE-9, VGA/DE-15, Parallel/DB-25, Ethernet/RJ-45/BNC/AUI])
 
 iwz_p([The Tandy 4850 EP is a somewhat rarer Tandy model. It adheres to the standards of its day more closely than the earlier Tandy 1000 series, eschewing Tandy graphics and sound and Deskmate in favor of VGA and Windows.])
 
