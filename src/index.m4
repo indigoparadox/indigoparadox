@@ -13,6 +13,8 @@ iwz_p([Welcome to the place on the web where we infodump on our hyperfixations a
 
 iwz_p([Most of the information here was logged by us to remind us how we did something in case it's useful later. Some of it was found in physical books, or buried in some dusty forgotten corner of the Internet Archive. We've tried to organize it so that it's useful.])
 
+iwz_p([All of the text on this web zone was written by hand (or compiled by traditional algorithms for processing text and lists). All images were taken as photographs and/or edited by hand (or traditional algorithms for doing weird things). At the very least, none of this was made with Machine Learning techniques (unless otherwise explicitly noted as such).])
+
 iwz_p([If there are omissions, factual errors, or areas that could use elaboration, please feel free to iwz_let_us_know!])
 
 <div class="iwz-mastodon-feed"></div>
