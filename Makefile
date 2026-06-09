@@ -113,10 +113,6 @@ modern/images/%.gif: images/%.gif
 	mkdir -p $(dir $@)
 	cp -v "$<" "$@"
 
-modern/images/%.bin: images/%.bin
-	mkdir -p $(dir $@)
-	cp -v "$<" "$@"
-
 modern/images/%.mp4: images/%.mp4
 	mkdir -p $(dir $@)
 	cp -v "$<" "$@"

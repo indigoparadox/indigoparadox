@@ -22,5 +22,9 @@ iwz_proj_card([X86 Assembly: Hello!], [x86hello.html], [],
 dnl iwz_proj_card([X86 Assembly: Stack], [x86stack.html], [],
 dnl    [X86 assembly: Using the Stack to Pass Arguments],
 dnl    [software,assembly])
+dnl
+iwz_proj_card([Emulation: Setting Up a Virtual Packard Bell Legend Supreme], [pblegend.html], [],
+   [Setting up a mid-1990s Packard Bell computer in 86Box and walking through it a bit.],
+   [software,emulation,86box])
  
 include([footer.m4])
