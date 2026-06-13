@@ -7,6 +7,8 @@ define([iwz_section], [bangers])
 define([iwz_root], 1)
 divert(0)include([header.m4])
 
+iwz_twt([My new Star Wars name is Oggi Tutti. If you hear an elderly person talking about how Oggi Tutti is on their damn phone... they're talking about me.])
+
 iwz_twt([(Me after seeing two guys in any context whatsoever) Well well well if it isn't the Bitmap Brothers.])
 
 iwz_twt(["Wow, this is awful!" I say, wading in and grabbing a fistful and taking a bite. "Absolutely horrible! Dreadful!" I take off my shirt and start swimming around.])
