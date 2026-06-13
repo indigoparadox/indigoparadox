@@ -10,7 +10,7 @@ iwz_sect([Introduction])
 
 iwz_p([The Packard Bell Legend Supreme series was a line of personal computers from the mid 1990s. This was an era when the greater public was starting to adopt desktop computers and OEMs tended to be a bit more adventurous with their out-of-the-box experiences.])
 
-iwz_p([This tutorial will explore the process of recreating an emulated Packard Bell Legend Supreme more-or-less accurate to the half-remembered childhood memories of someone who lived through that era.])
+iwz_p([This tutorial will explore the process of recreating an emulated Packard Bell Legend Supreme similar-but-different to e.g. the iwz_a([https://vintage-packard-bell.fandom.com/wiki/Legend_Supreme_1810], [Packard Bell Legend Supreme 1810]), more-or-less accurate to the half-remembered childhood memories of someone who lived through that era.])
 
 iwz_sect([Materials])
 
