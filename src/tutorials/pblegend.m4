@@ -114,6 +114,8 @@ iwz_list([
    iwz_li([As recommended on that master CD's download page, apply a iwz_a([https://github.com/JHRobotics/patcher9x], [Windows 9x patch for modern CPUs]).])
    iwz_li([To use the iwz_a([https://git.javispedro.com/cgit/vbmouse.git/], [Windows 9x VirtualBox mouse patch]), make sure that the lines iwz_code([DEVICEHIGH=C:\WINDOWS\MOUSE.SYS]) in iwz_filename([CONFIG.SYS]) and iwz_code([mouse=*vmouse,msmouse.vxd]) in iwz_filename([SYSTEM.INI]) are commented out. Failure to do so will result in the error "mouse reset returned 43 (should be ack)" preventing graphical boot.])
    iwz_li([Use of iwz_a([https://github.com/JHRobotics/vmdisp9x], [Virtual Display Driver for Windows 95]) is recommended.])
+   iwz_li([For additional period authenticity (such as music in SimCity), use of the iwz_a([https://git.javispedro.com/cgit/vmusic.git/], [VirtualBox VMusic extension pack]) is recommended. You may have to rebuild this using the build instructions in the README.md file for your version of VirtualBox if you get a VERR_PFM_DEVHELP_VERSION_MISMATCH error on startup.])
+   iwz_li([You may need to change the CD-ROM drive letter to Q: by selecting the "VBOX CD-ROM" in Device Manager and going to Properties, Settings, in order for the bundled CD-ROM software to pick it up when inserting the discs into the VirtualBox CD-ROM drive.])
 ])
 
 include([footer.m4])
