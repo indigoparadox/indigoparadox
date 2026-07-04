@@ -113,6 +113,8 @@ define([iwz_depfile], [<li><a href="$1">$1</a></li>])
 
 define([iwz_code_ln], [<div class="iwz-code-line">$1</div>])
 
+define([iwz_code], [<span class="iwz-code-line">$1</span>])
+
 define([iwz_diffl],
    [<tr class="ifelse([$1], [a], iwz-code-add, ifelse([$1], [d], iwz-code-remove, iwz-code-neutral))"><td>$2</td><td class="iwz-code-line">$3</td></tr>])
 

@@ -105,4 +105,15 @@ iwz_img([/images/pblegend/navworkspace.png], [Orthogonal view of an office with 
 
 iwz_p([If nothing else, hopefully this brief tour through a different era of computing can provide some immaculate vibes and maybe a lesson or two!])
 
+iwz_sect([Alternative: VirtualBox])
+
+iwz_p([It is possible to follow these instructions, more or less, using VirtualBox-- with some adjustments:])
+
+iwz_list([
+   iwz_li([Rather than the master CD recommended above, use the iwz_a([https://archive.org/details/mmcd-401-cracked], [Packard Bell Master CD 1997 with Windows 95 OSR2 and Navigator 3.9 Cracked]) from archive.org.])
+   iwz_li([As recommended on that master CD's download page, apply a iwz_a([https://github.com/JHRobotics/patcher9x], [Windows 9x patch for modern CPUs]).])
+   iwz_li([To use the iwz_a([https://git.javispedro.com/cgit/vbmouse.git/], [Windows 9x VirtualBox mouse patch]), make sure that the lines iwz_code([DEVICEHIGH=C:\WINDOWS\MOUSE.SYS]) in iwz_filename([CONFIG.SYS]) and iwz_code([mouse=*vmouse,msmouse.vxd]) in iwz_filename([SYSTEM.INI]) are commented out. Failure to do so will result in the error "mouse reset returned 43 (should be ack)" preventing graphical boot.])
+   iwz_li([Use of iwz_a([https://github.com/JHRobotics/vmdisp9x], [Virtual Display Driver for Windows 95]) is recommended.])
+])
+
 include([footer.m4])
