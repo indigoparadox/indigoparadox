@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Setting Up a Virtual Packard Bell Legend Supreme</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Setting Up a Virtual Packard Bell Legend Supreme</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-pareidolia" href="/pareidolia">Pareidolia</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Our Friends</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a href="https://alicela1n.space/"><img src="/images/88x31/alice.png" alt="Alice" /></a></li>
+   <li><a href="https://vocelia.nekoweb.org/"><img src="/images/88x31/vocel.gif" alt="Vocelia" /></a></li>
+   <li><a href="https://pizzuhh.dev/"><img src="/images/88x31/pizzuh.jpg" alt="Pizzuh" /></a></li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>The Packard Bell Legend Supreme series was a line of personal computers from the mid 1990s. This was an era when the greater public was starting to adopt desktop computers and OEMs tended to be a bit more adventurous with their out-of-the-box experiences.</p>
+
+<p>This tutorial will explore the process of recreating an emulated Packard Bell Legend Supreme similar-but-different to e.g. the <a class="iwz-link iwz-link-ext" href="https://vintage-packard-bell.fandom.com/wiki/Legend_Supreme_1810">Packard Bell Legend Supreme 1810</a>, more-or-less accurate to the half-remembered childhood memories of someone who lived through that era.</p>
+
+
+   
+   
+   
+   <a id="Materials"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Materials</h3>
+
+<ul>
+   <li>A copy of <a class="iwz-link iwz-link-ext" href="https://github.com/86Box/86Box">86Box</a>, the PC emulator. This tutorial was made using 6.0, so it may have to be adapted for future versions.</li>
+   <li>The <span class="iwz-filename">Boot-1.44M.img</span> floppy disk image extracted from the <span class="iwz-filename">[BOOT]</span> directory of that very same ISO image.</li>
+   <li>The file <span class="iwz-filename">170889 - Win95 (Jan 1997 - Platinum Pro) - VM.ISO</span> from the <a class="iwz-link iwz-link-ext" href="https://archive.org/details/windows95mastercd">Windows 95 Packard Bell Master CD collection</a> on archive.org.</li>
+   <li>Windows 95 OEM CD key. These are available at <a class="iwz-link iwz-link-ext" href="https://forum.winworldpc.com/discussion/6245/windows-95-product-key">WinWorldPC</a> and have "OEM" in the second grouping.</li>
+   <li>This <a class="iwz-link iwz-link-file" href="/images/pblegend/inf.zip">floppy diskette full of *.inf files</a>.</li>
+   <li>An hour or two of spare time.</li>
+</ul>
+
+
+   
+   
+   
+   <a id="86Box-Settings"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> 86Box Settings</h3>
+
+<p>These are the settings used for this tutorial. They are not based firmly on anything more than "what seemed plausible for the time" combined with "what worked after trial and error," which is why this tutorial is for a "Legend Supreme" and not a specific model of that line. They should be able to be modified to taste unless noted otherwise.</p>
+
+
+   
+   <a id="3-Machine-Tab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 1.</span> Machine Tab</h4>
+
+<p>Select the "Socket 7 Dual Voltage" machine type with a "Packard Bell PB68x" machine. This is probably mandatory, as the CD does have checks for a Packard Bell system and systems that are too new do not work (a couple were tried and rejected!) The default processor should be a 166 MHz Pentium MMX for this, which is good. 16MB RAM should be accurate and usable, but feel free to add more.</p>
+
+<img class="iwz-img" src="/images/pblegend/setmobo.png" alt="Screenshot of the 86Box machine settings window on the machine tab, with the described options set." title="Screenshot of the 86Box machine settings window on the machine tab, with the described options set." />
+
+
+   
+   <a id="3-Machine-Tab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 2.</span> Machine Tab</h4>
+
+<p>Select the "S3 Trio64V+" video card. The default options should be sufficient (Phoenix bios, 4MB RAM).</p>
+
+<img class="iwz-img" src="/images/pblegend/setvideo.png" alt="Screenshot of the 86Box video settings window on the machine tab, with the described options set." title="Screenshot of the 86Box video settings window on the machine tab, with the described options set." />
+
+
+   
+   <a id="3-Input-Tab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 3.</span> Input Tab</h4>
+
+<p>Select the "Logitech/Microsoft Bus Mouse" with the default "AT Keyboard". Unfortunately, the more conventional PS/2 and serial mouse options do not seem to work on the restored system.</p>
+
+<img class="iwz-img" src="/images/pblegend/setinput.png" alt="Screenshot of the 86Box input settings window on the machine tab, with the described options set." title="Screenshot of the 86Box input settings window on the machine tab, with the described options set." />
+
+
+   
+   <a id="3-Sound-Tab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 4.</span> Sound Tab</h4>
+
+<p>Select the "Aztech Sound Galaxy Nova 16 Extra" with the default options. This seemed to install using the drivers that came with the CD.</p>
+
+<img class="iwz-img" src="/images/pblegend/setsound.png" alt="Screenshot of the 86Box sound settings window on the machine tab, with the described options set." title="Screenshot of the 86Box sound settings window on the machine tab, with the described options set." />
+
+
+   
+   <a id="3-Hard-Disks-Tab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 5.</span> Hard Disks Tab</h4>
+
+<p>Create a new disk with plausible settings for the era. We used 8322 Cylinders, 16 Heads, 63 Sectors, but this can vary. Make sure the Bus is IDE and the Channel is 0:0, and use Quantum Fireball ST3.2AT as the model (though there may be some flexibility, here).</p>
+
+<img class="iwz-img" src="/images/pblegend/sethd.png" alt="Screenshot of the 86Box hard disk settings window on the machine tab, with the described options set." title="Screenshot of the 86Box hard disk settings window on the machine tab, with the described options set." />
+
+
+   
+   <a id="3-Floppy---CD-ROM-Drives-Tab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 6.</span> Floppy & CD-ROM Drives Tab</h4>
+
+<p>Make sure you have a single 3.5" 1.44MB floppy disk and select a "TOSHIBA CD-ROM XM-5302A 0305" for ATAPI 0:1. This is actually important. The restore disk will check the CD-ROM drive model and refuse to work if it is not one of the supported options!</p>
+
+<img class="iwz-img" src="/images/pblegend/setcd.png" alt="Screenshot of the 86Box CD-ROM settings window on the machine tab, with the described options set." title="Screenshot of the 86Box CD-ROM settings window on the machine tab, with the described options set." />
+
+
+   
+   
+   
+   <a id="Installing-the-System"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Installing the System</h3>
+
+<p>Installing can be a little tricky. While this is not technically a VM in the traditional sense (as it is emulated, not hardware virtualized) we will be referring to our emulated machine as a VM for convenience. Once the is VM created:</p>
+
+<ul>
+
+   <li>Start the VM.</li>
+   <li>From the VM's "Media" menu, select the floppy drive, and then select "Existing Image (Write-Protected)..." Mount the <span class="iwz-filename">Boot-1.44M.img</span> file extracted from the CD previously per the <a class="iwz-link-anchor" href="#Materials">Materials</a> list.</li>
+   <li>Once booting from the floppy, wait for the "Starting Windows 95..." text to appear and quickly hit the F8 key on the keyboard. Select "Safe-Mode Command Prompt" from the list that appears.</li>
+   <li>Use "fdisk" to partition the drive (allow large hard disk support, use the entire drive) and then reboot (with the hard reset button on the VM window is fine).</li>
+   <li>Once again, wait for the "Starting Windows 95..." text to appear and quickly hit the F8 key on the keyboard. Select "Safe-Mode Command Prompt" from the list that appears.</li>
+   <li>This time, use "format c:" to format the new hard drive. This might take a while. Once this is done, mount the <span class="iwz-filename">170889 - Win95 (Jan 1997 - Platinum Pro) - VM.ISO</span> CD image gathered in the <a class="iwz-link-anchor" href="#Materials">Materials</a> list in the virtual CD-ROM drive and reboot again.</li>
+   <li>This time, allow the system to boot completely into the restore environment. Select the "restore" option and follow the prompts. The system will restore files to the hard drive and prompt to remove disks and reboot, so do so.</li>
+   <li>At some point, the machine will begin going through automated scripts to setup the Packaged Bell OEM desktop. It will display a gray "Please wait..." dialog while this is happening: <img class="iwz-img" src="/images/pblegend/pleasewait.png" alt="Teal Windows desktop with a Notepad window thanking you for choosing Packard Bell and a gray "Please wait..." dialog in the corner with the Packard Bell icon." title="Teal Windows desktop with a Notepad window thanking you for choosing Packard Bell and a gray "Please wait..." dialog in the corner with the Packard Bell icon." /></li>
+   <li>After a while (and possibly more reboots), the system will display this screen: <img class="iwz-img" src="/images/pblegend/starting.png" alt="Teal splash screen with the words "Starting your new Packard Bell computer for the first time..." and an inducement to read the "Welcome Home booklet"." title="Teal splash screen with the words "Starting your new Packard Bell computer for the first time..." and an inducement to read the "Welcome Home booklet"." /> It seems like it's working on something, but there are no activity lights and it is actually waiting for <span class="iwz-span-bold">Enter</span> to be pressed to continue.</li>
+   <li>After the screen fades and the machine reboots, Windows will prompt for a CD key. Use the OEM key provisioned in the <a class="iwz-link-anchor" href="#Materials">Materials</a> list.</li>
+   <li>The system should return to the desktop once it is finished setting up. On our system, the Start Menu was empty at this point. The programs were installed, but simply not present in the Start Menu. We worked around this by using the floppy image full of <span class="iwz-filename">*.inf</span> files from the <a class="iwz-link-anchor" href="#Materials">Materials</a> list. Mount that and right-click on each *.inf file and choose "Install": <img class="iwz-img" src="/images/pblegend/installinf.png" alt="Screenshot of a Windows desktop with a File Explorer window open to the floppy drive, A:. The mouse cursor is hovering over a right-click menu on one of the files with a notepad icon and highlighting the "Install" option." title="Screenshot of a Windows desktop with a File Explorer window open to the floppy drive, A:. The mouse cursor is hovering over a right-click menu on one of the files with a notepad icon and highlighting the "Install" option." /></li>
+   <li>After executing the icon infs, the desktop and Start Menu should have plenty of programs on them! Setup is more-or-less complete. There may still be kinks to work out that we did not notice, and it may be advisable to install <a class="iwz-link iwz-link-ext" href="https://www.vogons.org/viewtopic.php?t=57620">the AmnHLT utility linked in this VOGONS thread</a>, but the system should be usable! If sound is not working, use the Add Hardware wizard to install the Aztech drivers.</li>
+</ul>
+
+
+   
+   
+   
+   <a id="Packard-Bell-Navigator"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Packard Bell Navigator</h3>
+
+
+   
+   <a id="5-Living-Room"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">5 - 1.</span> Living Room</h4>
+
+<p>This was the main attraction, back in the day. Maybe not the height of skeuomorphism, but a cozy example of it if nothing else.</p>
+
+<img class="iwz-img" src="/images/pblegend/navlivingroom.png" alt="Orthogonal view of a virtual living room, with bookshelves and very modern architecture. Outside is impossibly blue and green and there are angles and curves everywhere. The furniture is wood grain, but you can tell it's made of engineered lumber." title="Orthogonal view of a virtual living room, with bookshelves and very modern architecture. Outside is impossibly blue and green and there are angles and curves everywhere. The furniture is wood grain, but you can tell it's made of engineered lumber." />
+
+
+   
+   <a id="5-Myspace"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">5 - 2.</span> Myspace</h4>
+
+<p>This is what the kids mean when they talk about MySpace. Everyone loved MySpace.</p>
+
+<img class="iwz-img" src="/images/pblegend/navmyspace.png" alt="A virtual room with challenging geometry designed in what can only be described as "Farscape grunge" aesthetic. There are tubes everywhere and a little out-of-place cartoon Jack-in-the-Box is saying "Hello and welcome to Myspace! This is the cool place to work and play. There are some Windows Entertainment Pack icons on the shelves." title="A virtual room with challenging geometry designed in what can only be described as "Farscape grunge" aesthetic. There are tubes everywhere and a little out-of-place cartoon Jack-in-the-Box is saying "Hello and welcome to Myspace! This is the cool place to work and play. There are some Windows Entertainment Pack icons on the shelves." />
+
+
+   
+   <a id="5-Workspace"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">5 - 3.</span> Workspace</h4>
+
+<p>The perfect place to compose faxes and then unwind with some SkiFree.</p>
+
+<img class="iwz-img" src="/images/pblegend/navworkspace.png" alt="Orthogonal view of an office with more wood veneer." title="Orthogonal view of an office with more wood veneer." />
+
+<p>If nothing else, hopefully this brief tour through a different era of computing can provide some immaculate vibes and maybe a lesson or two!</p>
+
+
+   
+   
+   
+   <a id="Alternative--VirtualBox"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> Alternative: VirtualBox</h3>
+
+<p>It is possible to follow these instructions, more or less, using VirtualBox-- with some adjustments:</p>
+
+<ul>
+   <li>Rather than the master CD recommended above, use the <a class="iwz-link iwz-link-ext" href="https://archive.org/details/mmcd-401-cracked">Packard Bell Master CD 1997 with Windows 95 OSR2 and Navigator 3.9 Cracked</a> from archive.org.</li>
+   <li>As recommended on that master CD's download page, apply a <a class="iwz-link iwz-link-ext" href="https://github.com/JHRobotics/patcher9x">Windows 9x patch for modern CPUs</a>.</li>
+   <li>To use the <a class="iwz-link iwz-link-ext" href="https://git.javispedro.com/cgit/vbmouse.git/">Windows 9x VirtualBox mouse patch</a>, make sure that the lines <span class="iwz-code-line">DEVICEHIGH=C:\WINDOWS\MOUSE.SYS</span> in <span class="iwz-filename">CONFIG.SYS</span> and <span class="iwz-code-line">mouse=*vmouse,msmouse.vxd</span> in <span class="iwz-filename">SYSTEM.INI</span> are commented out. Failure to do so will result in the error "mouse reset returned 43 (should be ack)" preventing graphical boot.</li>
+   <li>Use of <a class="iwz-link iwz-link-ext" href="https://github.com/JHRobotics/vmdisp9x">Virtual Display Driver for Windows 95</a> is recommended.</li>
+   <li>For additional period authenticity (such as music in SimCity), use of the <a class="iwz-link iwz-link-ext" href="https://git.javispedro.com/cgit/vmusic.git/">VirtualBox VMusic extension pack</a> is recommended. You may have to rebuild this using the build instructions in the README.md file for your version of VirtualBox if you get a VERR_PFM_DEVHELP_VERSION_MISMATCH error on startup.</li>
+   <li>You may need to change the CD-ROM drive letter to Q: by selecting the "VBOX CD-ROM" in Device Manager and going to Properties, Settings, in order for the bundled CD-ROM software to pick it up when inserting the discs into the VirtualBox CD-ROM drive.</li>
+</ul>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Materials">Materials</a></li> <li><a href="#86Box-Settings">86Box Settings</a></li> <li><a href="#Installing-the-System">Installing the System</a></li> <li><a href="#Packard-Bell-Navigator">Packard Bell Navigator</a></li> <li><a href="#Alternative--VirtualBox">Alternative: VirtualBox</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Sat Jul 4 17:04:53 2026 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2026
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
