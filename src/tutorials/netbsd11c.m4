@@ -25,7 +25,7 @@ iwz_p([iwz_b(IMPORTANT!) Confirm the offset and size of iwz_filename(wd0c) match
 
 iwz_p([iwz_filename(wd0a) should be a small unencrypted 4.2BSD partition at the beginning of iwz_filename(wd0f) (starting at the same sector).])
 
-iwz_p([iwz_filename(wd0b) can take up the test of iwz_filename(wd0f). Use the formula: wd0g_offset - (wd0a_offset + wd0a_size) - 1])
+iwz_p([iwz_filename(wd0b) can take up the rest of iwz_filename(wd0f). Use the formula: wd0g_offset - (wd0a_offset + wd0a_size) - 1])
 
 iwz_subsect([Create Unencrypted /boot Slice])
 
