@@ -80,7 +80,7 @@ iwz_diff(
 
 iwz_subsect([Unmount the Unencrypted /boot Slice])
 
-iwz_p([We're going to unmount it, now that we're done with the iwz_filename(wd0b) parameters file. We will make changes to it later, but only once it's been remounded inside of the iwz_filename(/targetroot).])
+iwz_p([We're going to unmount it, now that we're done with the iwz_filename(wd0b) parameters file. We will make changes to it later, but only once it's been remounted inside of the iwz_filename(/targetroot).])
 
 iwz_diff(
    [],
