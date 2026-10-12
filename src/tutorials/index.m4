@@ -26,5 +26,8 @@ dnl
 iwz_proj_card([Emulation: Setting Up a Virtual Packard Bell Legend Supreme], [pblegend.html], [],
    [Setting up a mid-1990s Packard Bell computer in 86Box and walking through it a bit.],
    [software,emulation,86box])
+
+iwz_proj_card([NetBSD: Single-Partition Encrypted NetBSD 11 Root],
+   [netbsd11c.html], [], [Installing NetBSD in fully-encrypted slices of an MBR partition.], [software,os,netbsd])
  
 include([footer.m4])
