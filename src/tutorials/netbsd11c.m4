@@ -66,6 +66,10 @@ iwz_subsect([Copy Boot Files to Unencrypted /boot Slice])
 
 iwz_p([These include the second-stage bootloader and cgd config.])
 
+iwz_p([The iwz_filename(ramdisk-cgdroot.fs) file is an image which contains scripts which look for and attempt to automatically decrypt iwz_filename(wd0a) and boot from the resulting root on iwz_filename(cgd0a). Please see iwz_a([https://wiki.netbsd.org/security/cgdroot/], [the cgdroot page from the NetBSD wiki]) for more information.])
+
+iwz_p([These scripts copy iwz_filename(cgd.conf) and the parameters file to iwz_filename(/etc/cgd) on the ramdisk during runtime, negating the need to modify the ramdisk in many cases. This also means the cgd service and configuration doesn't neet to exist in the running (encrypted) system's iwz_filename(/etc/cgd) directory.])
+
 iwz_diff(
    [],
    iwz_diffl([x], [], [cp /amd64/installation/ramdisk/ramdisk-cgdroot.fs /targetroot/])
@@ -76,12 +80,16 @@ iwz_diff(
 
 iwz_subsect([Unmount the Unencrypted /boot Slice])
 
+iwz_p([We're going to unmount it, now that we're done with the iwz_filename(wd0b) parameters file. We will make changes to it later, but only once it's been remounded inside of the iwz_filename(/targetroot).])
+
 iwz_diff(
    [],
    iwz_diffl([x], [], [umount /targetroot])
 )
 
 iwz_subsect([Install the First-Stage Bootloader])
+
+iwz_p([This can be done whenever, but might as well do it now.])
 
 iwz_diff(
    [],
@@ -94,6 +102,12 @@ iwz_diff(
    [],
    iwz_diffl([x], [], [newfs -O 2ea /dev/cgd0a])
    iwz_diffl([x], [], [mount /dev/cgd0a /targetroot])
+)
+
+iwz_p([Now, remount the unencrypted iwz_filename(/boot) inside of iwz_filename(/targetroot):])
+
+iwz_diff(
+   [],
    iwz_diffl([x], [], [mkdir /targetroot/boot])
    iwz_diffl([x], [], [mount /dev/wd0a /targetroot/boot])
 )
@@ -102,6 +116,8 @@ iwz_p([You can also mount your iwz_filename(/var), iwz_filename(/home), etc. her
 
 iwz_subsect([Install the System])
 
+iwz_p([This is as obvious as it seems. The system can function with as little as just iwz_filename(base) and iwz_filename(kern-GENERIC), and you may wish to omit the iwz_filename(games) and iwz_filename(x*) sets for e.g. servers.])
+
 iwz_diff(
    [],
    iwz_diffl([x], [], [cd /amd64/binary/sets])
@@ -109,6 +125,8 @@ iwz_diff(
 )
 
 iwz_subsect([Copy the Kernel to the Unencrypted /boot Slice])
+
+iwz_p([The kernel is still needed during the unencrypted phase. Be sure to update the copy on the unencrypted partition if you update or compile a custom kernel in the future!])
 
 iwz_diff(
    [],
