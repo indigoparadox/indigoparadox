@@ -230,6 +230,8 @@ iwz_diff(
    iwz_diffl([x], [], [mount /dev/vnd0a /mnt/])
    iwz_diffl([x], [], [mkdir -p /mnt/libdata/firmware/radeon])
    iwz_diffl([x], [], [cp /libdata/firmware/radeon/VERDE_* /mnt/libdata/firmware/radeon])
+   iwz_diffl([x], [], [umount /mnt/])
+   iwz_diffl([x], [], [vnconfig -u vnd0])
 )
 
 iwz_subsect([Unmount and Reboot])
