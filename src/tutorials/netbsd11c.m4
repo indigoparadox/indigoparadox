@@ -31,11 +31,17 @@ iwz_p([iwz_filename(wd0b) can take up the rest of the MBR partition (iwz_filenam
 
 iwz_subsect([Create Unencrypted /boot Slice])
 
-iwz_p([Mount it temporarily to iwz_filename(/targetroot) so that the cgd parameters file can be written to it.])
+iwz_p([Format the new iwz_filename(/boot) slice. Here, we use FFSv2 (2) and not FFSv2 with extended attributes (2ea) so that grub can read it, but this isn't technically necessary, since we'll be iwz_a_anchor([#1-Install-the-First-Stage-Bootloader], [using the NetBSD bootloader]). Nevertheless:])
 
 iwz_diff(
    [],
    iwz_diffl([x], [], [newfs -O 2 /dev/wd0a])
+)
+
+iwz_p([Mount it temporarily to iwz_filename(/targetroot) so that the cgd parameters file can be written to it.])
+
+iwz_diff(
+   [],
    iwz_diffl([x], [], [mount /dev/wd0a /targetroot])
 )
 
