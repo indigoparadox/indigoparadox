@@ -216,6 +216,7 @@ iwz_diff(
    iwz_diffl([x], [], [hostname=testhost.example.com])
    iwz_diffl([x], [], [sshd=YES])
    iwz_diffl([x], [], [ntpd=YES])
+   iwz_diffl([x], [], [wscons=YES])
    iwz_diffl([x], [], [EOF])
 )
 
