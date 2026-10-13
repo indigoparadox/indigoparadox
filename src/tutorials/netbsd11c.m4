@@ -16,16 +16,18 @@ iwz_p([There are some additional steps to resolve issues this may create with fi
 
 iwz_subsect([Create the Outer Partition Disklabel])
 
+iwz_p([In the examples below, we'll assume you're trying to install into the second MBR partition, which is iwz_filename(wd0f) by default.])
+
 iwz_diff(
    [],
    iwz_diffl([x], [], [disklabel -i /dev/wd0])
 )
 
-iwz_p([iwz_b(IMPORTANT!) Confirm the offset and size of iwz_filename(wd0c) match those of iwz_filename(wd0f).])
+iwz_p([iwz_b(IMPORTANT!) Confirm the offset and size of iwz_filename(wd0c) match those of the partition you intend to install to. For example, if it's the second MBR partition, make sure iwz_filename(wd0c) matches iwz_filename(wd0f) (the first MBR partition being iwz_filename(wd0e) by default).])
 
-iwz_p([iwz_filename(wd0a) should be a small unencrypted 4.2BSD partition at the beginning of iwz_filename(wd0f) (starting at the same sector).])
+iwz_p([iwz_filename(wd0a) should be a small unencrypted 4.2BSD partition at the beginning of the MBR partition (starting at the same sector as iwz_filename(wd0f) for MBR partition 2, to continue the example above).])
 
-iwz_p([iwz_filename(wd0b) can take up the rest of iwz_filename(wd0f). Use the formula: wd0g_offset - (wd0a_offset + wd0a_size) - 1])
+iwz_p([iwz_filename(wd0b) can take up the rest of the MBR partition (iwz_filename(wd0f) in the previous paragraphs). Use the formula: iwz_func([wd0g_offset - (wd0a_offset + wd0a_size) - 1]) (Again, assuming iwz_filename(wd0f), with iwz_filename(wd0g) being the partition immediately following iwz_filename(wd0f).)])
 
 iwz_subsect([Create Unencrypted /boot Slice])
 
@@ -39,7 +41,7 @@ iwz_diff(
 
 iwz_subsect([Encrypted the Encrypted Slice])
 
-iwz_p([This is the iwz_filename(wd0b) slice created previously.])
+iwz_p([This is the iwz_filename(wd0b) slice created when iwz_a_anchor([#1-Create-the-Outer-Partition-Disklabel], [creating the outer partition disklabel]).])
 
 iwz_p([This will be further subdivided into slices inside of the cgd disklabel, so one is enough.])
 
@@ -112,7 +114,7 @@ iwz_diff(
    iwz_diffl([x], [], [mount /dev/wd0a /targetroot/boot])
 )
 
-iwz_p([You can also mount your iwz_filename(/var), iwz_filename(/home), etc. here, if you created those in the encrypted disklabel.])
+iwz_p([You can also mount your iwz_filename(/var), iwz_filename(/home), etc. here, if you iwz_a_anchor([#1-Setup-the-encrypted-disklabel], [created those in the encrypted disklabel]).])
 
 iwz_subsect([Install the System])
 
@@ -126,7 +128,7 @@ iwz_diff(
 
 iwz_subsect([Copy the Kernel to the Unencrypted /boot Slice])
 
-iwz_p([The kernel is still needed during the unencrypted phase. Be sure to update the copy on the unencrypted partition if you update or compile a custom kernel in the future!])
+iwz_p([The kernel is still needed during the unencrypted phase of booting. Be sure to update the copy on the unencrypted partition if you update or compile a custom kernel in the future!])
 
 iwz_diff(
    [],
@@ -197,7 +199,7 @@ iwz_diff(
    iwz_diffl([x], [], [EOF])
 )
 
-iwz_p([Again, feel free to add your extra filesystems, for example:])
+iwz_p([Again, feel free to add your extra filesystems iwz_a_anchor([#1-Setup-the-encrypted-disklabel], [created during the encrypted disklabel creation]), for example:])
 
 iwz_diff(
    [],
