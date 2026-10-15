@@ -97,6 +97,25 @@ iwz_list([
 
 iwz_sect([Setting Up KeePassXC Keyring Integration])
 
+iwz_p([To use KeePassXC as the keyring, you may also need some other files in place. Per iwz_a([https://keepassxc.org/docs/KeePassXC_UserGuide#_enabling_the_integration], [the KeePassXC documentation]), you would want a file at iwz_filename($HOME/.local/share/dbus-1/services/org.freedesktop.secrets.service) with the contents:])
+
+iwz_diff(
+   [],
+   iwz_diffl([x], [], [&lbrack;D-BUS Service&rbrack;])
+   iwz_diffl([x], [], [Name=org.freedesktop.secrets])
+   iwz_diffl([x], [], [Exec=/usr/bin/keepassxc])
+)
+
+iwz_p([You may also wish to to force libsecret to use KeePassXC as the keyring by placing the following in iwz_filename($HOME/.config/python_keyring/keyringrc.cfg):])
+
+iwz_diff(
+   [],
+   iwz_diffl([x], [], [&lbrack;backend&rbrack;])
+   iwz_diffl([x], [], [default-keyring=keyring.backends.libsecret.Keyring])
+)
+
+iwz_p([With these in place, you may then switch back to KeePassXC to configure it as the system keyring:])
+
 iwz_img(
    [/images/keepasskr/kpsettingsssi.png],
    [Screenshot of the KeePassXC settings window Secret Service Integration dialog with the following steps highlighted by number.])
