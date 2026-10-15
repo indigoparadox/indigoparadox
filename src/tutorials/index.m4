@@ -29,5 +29,8 @@ iwz_proj_card([Emulation: Setting Up a Virtual Packard Bell Legend Supreme], [pb
 
 iwz_proj_card([NetBSD: Single-Partition Encrypted NetBSD 11 Root],
    [netbsd11c.html], [], [Installing NetBSD in fully-encrypted slices of an MBR partition.], [software,os,netbsd])
+
+iwz_proj_card([Scripting: Using KeePassXC as the Linux Desktop Keyring],
+   [keepasskr.html], [], [Using KeePassXC to provide a system keyring usable in scripts that asks for confirmation.], [software,scripting,security])
  
 include([footer.m4])

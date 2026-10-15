@@ -87,6 +87,8 @@ define([iwz_b], [<span class="iwz-span-bold">$1</span>])
 
 define([iwz_list], [<ul>$1</ul>])
 
+define([iwz_olist], [<ol>$1</ol>])
+
 define([iwz_li], [<li>$1</li>])
 
 define([iwz_img], [<img class="iwz-img" src="$1" alt="$2" title="$2" />])
