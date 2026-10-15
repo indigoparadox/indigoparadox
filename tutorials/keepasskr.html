@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Using KeePassXC as the Linux Desktop Keyring</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Using KeePassXC as the Linux Desktop Keyring</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-pareidolia" href="/pareidolia">Pareidolia</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Our Friends</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a href="https://alicela1n.space/"><img src="/images/88x31/alice.png" alt="Alice" /></a></li>
+   <li><a href="https://vocelia.nekoweb.org/"><img src="/images/88x31/vocel.gif" alt="Vocelia" /></a></li>
+   <li><a href="https://pizzuhh.dev/"><img src="/images/88x31/pizzuh.jpg" alt="Pizzuh" /></a></li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>Rather than using gnome-keyring or kwallet, it's possible to use KeePassXC as your system keyring. Why would you want to do this? It's more secure and convenient than any of the aforementioned services, because:</p>
+
+<ul><li>You can synchronize one keyring between multiple computers using e.g. SyncThing!</li>
+   <li>You can use a hardware token like a YubiKey to secure the keyring!</li>
+   <li>You can configure it to display a dialog and ask whenever something asks for a credential!</li>
+</ul>
+
+<p>In theory, you can also use it to store browser passwords, but we use VaultWarden for this and a flatpak-sandboxed browser, so this is outside of the scope of this article. Regardless, hopefully this can help you make your desktop and scripts much more secure without an undue amount of inconvenience.</p>
+
+<p>This article was developed on Debian GNU/Linux. An attempt was made to get this working on NetBSD 11, but the included KeePassXC port does not seem to include Secret Service integration, and the YubiKey seems to not currently be functional on NetBSD.</p>
+
+
+   
+   
+   
+   <a id="Setting-Up-a-YubiKey"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Setting Up a YubiKey</h3>
+
+<p>Before setting up KeePassXC, you can setup your YubiKey to enable an additional layer of security, if you have one. This isn't required, but it's nice to have! On Debian: </p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo apt install yubikey-manager-qt</td></tr>
+</tbody></table>
+
+<!--
+<p>Or, on NetBSD:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo pkgin install yubikey-manager-qt</td></tr>
+</tbody></table>
+-->
+
+<p>Once the YubiKey Manager is installed, ensure your YubiKey is plugged in and open YubiKey Manager from your applications menu.</p>
+
+<ul>
+   <li>In the YubiKey Manager window, select the <span class="iwz-func">Applications</span> menu and, from there, select <span class="iwz-func">OTP</span>.</li>
+   <li>Select the <span class="iwz-func">Configure</span> button under <span class="iwz-func">Long Touch (Slot 2)</span>.</li>
+   <li>Select <span class="iwz-func">Challenge-response</span> and click <span class="iwz-func">Next</span>.</li>
+   <li>Click the <span class="iwz-func">Generate</span> button next to the <span class="iwz-func">Secret key</span> field to generate a key. You can also uncheck the <span class="iwz-func">Require touch</span> checkbox here if you would just like the keyring to require the presence of the YubiKey in a USB port, but not actually require interaction to unlock. This is justifiable if you use a password as well, but the choice is up to you. Click <span class="iwz-func">Finish</span> when you're done.</li>
+</ul>
+
+<p>You can close YubiKey Manager after this.</p>
+
+
+   
+   
+   
+   <a id="Disabling-GNOME-Keyring"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> Disabling GNOME Keyring</h3>
+
+<p>You may wish to purge <span class="iwz-filename">gnome-keyring</span> so that it does not start on login. KDE Wallet may similarly interfere, but on our test system it does not start itself automatically, the way GNOME keyring does, and removing it also removings other KDE programs. Your Mileage May Vary. In theory, this should be as simple as:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo apt purge gnome-keyring</td></tr>
+</tbody></table>
+
+<p>Depending on your distribution and desktop environment, you may have to resort to more... dramatic means. As a rough example:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo systemctl --global disable gnome-keyring-daemon.service</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo systemctl --global disable gnome-keyring-daemon.socket</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">systemctl --user stop gnome-keyring-daemon.socket</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">systemctl --user stop gnome-keyring-daemon.service</td></tr>
+</tbody></table>
+
+
+   
+   
+   
+   <a id="Setting-Up-a-KeePassXC-Database"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">4.</span> Setting Up a KeePassXC Database</h3>
+
+<p>Obviously, KeePassXC must be installed. For example, to do this on Debian, use:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo apt install keepassxc-full</td></tr>
+</tbody></table>
+
+<!--
+<p>To install it on NetBSD, try:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo pkgin install keepassxc</td></tr>
+</tbody></table>
+-->
+
+<p>When KeePassXC is installed, open it select the <span class="iwz-func">New Database</span> option from <span class="iwz-func">Database</span> menu to begin the database creation process:</p>
+
+<ul>
+   <li>The optimal parameters for encryption are probably variable as time goes on, so the defaults are probably fine. Click <span class="iwz-func">Continue</span> when you are done.</li>
+   <li>Enter a sufficiently long password and click <span class="iwz-func">Add Additional Protection</span> button.</li>
+   <li>If you have a <a class="iwz-link-anchor" href="#Setting-Up-a-YubiKey">YubiKey</a>, click the <span class="iwz-func">Add Challenge-Response</span> button and then select your YubiKey from the drop-down that appears.</li>
+   <li>Finally, click the <span class="iwz-func">Done</span> button.</li>
+</ul>
+
+
+   
+   
+   
+   <a id="Setting-Up-KeePassXC-Keyring-Integration"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">5.</span> Setting Up KeePassXC Keyring Integration</h3>
+
+<p>To use KeePassXC as the keyring, you may also need some other files in place. Per <a class="iwz-link iwz-link-ext" href="https://keepassxc.org/docs/KeePassXC_UserGuide#_enabling_the_integration">the KeePassXC documentation</a>, you would want a file at <span class="iwz-filename">$HOME/.local/share/dbus-1/services/org.freedesktop.secrets.service</span> with the contents:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">&lbrack;D-BUS Service&rbrack;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Name=org.freedesktop.secrets</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">Exec=/usr/bin/keepassxc</td></tr>
+</tbody></table>
+
+<p>You may also wish to to force libsecret to use KeePassXC as the keyring by placing the following in <span class="iwz-filename">$HOME/.config/python_keyring/keyringrc.cfg</span>:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">&lbrack;backend&rbrack;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">default-keyring=keyring.backends.libsecret.Keyring</td></tr>
+</tbody></table>
+
+<p>With these in place, you may then switch back to KeePassXC to configure it as the system keyring:</p>
+
+<img class="iwz-img" src="/images/keepasskr/kpsettingsssi.png" alt="Screenshot of the KeePassXC settings window Secret Service Integration dialog with the following steps highlighted by number." title="Screenshot of the KeePassXC settings window Secret Service Integration dialog with the following steps highlighted by number." />
+
+<ol>
+   <li>Open the the <span class="iwz-func">Settings</span> item on the <span class="iwz-func">Tools</span> menu in KeePassXC, or the <span class="iwz-func">Settings</span> button.</li>
+   <li>Select the <span class="iwz-func">Secret Service Integration</span> on the left bar in the options window (you may need to scroll down to see it).</li>
+   <li>Enable secret service integration with the labelled checkbox. If there is an error indicating that a keyring is running, <a class="iwz-link-anchor" href="#Disabling-GNOME-Keyring">This must be resolved, first</a>.</li>
+   <li>Here, too, is where you may opt to <span class="iwz-func">Confirm When Passwords Are Retrieved By Clients</span>.</li>
+   <li>Click on the pencil icon under <span class="iwz-func">Exposed Database Groups</span>.</li>
+</ol>
+
+<img class="iwz-img" src="/images/keepasskr/kpsettingsdbssi.png" alt="Screenshot of the KeePassXC database settings window Secret Service Integration dialog with the following steps highlighted by number." title="Screenshot of the KeePassXC database settings window Secret Service Integration dialog with the following steps highlighted by number." />
+
+<p>At this point, the window will change to a very-similar-yet-distinct settings dialog for your database.</p>
+
+<ol>
+   <li>Again, select the <span class="iwz-func">Secret Service Integration</span> on the left bar.</li>
+   <li>Select the <span class="iwz-func">Expose Entries Under This Group</span> radio button.</li>
+   <li>Select the folder in the database to expose as the keyring service.</li>
+</ol>
+
+
+   
+   
+   
+   <a id="Using-The-Keyring-With-Scripts"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">6.</span> Using The Keyring With Scripts</h3>
+
+<p>This section should work with any keyring service and without using KeePassXC, specifically, but we include it here for completeness as many may not be aware.</p>
+
+<p>Do you hard-code passwords into scripts? Does this feel icky? There is a solution: keep the password in the keyring and have the script ask the keyring when it needs it! This is possible with <span class="iwz-filename">python-keyring</span> and <span class="iwz-filename">libsecret</span>. On debian, these are found in these packages:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo apt install python3-keyring libsecret-1-0</td></tr>
+</tbody></table>
+
+<!--
+<p>Or, on NetBSD:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sudo pkgin install py313-keyring libsecret</td></tr>
+</tbody></table>
+-->
+
+<p>Here is a rough example of the pattern to retrieve a password from the keyring in a shell script (in this case, to provide the password to encfs):</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Make an attempt to get the password for dest_dir.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">_pw="`keyring get encfs $_dest_dir`"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">if  -z "$_pw" ; then</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   # No password was found in the keyring. Make one!</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   keyring set encfs $_dest_dir</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   # Grab the password that was just entered.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   _pw="`keyring get encfs $_dest_dir`"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">fi</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># Mount the encfs directory using the password.</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo "$_pw" | encfs -S $_src_dir $_dest_dir</td></tr>
+</tbody></table>
+
+<p>Of course, libsecret is a C library, so you can also retrieve passwords in a C program you write with something like:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">#include <libsecret/secret.h></td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">/* Setup a schema to use with libsecret. */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">static const SecretSchema schema = {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   "com.example.program",</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   SECRET_SCHEMA_NONE,</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      { "account", SECRET_SCHEMA_ATTRIBUTE_STRING },</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      { NULL, 0 }</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   }</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">};</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"> </td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">/* Simple function to get a password from the vault. */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">char* use_password( char* account ) {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   /* Lookup the password for account synchronously. */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   char *password = secret_password_lookup_sync(</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      &schema, NULL, &error, "account", account, NULL );</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   if( password ) {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      /* We found a password, so return it! */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      return password;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   } else {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      /* No password, so ask for one! */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      password = prompt_for_password(parent);</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   }</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   if( !password ) {</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      /* No password even after asking... */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      return NULL;</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   }</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   /* Store the password we asked for! */</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">   secret_password_store_sync(</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      &schema, SECRET_COLLECTION_DEFAULT, "Example Password",</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">      password, NULL, &error, "account", "default", NULL );</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">}</td></tr>
+</tbody></table>
+
+<p>This is a *very* stripped-down example, with no error checking or prompt implementation (something that would go into the you-provided <span class="iwz-func">prompt_for_password()</span>, but hopefully it gives an idea of the process. More information can be found in the <a class="iwz-link iwz-link-ext" href="https://gnome.pages.gitlab.gnome.org/libsecret/">libsecret documentation</a>.</p>
+
+<p>When combined with using KeePassXC for the keyring, either of these should cause KeePassXC to display a dialog box, prompting you to allow or deny access to the requested password. This provides the convenience of not having to enter the password every time with a modicum of security by letting you know when something requests it.</p>
+
+
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Setting-Up-a-YubiKey">Setting Up a YubiKey</a></li> <li><a href="#Disabling-GNOME-Keyring">Disabling GNOME Keyring</a></li> <li><a href="#Setting-Up-a-KeePassXC-Database">Setting Up a KeePassXC Database</a></li> <li><a href="#Setting-Up-KeePassXC-Keyring-Integration">Setting Up KeePassXC Keyring Integration</a></li> <li><a href="#Using-The-Keyring-With-Scripts">Using The Keyring With Scripts</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Wed Oct 14 21:33:12 2026 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2026
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
+
