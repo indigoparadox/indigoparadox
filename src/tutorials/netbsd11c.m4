@@ -14,7 +14,7 @@ iwz_p([Some of the commenting is sparse, and copied from DW Armstrong's page in 
 
 iwz_p([There are some additional steps to resolve issues this may create with firmware or not installing through sysinst (e.g. setting up root certificate hashes).])
 
-iwz_p([I think this goes without saying, but iwz_b([backup everything you care about before you begin! Double check all sector math and try to stay within the bounds of the sectors set aside for the NetBSD partition! Backup your partition table with iwz_func(fdisk -l > backup.txt) so that you can re-create it if it gets damaged somehow!]) If you enter the start/end sectors right and didn't overwrite the actual data on the partition, it should still be safe!])
+iwz_p([I think this goes without saying, but iwz_b([backup everything you care about before you begin! Double check all sector math and try to stay within the bounds of the sectors set aside for the NetBSD partition! Backup your partition table with iwz_func(fdisk -l > backup.txt) and KEEP THE BACKUP so that you can re-create it if it gets damaged somehow!]) If you enter the start/end sectors right and didn't overwrite the actual data on the partition, it should still be safe!])
 
 iwz_subsect([Create the Outer Partition Disklabel])
 
