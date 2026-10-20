@@ -16,7 +16,7 @@ iwz_p([There are some additional steps to resolve issues this may create with fi
 
 iwz_subsect([Create the Outer Partition Disklabel])
 
-iwz_p([In the examples below, we'll assume you're trying to install into the second MBR partition, which is iwz_filename(wd0f) by default.])
+iwz_p([In the examples below, we'll assume you're trying to install into the second MBR partition, which is iwz_filename(wd0f) by default. We will assume you have already created this partition, and assigned it type iwz_b(a9), using Linux fdisk or something.])
 
 iwz_diff(
    [],
