@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>The indigoparadox Web Zone: Single-Partition Encrypted NetBSD 11 Root</title>
+ <link href="/styles/modern.css" rel="stylesheet" type="text/css" />
+ <script type="application/javascript" src="/scripts/jquery-3.6.3.min.js"></script><script type="application/javascript" src="/scripts/iwz.js"></script>
+ <meta name="fediverse:creator" content="@indigoparadox@mastodon.social" />
+ <script data-goatcounter="https://indigoparadox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+ <div class="iwz-header">
+  <h1 class="iwz-title-iwz">The indigoparadox Web Zone</h1>
+  <h2 class="iwz-title-sub">Single-Partition Encrypted NetBSD 11 Root</h2>
+  <a class="iwz-breadcrumbs" href="/tutorials">Back to tutorials</a>
+ </div>
+ <div class="iwz-sidebar">
+  <h3>Web Zone Navigation</h3>
+  <ul class="iwz-nav iwz-nav-int">
+   <li><a class="iwz-section-home" href="/">Home</a></li>
+   <li><a class="iwz-section-computers" href="/computers">Computers</a></li>
+   <li><a class="iwz-section-devices" href="/devices">Devices</a></li>
+   <li><a class="iwz-section-pareidolia" href="/pareidolia">Pareidolia</a></li>
+   <li><a class="iwz-section-projects" href="/projects">Projects</a></li>
+   <li><a class="iwz-section-active iwz-section-tutorials" href="/tutorials">Tutorials</a></li>
+   <li><a class="iwz-section-utilities" href="/utilities">Utilities</a></li>
+   <li><a class="iwz-section-bangers" href="/bangers">Bangers</a></li>
+   <li><a class="iwz-section-altos" href="/altos">AltOS</a></li>
+  </ul>
+  <h3>Related Web Zones</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a rel="me" href="https://codeberg.org/indigoparadox">Codeberg</a></li>
+   <li><a rel="me" href="https://github.com/indigoparadox">Github</a></li>
+   <li><a rel="me" href="https://mastodon.social/@indigoparadox">Mastodon</a></li>
+  </ul>
+  <h3>Our Friends</h3>
+  <ul class="iwz-nav iwz-nav-ext">
+   <li><a href="https://alicela1n.space/"><img src="/images/88x31/alice.png" alt="Alice" /></a></li>
+   <li><a href="https://vocelia.nekoweb.org/"><img src="/images/88x31/vocel.gif" alt="Vocelia" /></a></li>
+   <li><a href="https://pizzuhh.dev/"><img src="/images/88x31/pizzuh.jpg" alt="Pizzuh" /></a></li>
+  </ul>
+ </div>
+ <div class="iwz-body">
+
+
+
+   
+   
+   
+   <a id="Introduction"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">1.</span> Introduction</h3>
+
+<p>This is a quick overview which attempts to synthesize <a class="iwz-link iwz-link-ext" href="https://www.dwarmstrong.org/netbsd-encrypt-install/">DW Armstrong's tutorial on NetBSD encryption</a> with the <a class="iwz-link iwz-link-ext" href="https://wiki.netbsd.org/security/cgdroot/">cgdroot page from the NetBSD wiki</a> in a single MBR partition, divided into multiple disklabel slices to preserve MBR entries.</p>
+
+<p>Some of the commenting is sparse, and copied from DW Armstrong's page in order to preserve the order, but more rationale for them can be found there. Some steps from there are skipped, out of personal preference.</p>
+
+<p>There are some additional steps to resolve issues this may create with firmware or not installing through sysinst (e.g. setting up root certificate hashes).</p>
+
+<p>I think this goes without saying, but <span class="iwz-span-bold">backup everything you care about before you begin! Double check all sector math and try to stay within the bounds of the sectors set aside for the NetBSD partition! Backup your partition table with <span class="iwz-func">fdisk -l > backup.txt</span> and KEEP THE BACKUP so that you can re-create it if it gets damaged somehow!</span> If you enter the start/end sectors right and didn't overwrite the actual data on the partition, it should still be safe!</p>
+
+
+   
+   <a id="1-Create-the-Outer-Partition-Disklabel"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 1.</span> Create the Outer Partition Disklabel</h4>
+
+<p>In the examples below, we'll assume you're trying to install into the second MBR partition, which is <span class="iwz-filename">wd0f</span> by default. We will assume you have already created this partition, and assigned it type <span class="iwz-span-bold">a9</span>, using Linux fdisk or something.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">disklabel -i /dev/wd0</td></tr>
+</tbody></table>
+
+<p><span class="iwz-span-bold">IMPORTANT!</span> Confirm the offset and size of <span class="iwz-filename">wd0c</span> match those of the partition you intend to install to. For example, if it's the second MBR partition, make sure <span class="iwz-filename">wd0c</span> matches <span class="iwz-filename">wd0f</span> (the first MBR partition being <span class="iwz-filename">wd0e</span> by default).</p>
+
+<p><span class="iwz-filename">wd0a</span> should be a small unencrypted 4.2BSD partition at the beginning of the MBR partition (starting at the same sector as <span class="iwz-filename">wd0f</span> for MBR partition 2, to continue the example above).</p>
+
+<p><span class="iwz-filename">wd0b</span> can take up the rest of the MBR partition (<span class="iwz-filename">wd0f</span> in the previous paragraphs). Use the formula: <span class="iwz-func">wd0g_offset - (wd0a_offset + wd0a_size) - 1</span> (Again, assuming <span class="iwz-filename">wd0f</span>, with <span class="iwz-filename">wd0g</span> being the partition immediately following <span class="iwz-filename">wd0f</span>.)</p>
+
+
+   
+   <a id="1-Create-Unencrypted--boot-Slice"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 2.</span> Create Unencrypted /boot Slice</h4>
+
+<p>Format the new <span class="iwz-filename">/boot</span> slice. Here, we use FFSv2 (2) and not FFSv2 with extended attributes (2ea) so that grub can read it, but this isn't technically necessary, since we'll be <a class="iwz-link-anchor" href="#1-Install-the-First-Stage-Bootloader">using the NetBSD bootloader</a>. Nevertheless:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">newfs -O 2 /dev/wd0a</td></tr>
+</tbody></table>
+
+<p>Mount it temporarily to <span class="iwz-filename">/targetroot</span> so that the cgd parameters file can be written to it.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mount /dev/wd0a /targetroot</td></tr>
+</tbody></table>
+
+
+   
+   <a id="1-Encrypted-the-Encrypted-Slice"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 3.</span> Encrypted the Encrypted Slice</h4>
+
+<p>This is the <span class="iwz-filename">wd0b</span> slice created when <a class="iwz-link-anchor" href="#1-Create-the-Outer-Partition-Disklabel">creating the outer partition disklabel</a>.</p>
+
+<p>This will be further subdivided into slices inside of the cgd disklabel, so one is enough.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># create the parameters file</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cgdconfig -g -V disklabel -o /targetroot/wd0b aes-xts 512</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line"># perform the encryption</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cgdconfig -V re-enter cgd0 /dev/wd0b /targetroot/wd0b</td></tr>
+</tbody></table>
+
+
+   
+   <a id="1-Setup-the-encrypted-disklabel"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 4.</span> Setup the encrypted disklabel</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">disklabel -i /dev/cgd0</td></tr>
+</tbody></table>
+
+<p><span class="iwz-span-bold">IMPORTANT!</span> Make sure to W changes, even if you don't make any!</p>
+
+<p>Make sure your <span class="iwz-filename">/</span> is <span class="iwz-filename">cgd0a</span>. The rest can be up to you.</p>
+
+
+   
+   <a id="1-Copy-Boot-Files-to-Unencrypted--boot-Slice"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 5.</span> Copy Boot Files to Unencrypted /boot Slice</h4>
+
+<p>These include the second-stage bootloader and cgd config.</p>
+
+<p>The <span class="iwz-filename">ramdisk-cgdroot.fs</span> file is an image which contains scripts which look for and attempt to automatically decrypt <span class="iwz-filename">wd0a</span> and boot from the resulting root on <span class="iwz-filename">cgd0a</span>. Please see <a class="iwz-link iwz-link-ext" href="https://wiki.netbsd.org/security/cgdroot/">the cgdroot page from the NetBSD wiki</a> for more information.</p>
+
+<p>These scripts copy <span class="iwz-filename">cgd.conf</span> and the parameters file to <span class="iwz-filename">/etc/cgd</span> on the ramdisk during runtime, negating the need to modify the ramdisk in many cases. This also means the cgd service and configuration doesn't neet to exist in the running (encrypted) system's <span class="iwz-filename">/etc/cgd</span> directory.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp /amd64/installation/ramdisk/ramdisk-cgdroot.fs /targetroot/</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp /usr/mdec/boot /targetroot/</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo 'cgd0 /dev/wd0b' > /targetroot/cgd.conf</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo 'menu=Boot normally:rndseed /etc/entropy-file;fs /ramdisk-cgdroot.fs;boot /netbsd' > /targetroot/boot.cfg</td></tr>
+</tbody></table>
+
+
+   
+   <a id="1-Unmount-the-Unencrypted--boot-Slice"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 6.</span> Unmount the Unencrypted /boot Slice</h4>
+
+<p>We're going to unmount it, now that we're done with the <span class="iwz-filename">wd0b</span> parameters file. We will make changes to it later, but only once it's been remounted inside of the <span class="iwz-filename">/targetroot</span>.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">umount /targetroot</td></tr>
+</tbody></table>
+
+
+   
+   <a id="1-Install-the-First-Stage-Bootloader"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 7.</span> Install the First-Stage Bootloader</h4>
+
+<p>This can be done whenever, but might as well do it now.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">installboot -v /dev/rwd0a /usr/mdec/bootxx_ffsv2</td></tr>
+</tbody></table>
+
+
+   
+   <a id="1-Create-the-Encrypted-Root"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 8.</span> Create the Encrypted Root</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">newfs -O 2ea /dev/cgd0a</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mount /dev/cgd0a /targetroot</td></tr>
+</tbody></table>
+
+<p>Now, remount the unencrypted <span class="iwz-filename">/boot</span> inside of <span class="iwz-filename">/targetroot</span>:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mkdir /targetroot/boot</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mount /dev/wd0a /targetroot/boot</td></tr>
+</tbody></table>
+
+<p>You can also mount your <span class="iwz-filename">/var</span>, <span class="iwz-filename">/home</span>, etc. here, if you <a class="iwz-link-anchor" href="#1-Setup-the-encrypted-disklabel">created those in the encrypted disklabel</a>.</p>
+
+
+   
+   <a id="1-Install-the-System"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 9.</span> Install the System</h4>
+
+<p>This is as obvious as it seems. The system can function with as little as just <span class="iwz-filename">base</span> and <span class="iwz-filename">kern-GENERIC</span>, and you may wish to omit the <span class="iwz-filename">games</span> and <span class="iwz-filename">x*</span> sets for e.g. servers.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cd /amd64/binary/sets</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">for s in base comp etc games gpufw kern-GENERIC man misc modules rescue tests text xbase xcomp xetc xfont xserver; do tar -xvpf $s.tar.xz -C /targetroot; done</td></tr>
+</tbody></table>
+
+
+   
+   <a id="1-Copy-the-Kernel-to-the-Unencrypted--boot-Slice"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">1 - 10.</span> Copy the Kernel to the Unencrypted /boot Slice</h4>
+
+<p>The kernel is still needed during the unencrypted phase of booting. Be sure to update the copy on the unencrypted partition if you update or compile a custom kernel in the future!</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp /targetroot/netbsd /targetroot/boot/</td></tr>
+</tbody></table>
+
+
+   
+   
+   
+   <a id="Entering-the-Target-System"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">2.</span> Entering the Target System</h3>
+
+<p>Now it's time to chroot into the target root:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">chroot /targetroot</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Set-root-Password"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 1.</span> Set root Password</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">passwd</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Setup-Device-Nodes"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 2.</span> Setup Device Nodes</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cd /dev</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sh MAKEDEV all</td></tr>
+</tbody></table>
+
+<p>This bug still seems to exist, and null is not properly created:</p>
+
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">rm /dev/null</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mknod -m 0666 -u root -g wheel /dev/null c 2 2</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Setup-Timezone"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 3.</span> Setup Timezone</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Setup-Networking"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 4.</span> Setup Networking</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cat > /etc/ifconfig.wm0 << EOF</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">up</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">media autoselect</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">EOF</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Create-fstab"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 5.</span> Create fstab</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cat > /etc/fstab << EOF</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">/dev/cgd0a / ffs rw</tbody></table>
+
+<p>Again, feel free to add your extra filesystems <a class="iwz-link-anchor" href="#1-Setup-the-encrypted-disklabel">created during the encrypted disklabel creation</a>, for example:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">/dev/cgd0e /var ffs rw</tbody></table>
+
+
+   
+   <a id="2-Setup-rc-conf"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 6.</span> Setup rc.conf</h4>
+
+<p>The cgd service is not needed, as cgd stuff is handled by the cgdroot ramdisk.</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">echo >> /etc/rc.conf << EOF</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">dhcpcd=YES</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">dhcpcd_flags="-qM wm0"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">hostname=testhost.example.com</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">sshd=YES</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">ntpd=YES</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">wscons=YES</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">EOF</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Optional--Add-Firmware-to-the-RAMdisk"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 7.</span> Optional: Add Firmware to the RAMdisk</h4>
+
+<p>Your system may need optional firmware on the ramdisk to even get to the decryption prompt. You can use vnconfig to mount the ramdisk and add this firmware like this example, for Cape Verde firmware for the radeon driver:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp /boot/ramdisk-cgdroot.fs /boot/ramdisk-cgdroot-good.fs</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">vnconfig vnd0 /boot/ramdisk-cgdroot.fs</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mount /dev/vnd0a /mnt/</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">mkdir -p /mnt/libdata/firmware/radeon</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cp /libdata/firmware/radeon/VERDE_* /mnt/libdata/firmware/radeon</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">umount /mnt/</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">vnconfig -u vnd0</td></tr>
+</tbody></table>
+
+
+   
+   <a id="2-Unmount-and-Reboot"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">2 - 8.</span> Unmount and Reboot</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">exit</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cd /</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">umount /targetroot/*</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">umount /targetroot</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">cgdconfig -u cgd0</td></tr>
+</tbody></table>
+
+
+   
+   
+   
+   <a id="In-the-Rebooted-System"></a><h3 class="iwz-sect-header"><span class="iwz-sect-idx">3.</span> In the Rebooted System</h3>
+
+
+   
+   <a id="3-Rehash-Certificates"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 1.</span> Rehash Certificates</h4>
+
+<p>Without doing this, you may get certificate verification errors later:</p>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">certctl rehash</td></tr>
+</tbody></table>
+
+
+   
+   <a id="3-Install-pkgin"></a><h4 class="iwz-subsect-header"><span class="iwz-subsect-idx">3 - 2.</span> Install pkgin</h4>
+
+<table class="iwz-code-wrapper"><caption class="iwz-code-title"></caption><tbody><tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">PKG_PATH="https://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/amd64/11.0/All"</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">export PKG_PATH</td></tr>
+   <tr class="iwz-code-neutral"><td></td><td class="iwz-code-line">pkg_add pkgin</td></tr>
+</tbody></table>
+
+
+ </div> <!-- iwz-body -->
+ <div class="iwz-toc"><h3>Table of Contents</h3><ol> <li><a href="#Introduction">Introduction</a></li> <li><a href="#Entering-the-Target-System">Entering the Target System</a></li> <li><a href="#In-the-Rebooted-System">In the Rebooted System</a></li></ol></div>
+ <div class="iwz-footer">
+  <div class="iwz-lastmod">Page Last Modified Date:   Tue Oct 20 00:25:03 2026 -0400</div>
+  <div class="iwz-copyright">Copyright 2023, 2026
+ indigoparadox.</div>
+  <div class="iwz-banners">
+   <span class="vim iwz-88x31 iwz-button"><a class="iwz-link iwz-link-vim" href="https://www.vim.org/"><span class="vim-edited">Edited with</span><span class="vim-vim"><span class="vim-v">V</span><span class="vim-im">im</span></span></a></span>
+   <span class="gnu-m4 iwz-88x31 iwz-button"><a class="iwz-link iwz-link-gnu-m4" href="https://www.gnu.org/software/m4/">
+<span class="gnu-m4-powered">Powered by </span><!-- <span class="gnu-m4-gnu">GNU</span> --><span class="gnu-m4-m4"><span class="gnu-m4-m">m</span><span class="gnu-m4-4">4</span></span></a></span>
+  </div>
+  <div class="iwz-goatdpr">Anonymous traffic stats collected by <a class="iwz-link iwz-link-ext" href="https://goatcounter.com">GoatCounter</a>.</div>
+ </div>
+</body>
+</html>
+
